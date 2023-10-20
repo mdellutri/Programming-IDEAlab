@@ -64,13 +64,16 @@ public class TowerGame extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		double drawInterval=1000000000/fpsCap;
+		int frames=0;
 		while (gameThread!=null) {
 			long currentTime=System.nanoTime();
 			double nextDrawTime=System.nanoTime()+drawInterval;
 			//System.out.println("It's running");
 			update();
 			repaint();
-			
+			if(++frames%480==0){
+				System.gc();
+			}
 			try {
 				double remainingTime=(nextDrawTime-System.nanoTime())/1000000;
 				if(remainingTime<0) {
