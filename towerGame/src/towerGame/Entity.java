@@ -5,8 +5,8 @@ import java.awt.image.BufferedImage;
 
 public class Entity {
 	public BufferedImage sprite;
-	public int posX;
-	public int posY;
+	public float posX;
+	public float posY;
 	public int id;
 	public void update() {}
 	public void render(Graphics2D g2) {}

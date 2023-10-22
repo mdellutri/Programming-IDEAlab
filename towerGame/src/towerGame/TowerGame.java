@@ -9,7 +9,10 @@ import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+
 import java.io.IOException;
+
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -24,7 +27,7 @@ public class TowerGame extends JPanel implements Runnable {
 	Thread gameThread;
 	KeyHandler keyHandler = new KeyHandler();
 	static Player player = new Player();
-	Level level= new Level(16);
+	public Level level= new Level(16);
 	int fpsCap = 60;
 	/*@Override
 	public void paint(Graphics g) {
@@ -40,16 +43,19 @@ public class TowerGame extends JPanel implements Runnable {
 	}*/
 	public TowerGame() {
 		this.addKeyListener(keyHandler);
+		this.setPreferredSize(new Dimension(640,480));
+		this.setDoubleBuffered(true);
+		this.setBackground(Color.black);
 	}
 	public void update() {
 		level.update();;
 		player.update(keyHandler);
 	};
 	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
+		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
-		g2.setColor(Color.black);
-		g2.fillRect(0, 0, 640, 480);
+		//g2.setColor(Color.black);
+		//g2.fillRect(0, 0, 640, 480);
 		//g2.setColor(Color.red);
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		level.render(g2);
@@ -97,9 +103,9 @@ public class TowerGame extends JPanel implements Runnable {
 		JFrame frame = new JFrame("Tower Game");
 		TowerGame gamePanel=new TowerGame();
 		gamePanel.setFocusable(true);
-		frame.add(gamePanel);
+		frame.getContentPane().add(gamePanel,BorderLayout.CENTER);
 		frame.pack();
-		frame.setSize(640,480);
+		//frame.setSize(640, 480);
 		frame.setVisible(true);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
