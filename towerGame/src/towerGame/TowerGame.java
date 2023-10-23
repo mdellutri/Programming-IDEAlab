@@ -29,7 +29,7 @@ public class TowerGame extends JPanel implements Runnable {
 	static Player player = new Player();
 	public Level level= new Level(16);
 	int fpsCap = 60;
-	protected boolean debug=true;
+	protected boolean debug=false;
 	
 	public TowerGame() {
 		this.addKeyListener(keyHandler);
@@ -40,6 +40,9 @@ public class TowerGame extends JPanel implements Runnable {
 	public void update() {
 		level.update();
 		player.update(keyHandler, level);
+		if(keyHandler.debugPressed) {
+			debug=true;
+		}
 	};
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

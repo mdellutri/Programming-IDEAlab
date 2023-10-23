@@ -23,31 +23,47 @@ public class CollisionChecker {
 		switch(direction) {
 			case UP:
 				entityTopY=entity.posY+(entity.hitbox.y/16)-movement;
-				if((int)entityBottomY>level.size|(int)entityTopY<0|(int)entityRightX>level.size|(int)entityLeftX<0) {
+				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
 					return false;
 				}
-				tileNum1=level.mapTilesForeground[(int)entityLeftX][(int)entityTopY];
-				tileNum2=level.mapTilesForeground[(int)entityRightX][(int)entityTopY];
+				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityTopY);
+				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
 					return true;
 				}
 				break;
 			case DOWN:
 				entityBottomY=entity.posY+(entity.hitbox.y/16)+(entity.hitbox.height/16)+movement;
-				if((int)entityBottomY>level.size|(int)entityTopY<0|(int)entityRightX>level.size|(int)entityLeftX<0) {
+				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
 					return false;
 				}
-				tileNum1=level.mapTilesForeground[(int)entityLeftX][(int)entityBottomY];
-				tileNum2=level.mapTilesForeground[(int)entityRightX][(int)entityBottomY];
+				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
+				tileNum2=level.getTileForeground((int)entityRightX,(int)entityBottomY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
 					return true;
 				}
 				break;
 			case LEFT:
-				
+				entityLeftX=entity.posX+(entity.hitbox.x/16)-movement;
+				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
+					return false;
+				}
+				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
+				tileNum2=level.getTileForeground((int)entityLeftX,(int)entityTopY);
+				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
+					return true;
+				}
 				break;
 			case RIGHT:
-				
+				entityRightX=entity.posX+(entity.hitbox.x/16)+(entity.hitbox.width/16)+movement;
+				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
+					return false;
+				}
+				tileNum1=level.getTileForeground((int)entityRightX,(int)entityBottomY);
+				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
+				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
+					return true;
+				}
 				break;
 			}
 		return false;
@@ -60,5 +76,7 @@ public class CollisionChecker {
 		float entityBottomY=entity.posY+(entity.hitbox.y/16)+(entity.hitbox.height/16);
 		g2.fillRect((int)((int)entityLeftX*TowerGame.tileSize),(int)((int)entityBottomY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize);
 		g2.fillRect((int)((int)entityRightX*TowerGame.tileSize),(int)((int)entityBottomY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize);
+		g2.fillRect((int)((int)entityLeftX*TowerGame.tileSize),(int)((int)entityTopY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize);
+		g2.fillRect((int)((int)entityRightX*TowerGame.tileSize),(int)((int)entityTopY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize);
 	}
 }

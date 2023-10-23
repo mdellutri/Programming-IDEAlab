@@ -41,16 +41,34 @@ public class Player extends Entity {
 		this.update(keyHandler, (Level)null);
 	}
 	public void update(KeyHandler keyHandler, Level level) {
-		if(keyHandler.upPressed) {this.yVelocity=-0.127F;};
-		if(keyHandler.downPressed) {this.posY+=0.04;};
-		if(keyHandler.leftPressed) {this.posX-=0.04;};
-		if(keyHandler.rightPressed) {this.posX+=0.04;};
+		if(keyHandler.upPressed&&this.onGround) {this.yVelocity=-0.18F;};
+		//if(keyHandler.downPressed) {this.posY+=0.04;};
+		if(keyHandler.leftPressed) {
+			if(!level.cc.checkTile(level, this, Direction.LEFT, 0.052F)) {
+				this.posX-=0.052;
+			}else {
+				if(!level.cc.checkTile(level, this, Direction.LEFT, 0.016F)) {
+					this.posX-=0.016;
+				}
+			}
+		}
+		if(keyHandler.rightPressed) {
+			if(!level.cc.checkTile(level, this, Direction.RIGHT, 0.052F)) {
+				this.posX+=0.052;
+			}else {
+				if(!level.cc.checkTile(level, this, Direction.RIGHT, 0.016F)) {
+					this.posX+=0.016;
+				}
+			}
+		}
 		this.posX+=xVelocity;
 		this.yVelocity+=0.007F;//gravity
 		if(!level.cc.checkTile(level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, yVelocity)) {
 			this.posY+=yVelocity;
+			this.onGround=false;
 		}else {
 			this.yVelocity=-(this.yVelocity/7); //bounce
+			this.onGround=true;
 		}
 	}
 	@Override

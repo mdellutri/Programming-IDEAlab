@@ -6,6 +6,7 @@ public class KeyHandler implements KeyListener{
 	public boolean downPressed=false;
 	public boolean leftPressed=false;
 	public boolean rightPressed=false;
+	public boolean debugPressed=false;
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -39,6 +40,9 @@ public class KeyHandler implements KeyListener{
 		if(code==KeyEvent.VK_RIGHT) {
 			this.rightPressed=true;
 		}
+		if(code==KeyEvent.VK_F3) {
+			this.debugPressed=true;
+		}
 		
 	}
 
@@ -68,6 +72,9 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code==KeyEvent.VK_RIGHT) {
 			this.rightPressed=false;
+		}
+		if(code==KeyEvent.VK_F3) {
+			this.debugPressed=false;
 		}
 		
 	}
