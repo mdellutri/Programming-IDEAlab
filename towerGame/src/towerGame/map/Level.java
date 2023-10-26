@@ -22,8 +22,8 @@ public class Level {
 		this.size=size;
 		for(int x=0;x<size;x++) {
 			for(int y=0;y<size;y++) {
-				mapTilesForeground[x][y]=y>8?5:x==13&y>3?2:0;
-				mapTilesBackground[x][y]=y>8?5:y>6&y<9&x==7?6:y>2&x>4&x<10?(3):y==2&x>4&x<10&(1&x)==1?3:x==12&y>3?2:0; // temporary
+				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:0;
+				mapTilesBackground[x][y]=y>8?5:y>6&y<9&x==7?6:y>2&x>4&x<10?x==6|x==8?y==5?9:y==4?8:3:3:y==2&x>4&x<10&(1&x)==1?3:x==12&y>3?2:0; // temporary
 			}
 		}
     	try {
@@ -44,7 +44,7 @@ public class Level {
 	public void render(Graphics2D g2) {
 		for(int x=0;x<size;x++) {
 			for(int y=0;y<size;y++) {
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.82f));
 				Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 				Tile.tiles[mapTilesForeground[x][y]].render(this,g2,x,y);

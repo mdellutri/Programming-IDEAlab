@@ -36,5 +36,8 @@ public class Tile {
 	public static Tile grass=new Tile(5,true);
 	public static Tile wood=new Tile(6,true);
 	public static Tile tallGrass=new Tile(7,false);
+	public static Tile stoneWindowTop=new Tile(8,true);
+	public static Tile stoneWindowBottom=new Tile(9,true);
+	public static Tile redBricks=new Tile(10,true);
 	
 }

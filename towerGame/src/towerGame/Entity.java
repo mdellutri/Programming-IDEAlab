@@ -13,9 +13,11 @@ public class Entity {
 	public float posY;
 	public int id;
 	public Rectangle hitbox;
-
+	public Level level;
+	public Entity(Level level) {
+		this.level=level;
+	}
 	public void update() {}
-	public void update(Level level) {}
 	public void render(Graphics2D g2) {}
 	public void renderDebug(Graphics2D g2) {}
 }

@@ -16,10 +16,11 @@ public class Player extends Entity {
 	public float xVelocity;
 	public float yVelocity;
 	public boolean onGround=false;
-	public Player() {
+	public Player(Level level) {
+		super(level);
 		this.posX=6;
 		this.posY=6;
-		this.hitbox=new Rectangle(0,0,16,16);
+		this.hitbox=new Rectangle(1,1,15,15);
 	}
 	public void loadImages() {
     	try {
@@ -31,39 +32,35 @@ public class Player extends Entity {
 	}
 	@Override
 	public void update() {
-		this.update((KeyHandler)null, (Level)null);
-	}
-	@Override
-	public void update(Level level) {
-		this.update((KeyHandler)null, level);
+		this.update((KeyHandler)null);
 	}
 	public void update(KeyHandler keyHandler) {
-		this.update(keyHandler, (Level)null);
-	}
-	public void update(KeyHandler keyHandler, Level level) {
 		if(keyHandler.upPressed&&this.onGround) {this.yVelocity=-0.18F;};
 		//if(keyHandler.downPressed) {this.posY+=0.04;};
 		if(keyHandler.leftPressed) {
-			if(!level.cc.checkTile(level, this, Direction.LEFT, 0.052F)) {
+			if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F)) {
 				this.posX-=0.052;
 			}else {
-				if(!level.cc.checkTile(level, this, Direction.LEFT, 0.016F)) {
+				if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.016F)) {
 					this.posX-=0.016;
 				}
 			}
 		}
 		if(keyHandler.rightPressed) {
-			if(!level.cc.checkTile(level, this, Direction.RIGHT, 0.052F)) {
+			if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.052F)) {
 				this.posX+=0.052;
 			}else {
-				if(!level.cc.checkTile(level, this, Direction.RIGHT, 0.016F)) {
+				if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.016F)) {
 					this.posX+=0.016;
 				}
 			}
 		}
+		if(!this.level.cc.checkTile(this.level, this, Direction.DOWN, 0.03F)) {
+			this.posY+=0.03F;
+		}
 		this.posX+=xVelocity;
 		this.yVelocity+=0.007F;//gravity
-		if(!level.cc.checkTile(level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, yVelocity)) {
+		if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, yVelocity)) {
 			this.posY+=yVelocity;
 			this.onGround=false;
 		}else {

@@ -26,8 +26,8 @@ public class TowerGame extends JPanel implements Runnable {
 	public static int tileSize=16*scale;
 	Thread gameThread;
 	KeyHandler keyHandler = new KeyHandler();
-	static Player player = new Player();
 	public Level level= new Level(16);
+	public Player player = new Player(level);
 	int fpsCap = 60;
 	protected boolean debug=false;
 	
@@ -39,7 +39,7 @@ public class TowerGame extends JPanel implements Runnable {
 	}
 	public void update() {
 		level.update();
-		player.update(keyHandler, level);
+		player.update(keyHandler);
 		if(keyHandler.debugPressed) {
 			debug=true;
 		}
@@ -65,6 +65,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public void run() {
 		double drawInterval=1000000000/fpsCap;
 		int frames=0;
+    	player.loadImages();
 		while (gameThread!=null) {
 			long currentTime=System.nanoTime();
 			double nextDrawTime=System.nanoTime()+drawInterval;
@@ -92,7 +93,6 @@ public class TowerGame extends JPanel implements Runnable {
     	//int[] screenData=((DataBufferInt)screenBuffer.getRaster().getDataBuffer()).getData();
     	//boolean running=true;
     	//int b=0;
-    	player.loadImages();
     	//Level level = new Level(16);
 		JFrame frame = new JFrame("Tower Game");
 		TowerGame gamePanel=new TowerGame();
