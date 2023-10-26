@@ -22,7 +22,7 @@ public class Level {
 		this.size=size;
 		for(int x=0;x<size;x++) {
 			for(int y=0;y<size;y++) {
-				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:0;
+				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:x==3&y==8?11:0;
 				mapTilesBackground[x][y]=y>8?5:y>6&y<9&x==7?6:y>2&x>4&x<10?x==6|x==8?y==5?9:y==4?8:3:3:y==2&x>4&x<10&(1&x)==1?3:x==12&y>3?2:0; // temporary
 			}
 		}

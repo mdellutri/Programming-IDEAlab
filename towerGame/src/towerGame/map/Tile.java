@@ -39,5 +39,8 @@ public class Tile {
 	public static Tile stoneWindowTop=new Tile(8,true);
 	public static Tile stoneWindowBottom=new Tile(9,true);
 	public static Tile redBricks=new Tile(10,true);
+	public static Tile boulder=new Tile(11,true);
+	public static Tile dirt=new Tile(12,true);
+	public static Tile log=new Tile(13,true);
 	
 }
