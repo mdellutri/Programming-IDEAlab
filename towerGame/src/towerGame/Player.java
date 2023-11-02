@@ -20,7 +20,7 @@ public class Player extends Entity {
 		super(level);
 		this.posX=6;
 		this.posY=6;
-		this.hitbox=new Rectangle(1,1,15,15);
+		this.hitbox=this.level.cc.getHitbox(1,1,15,16);
 	}
 	public void loadImages() {
     	try {
@@ -35,7 +35,7 @@ public class Player extends Entity {
 		this.update((KeyHandler)null);
 	}
 	public void update(KeyHandler keyHandler) {
-		if(keyHandler.upPressed&&this.onGround) {this.yVelocity=-0.18F;};
+		if(keyHandler.upPressed&&this.onGround) {this.yVelocity=-0.158F;};
 		//if(keyHandler.downPressed) {this.posY+=0.04;};
 		if(keyHandler.leftPressed) {
 			if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F)) {
@@ -55,17 +55,19 @@ public class Player extends Entity {
 				}
 			}
 		}
-		if(!this.level.cc.checkTile(this.level, this, Direction.DOWN, 0.03F)) {
+		/*if(!this.level.cc.checkTile(this.level, this, Direction.DOWN, 0.03F)) {
 			this.posY+=0.03F;
-		}
+		}*/
 		this.posX+=xVelocity;
 		this.yVelocity+=0.007F;//gravity
 		if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, yVelocity)) {
 			this.posY+=yVelocity;
 			this.onGround=false;
 		}else {
+			if(this.yVelocity>=0) {
+				this.onGround=true;
+			}
 			this.yVelocity=-(this.yVelocity/7); //bounce
-			this.onGround=true;
 		}
 	}
 	@Override

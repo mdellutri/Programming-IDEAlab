@@ -1,6 +1,7 @@
 package towerGame;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import towerGame.TowerGame;
 import towerGame.map.Level;
@@ -76,5 +77,8 @@ public class CollisionChecker {
 		g2.fillRect((int)((int)entityRightX*TowerGame.tileSize),(int)((int)entityBottomY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize);
 		g2.fillRect((int)((int)entityLeftX*TowerGame.tileSize),(int)((int)entityTopY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize);
 		g2.fillRect((int)((int)entityRightX*TowerGame.tileSize),(int)((int)entityTopY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize);
+	}
+	public static Rectangle getHitbox(int x0,int y0,int x1,int y1) {
+		return new Rectangle(x0,y0,x1-x0,y1-y0);
 	}
 }
