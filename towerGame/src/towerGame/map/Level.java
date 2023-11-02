@@ -44,7 +44,7 @@ public class Level {
 	public void render(Graphics2D g2) {
 		for(int x=0;x<size;x++) {
 			for(int y=0;y<size;y++) {
-				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.82f));
+				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.83f));
 				Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y,false);
 				g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 				Tile.tiles[mapTilesForeground[x][y]].render(this,g2,x,y,true);
