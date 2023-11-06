@@ -60,11 +60,11 @@ public class Player extends Entity {
 		}*/
 		this.posX+=xVelocity;
 		this.yVelocity+=0.007F;//gravity
-		if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, yVelocity)) {
+		if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity)) {
 			this.posY+=yVelocity;
 			this.onGround=false;
 		}else {
-			if(this.yVelocity>=0) {
+			if(this.yVelocity>0) {
 				this.onGround=true;
 			}
 			this.yVelocity=-(this.yVelocity/7); //bounce

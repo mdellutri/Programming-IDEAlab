@@ -28,7 +28,16 @@ public class CollisionChecker {
 				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityTopY);
 				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
-					return true;
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(Tile.tiles[tileNum1].isSolid&&(float)Tile.tiles[tileNum1].hitbox.y/16+(float)Tile.tiles[tileNum1].hitbox.height/16>entityTopY) {
+							return true;
+						}
+						if(Tile.tiles[tileNum2].isSolid&&(float)Tile.tiles[tileNum2].hitbox.y/16+(float)Tile.tiles[tileNum2].hitbox.height/16>entityTopY) {
+							return true;
+						}
+					}else {
+						return true;
+					}
 				}
 				break;
 			case DOWN:
@@ -39,7 +48,16 @@ public class CollisionChecker {
 				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
 				tileNum2=level.getTileForeground((int)entityRightX,(int)entityBottomY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
-					return true;
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(Tile.tiles[tileNum1].isSolid&&(float)Tile.tiles[tileNum1].hitbox.y/16<entityBottomY) {
+							return true;
+						}
+						if(Tile.tiles[tileNum2].isSolid&&(float)Tile.tiles[tileNum2].hitbox.y/16<entityBottomY) {
+							return true;
+						}
+					}else {
+						return true;
+					}
 				}
 				break;
 			case LEFT:
@@ -50,7 +68,16 @@ public class CollisionChecker {
 				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
 				tileNum2=level.getTileForeground((int)entityLeftX,(int)entityTopY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
-					return true;
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(Tile.tiles[tileNum1].isSolid&&(float)Tile.tiles[tileNum1].hitbox.x/16+(float)Tile.tiles[tileNum1].hitbox.width/16<entityLeftX) {
+							return true;
+						}
+						if(Tile.tiles[tileNum2].isSolid&&(float)Tile.tiles[tileNum2].hitbox.x/16+(float)Tile.tiles[tileNum2].hitbox.width/16<entityLeftX) {
+							return true;
+						}
+					}else {
+						return true;
+					}
 				}
 				break;
 			case RIGHT:
@@ -67,7 +94,7 @@ public class CollisionChecker {
 			}
 		return false;
 	}
-	public void renderDebug(Level level,Entity entity,Graphics2D g2) {
+	public static void renderDebug(Level level,Entity entity,Graphics2D g2) {
 		g2.setColor(new Color(192,0,0,127));
 		float entityLeftX=entity.posX+((float)entity.hitbox.x/16);
 		float entityRightX=entity.posX+((float)entity.hitbox.x/16)+((float)entity.hitbox.width/16);
