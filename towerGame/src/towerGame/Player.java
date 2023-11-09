@@ -20,7 +20,7 @@ public class Player extends Entity {
 		super(level);
 		this.posX=6;
 		this.posY=6;
-		this.hitbox=this.level.cc.getHitbox(1,1,15,16);
+		this.hitbox=this.level.cc.getHitbox(1,1,15,15);
 	}
 	public void loadImages() {
     	try {
@@ -41,8 +41,11 @@ public class Player extends Entity {
 			if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F)) {
 				this.posX-=0.052;
 			}else {
-				if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.016F)) {
-					this.posX-=0.016;
+				if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F/3)) {
+					this.posX-=0.052F/3;
+				}
+				if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F/7)) {
+					this.posX-=0.052F/7;
 				}
 			}
 		}
@@ -50,8 +53,11 @@ public class Player extends Entity {
 			if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.052F)) {
 				this.posX+=0.052;
 			}else {
-				if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.016F)) {
-					this.posX+=0.016;
+				if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.052F/3)) {
+					this.posX+=0.052F/3;
+				}
+				if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.052F/7)) {
+					this.posX+=0.052F/7;
 				}
 			}
 		}
@@ -64,10 +70,19 @@ public class Player extends Entity {
 			this.posY+=yVelocity;
 			this.onGround=false;
 		}else {
+
+			if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, ((yVelocity<0)?-yVelocity:yVelocity)/3)) {
+				this.posY+=yVelocity/3;
+			}
+			if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, ((yVelocity<0)?-yVelocity:yVelocity)/7)) {
+				this.posY+=yVelocity/7;
+			}
 			if(this.yVelocity>0) {
 				this.onGround=true;
+			}else {
+				this.onGround=false;
 			}
-			this.yVelocity=-(this.yVelocity/7); //bounce
+			this.yVelocity=yVelocity>0?-(this.yVelocity/8):-(this.yVelocity); //bounce
 		}
 	}
 	@Override

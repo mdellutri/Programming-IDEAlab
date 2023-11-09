@@ -62,6 +62,6 @@ public class Tile {
 	public static Tile flower1=new FlowerTile((byte)14,(byte)0);
 	public static Tile flower2=new FlowerTile((byte)15,(byte)1);
 	public static Tile flower3=new FlowerTile((byte)16,(byte)2);
-	public static Tile weirdBlackOrbOfSomeKindWhichDoesNotDoAnythingAtTheMomentIJustAddedToTestCustomHitboxesForTiles=new Tile(17,14,true,CollisionChecker.getHitbox(4, 4, 12, 12));
+	public static Tile weirdBlackOrbOfSomeKindWhichDoesNotDoAnythingAtTheMomentIJustAddedItToTestCustomHitboxesForTiles=new Tile(17,14,true,CollisionChecker.getHitbox(4, 4, 12, 12));
 	
 }

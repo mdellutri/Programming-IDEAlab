@@ -22,19 +22,20 @@ public class CollisionChecker {
 		switch(direction) {
 			case UP:
 				entityTopY=entity.posY+((float)entity.hitbox.y/16)-movement;
-				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
+				if(((int)entityBottomY>level.sizeX)|((int)entityTopY<0)|((int)entityRightX>level.sizeY)|((int)entityLeftX<0)) {
 					return false;
 				}
 				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityTopY);
 				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
 					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
-						if(Tile.tiles[tileNum1].isSolid&&(float)Tile.tiles[tileNum1].hitbox.y/16+(float)Tile.tiles[tileNum1].hitbox.height/16>entityTopY) {
+						if(Tile.tiles[tileNum1].isSolid&&((float)Tile.tiles[tileNum1].hitbox.y/16+(float)Tile.tiles[tileNum1].hitbox.height/16)>entityTopY) {
 							return true;
 						}
-						if(Tile.tiles[tileNum2].isSolid&&(float)Tile.tiles[tileNum2].hitbox.y/16+(float)Tile.tiles[tileNum2].hitbox.height/16>entityTopY) {
+						if(Tile.tiles[tileNum2].isSolid&&((float)Tile.tiles[tileNum2].hitbox.y/16+(float)Tile.tiles[tileNum2].hitbox.height/16)>entityTopY) {
 							return true;
 						}
+						return false;
 					}else {
 						return true;
 					}
@@ -42,7 +43,7 @@ public class CollisionChecker {
 				break;
 			case DOWN:
 				entityBottomY=entity.posY+((float)entity.hitbox.y/16)+((float)entity.hitbox.height/16)+movement;
-				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
+				if(((int)entityBottomY>level.sizeX)|((int)entityTopY<0)|((int)entityRightX>level.sizeY)|((int)entityLeftX<0)) {
 					return false;
 				}
 				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
@@ -55,6 +56,7 @@ public class CollisionChecker {
 						if(Tile.tiles[tileNum2].isSolid&&(float)Tile.tiles[tileNum2].hitbox.y/16<entityBottomY) {
 							return true;
 						}
+						return false;
 					}else {
 						return true;
 					}
@@ -62,7 +64,7 @@ public class CollisionChecker {
 				break;
 			case LEFT:
 				entityLeftX=entity.posX+((float)entity.hitbox.x/16)-movement;
-				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
+				if(((int)entityBottomY>level.sizeX)|((int)entityTopY<0)|((int)entityRightX>level.sizeY)|((int)entityLeftX<0)) {
 					return false;
 				}
 				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
@@ -75,6 +77,7 @@ public class CollisionChecker {
 						if(Tile.tiles[tileNum2].isSolid&&(float)Tile.tiles[tileNum2].hitbox.x/16+(float)Tile.tiles[tileNum2].hitbox.width/16<entityLeftX) {
 							return true;
 						}
+						return false;
 					}else {
 						return true;
 					}
@@ -82,13 +85,23 @@ public class CollisionChecker {
 				break;
 			case RIGHT:
 				entityRightX=entity.posX+((float)entity.hitbox.x/16)+((float)entity.hitbox.width/16)+movement;
-				if(((int)entityBottomY>level.size)|((int)entityTopY<0)|((int)entityRightX>level.size)|((int)entityLeftX<0)) {
+				if(((int)entityBottomY>level.sizeX)|((int)entityTopY<0)|((int)entityRightX>level.sizeY)|((int)entityLeftX<0)) {
 					return false;
 				}
 				tileNum1=level.getTileForeground((int)entityRightX,(int)entityBottomY);
 				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
-					return true;
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(Tile.tiles[tileNum1].isSolid&&((float)Tile.tiles[tileNum1].hitbox.x)/16<entityRightX) {
+							return true;
+						}
+						if(Tile.tiles[tileNum2].isSolid&&((float)Tile.tiles[tileNum2].hitbox.x)/16<entityRightX) {
+							return true;
+						}
+						return false;
+					}else {
+						return true;
+					}
 				}
 				break;
 			}

@@ -26,7 +26,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public static int tileSize=16*scale;
 	Thread gameThread;
 	KeyHandler keyHandler = new KeyHandler();
-	public Level level= new Level(16);
+	public Level level= new Level(16,32);
 	public Player player = new Player(level);
 	int fpsCap = 60;
 	protected boolean debug=false;
@@ -47,7 +47,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
-		g2.setColor(new Color(136,216,247));
+		g2.setColor(new Color(98,204,249));
 		g2.fillRect(0, 0, 640, 480);
 		//g2.setColor(Color.red);
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
