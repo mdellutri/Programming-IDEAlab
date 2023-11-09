@@ -30,6 +30,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public Player player = new Player(level);
 	int fpsCap = 60;
 	protected boolean debug=false;
+	double currentTime, remainingTime, finishedTime;
 	
 	public TowerGame() {
 		this.addKeyListener(keyHandler);
@@ -53,7 +54,12 @@ public class TowerGame extends JPanel implements Runnable {
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		level.render(g2);
 		player.render(g2);
-		if(debug) {level.cc.renderDebug(level,player,g2);}
+		if(debug) {
+			level.cc.renderDebug(level,player,g2);
+			g2.drawString("H "+String.valueOf(level.sizeY-player.posY),10,20);
+			g2.drawString("F "+String.valueOf((finishedTime-currentTime)/1000000),10,30);
+		}
+		
 		g2.dispose();
 	};
 	public void startGameThread() {
@@ -67,7 +73,7 @@ public class TowerGame extends JPanel implements Runnable {
 		int frames=0;
     	player.loadImages();
 		while (gameThread!=null) {
-			long currentTime=System.nanoTime();
+			currentTime=System.nanoTime();
 			double nextDrawTime=System.nanoTime()+drawInterval;
 			//System.out.println("It's running");
 			update();
@@ -76,7 +82,8 @@ public class TowerGame extends JPanel implements Runnable {
 				System.gc();
 			}
 			try {
-				double remainingTime=(nextDrawTime-System.nanoTime())/1000000;
+				finishedTime=System.nanoTime();
+				remainingTime=(nextDrawTime-System.nanoTime())/1000000;
 				if(remainingTime<0) {
 					remainingTime=0;
 				}
@@ -89,17 +96,11 @@ public class TowerGame extends JPanel implements Runnable {
 	};
 	
 	public static void main(String[] args) {
-    	//BufferedImage screenBuffer=new BufferedImage(640,480,BufferedImage.TYPE_INT_RGB);
-    	//int[] screenData=((DataBufferInt)screenBuffer.getRaster().getDataBuffer()).getData();
-    	//boolean running=true;
-    	//int b=0;
-    	//Level level = new Level(16);
 		JFrame frame = new JFrame("Tower Game");
 		TowerGame gamePanel=new TowerGame();
 		gamePanel.setFocusable(true);
 		frame.getContentPane().add(gamePanel,BorderLayout.CENTER);
 		frame.pack();
-		//frame.setSize(640, 480);
 		frame.setVisible(true);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);

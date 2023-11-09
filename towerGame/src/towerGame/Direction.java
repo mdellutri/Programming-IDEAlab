@@ -1,6 +1,5 @@
 package towerGame;
 
-
-public enum Direction{
-	LEFT,RIGHT,UP,DOWN
+public enum Direction {
+	LEFT,RIGHT,UP,DOWN;
 }
