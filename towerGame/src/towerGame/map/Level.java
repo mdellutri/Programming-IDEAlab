@@ -7,6 +7,7 @@ import java.awt.image.RescaleOp;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import towerGame.CollisionChecker;
 
@@ -27,16 +28,15 @@ public class Level {
 		this.sizeY=sizeY;
 		for(int x=0;x<sizeX;x++) {
 			for(int y=0;y<sizeY;y++) {
-				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:y==6&x==3?17:y==8&x==4?7:0;
+				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:y==6&x==3|y==8&x==11?17:y==8&x==5|y==7&x==4?7:0;
 				mapTilesBackground[x][y]=y>8?5:y>6&y<9&x==7?6:y>2&x>4&x<10?x==6|x==8?y==5?13:y==4?12:3:3:y==2&x>4&x<10&(1&x)==1?3:x==12&y>3?2:0; // temporary
 			}
 		}
     	try {
     		tilemap=ImageIO.read(getClass().getResourceAsStream("/tilemap.png"));
-    	}catch(IOException e) {
-    		e.printStackTrace();
-    		System.out.println("Tilemap failed to load!");
-    	}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Failed to load tilemap", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	public void update() {
 		for(int x=0;x<this.sizeX;x++) {

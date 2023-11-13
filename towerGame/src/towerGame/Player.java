@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
 import towerGame.map.Level;
 
@@ -25,9 +26,9 @@ public class Player extends Entity {
 	public void loadImages() {
     	try {
     		this.sprite=ImageIO.read(getClass().getResourceAsStream("/player.png"));
-    	}catch(IOException e) {
+    	}catch(Exception e) {
     		e.printStackTrace();
-    		System.out.println("Player sprite failed to load!");
+    		JOptionPane.showMessageDialog(null, "Failed to load player sprite", "Error", JOptionPane.ERROR_MESSAGE);
     	}
 	}
 	@Override

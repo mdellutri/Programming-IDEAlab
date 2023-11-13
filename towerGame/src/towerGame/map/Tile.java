@@ -55,7 +55,7 @@ public class Tile {
 	public static Tile redBricks=new Tile(7,10,true);
 	public static Tile dirt=new Tile(8,12,true);
 	public static Tile log=new Tile(9,13,true);
-	public static Tile boulder=new Tile(10,11,true,CollisionChecker.getHitbox(1, 1, 15, 15));
+	public static Tile boulder=new BoulderTile(10,11,CollisionChecker.getHitbox(1, 1, 15, 15));
 	public static Tile tallGrass=new Tile(11,7,false);
 	public static Tile stoneWindowTop=new Tile(12,8,true);
 	public static Tile stoneWindowBottom=new Tile(13,9,true);
