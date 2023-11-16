@@ -5,10 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
+import towerGame.Entity;
 import towerGame.CollisionChecker;
 
 public class Level {
@@ -19,6 +21,7 @@ public class Level {
 	public BufferedImage tilemap;
 	public CollisionChecker cc=new CollisionChecker();
 	public RescaleOp bg_tint;
+	public List<Entity> entities;
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
@@ -45,13 +48,20 @@ public class Level {
 				Tile.tiles[mapTilesForeground[x][y]].update(this,x,y,true);
 			}
 		}
+		for (Entity entity : this.entities) {
+			entity.update();
+		}
 	}
 	public void render(Graphics2D g2) {
 		for(int x=0;x<this.sizeX;x++) {
 			for(int y=0;y<this.sizeY;y++) {
 				Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y,false);
 				Tile.tiles[mapTilesForeground[x][y]].render(this,g2,x,y,true);
+				
 			}
+		}
+		for (Entity entity : this.entities) {
+			entity.render(g2);
 		}
 	}
 	public int getTileForeground(int x,int y) {
@@ -65,5 +75,8 @@ public class Level {
 			return 0;
 		}
 		return mapTilesBackground[x][y];
+	}
+	public void addEntity(Entity entity) {
+		this.entities.add(entity);
 	}
 }

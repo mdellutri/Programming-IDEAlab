@@ -20,7 +20,7 @@ public class Tile {
 		this.textureId=textureId;	
 		this.isSolid=isSolid;
 		this.hasCustomHitbox=false;
-		this.hitbox=(Rectangle)null;
+		this.hitbox=new Rectangle(0,0,16,16);
 		//this.level=level;
 	}
 	public Tile(int id,int textureId, boolean isSolid, Rectangle hitbox) {
