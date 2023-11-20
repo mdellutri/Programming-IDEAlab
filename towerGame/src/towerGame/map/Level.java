@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -21,7 +22,7 @@ public class Level {
 	public BufferedImage tilemap;
 	public CollisionChecker cc=new CollisionChecker();
 	public RescaleOp bg_tint;
-	public List<Entity> entities;
+	public List<Entity> entities=new ArrayList<Entity>();
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
@@ -49,7 +50,9 @@ public class Level {
 			}
 		}
 		for (Entity entity : this.entities) {
-			entity.update();
+			if (entity!=null) {
+				entity.update();
+			}
 		}
 	}
 	public void render(Graphics2D g2) {

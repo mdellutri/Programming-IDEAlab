@@ -41,7 +41,7 @@ public class KeyHandler implements KeyListener{
 			this.rightPressed=true;
 		}
 		if(code==KeyEvent.VK_F3) {
-			this.debugPressed=true;
+			this.debugPressed=!debugPressed;
 		}
 		
 	}
@@ -72,9 +72,6 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code==KeyEvent.VK_RIGHT) {
 			this.rightPressed=false;
-		}
-		if(code==KeyEvent.VK_F3) {
-			this.debugPressed=false;
 		}
 		
 	}

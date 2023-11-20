@@ -17,6 +17,10 @@ public class FireEnemy extends Enemy {
 		this.isBlue=false;
 	}
 	@Override
+	public void update() {
+		this.posY=5+(float) Math.sin(System.nanoTime()/500000000.0D);
+	}
+	@Override
 	public void loadImages() {
 		try {
 			if(this.isBlue) {

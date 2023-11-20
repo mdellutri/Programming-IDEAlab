@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import towerGame.map.Level;
+import towerGame.npc.FireEnemy;
 public class TowerGame extends JPanel implements Runnable {
 	public static int scale=2;
 	public static int tileSize=16*scale;
@@ -28,6 +29,7 @@ public class TowerGame extends JPanel implements Runnable {
 	KeyHandler keyHandler = new KeyHandler();
 	public Level level= new Level(16,32);
 	public Player player = new Player(level);
+	public FireEnemy test = new FireEnemy(level);
 	int fpsCap = 60;
 	protected boolean debug=false;
 	double currentTime, remainingTime, finishedTime;
@@ -41,9 +43,6 @@ public class TowerGame extends JPanel implements Runnable {
 	public void update() {
 		level.update();
 		player.update(keyHandler);
-		if(keyHandler.debugPressed) {
-			debug=true;
-		}
 	};
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -54,10 +53,12 @@ public class TowerGame extends JPanel implements Runnable {
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		level.render(g2);
 		player.render(g2);
-		if(debug) {
+		if(keyHandler.debugPressed) {
 			level.cc.renderDebug(level,player,g2);
 			g2.drawString("H "+String.valueOf(level.sizeY-player.posY),10,20);
-			g2.drawString("F "+String.valueOf((finishedTime-currentTime)/1000000),10,30);
+			g2.drawString("F "+String.valueOf((int)(1/((finishedTime-currentTime)/1000000000))),10,30);
+			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime))/1000000000)),10,40);
+			g2.drawString("EC "+String.valueOf(level.entities.size()),10,50);
 		}
 		
 		g2.dispose();
@@ -72,6 +73,11 @@ public class TowerGame extends JPanel implements Runnable {
 		double drawInterval=1000000000/fpsCap;
 		int frames=0;
     	player.loadImages();
+    	test.posY=6;
+    	test.posX=6;
+    	test.loadImages();
+    	level.addEntity(test);
+    	
 		while (gameThread!=null) {
 			currentTime=System.nanoTime();
 			double nextDrawTime=System.nanoTime()+drawInterval;
