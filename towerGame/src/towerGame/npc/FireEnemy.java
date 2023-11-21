@@ -8,6 +8,7 @@ import towerGame.map.Level;
 
 public class FireEnemy extends Enemy {
 	boolean isBlue;
+	public int baseY;
 	public FireEnemy(Level level, boolean isBlue) {
 		super(level);
 		this.isBlue=isBlue;
@@ -18,7 +19,7 @@ public class FireEnemy extends Enemy {
 	}
 	@Override
 	public void update() {
-		this.posY=5+(float) Math.sin(System.nanoTime()/500000000.0D);
+		this.posY=baseY+(float) Math.sin(System.nanoTime()/500000000.0D);
 	}
 	@Override
 	public void loadImages() {

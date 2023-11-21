@@ -10,7 +10,7 @@ public class PlayerProjectile extends Entity {
 	Player player;
 	float xVel;
 	float yVel;
-	Rectangle hitbox=new Rectangle(7,7,1,1);
+	Rectangle hitbox=CollisionChecker.getHitbox(7,7,8,8);
 	public PlayerProjectile(Level level) {
 		this(level,null);
 	}

@@ -29,10 +29,10 @@ public class CollisionChecker {
 				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
 					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
-						if(Tile.tiles[tileNum1].isSolid&&(int)entityTopY+((float)Tile.tiles[tileNum1].hitbox.y/16)+((float)Tile.tiles[tileNum1].hitbox.height/16)>entityTopY&&((int)entityRightX+((float)Tile.tiles[tileNum1].hitbox.x)/16<entityRightX||(int)entityLeftX+((float)Tile.tiles[tileNum1].hitbox.x)/16+((float)Tile.tiles[tileNum1].hitbox.width)/16<entityLeftX)) {
+						if(Tile.tiles[tileNum1].isSolid&&(int)entityTopY+((float)Tile.tiles[tileNum1].hitbox.y/16)+((float)Tile.tiles[tileNum1].hitbox.height/16)>entityTopY&&((int)entityLeftX+((float)Tile.tiles[tileNum1].hitbox.x)/16<entityRightX||(int)entityLeftX+((float)Tile.tiles[tileNum1].hitbox.x)/16+((float)Tile.tiles[tileNum1].hitbox.width)/16<entityLeftX)) {
 							return true;
 						}
-						if(Tile.tiles[tileNum2].isSolid&&(int)entityTopY+((float)Tile.tiles[tileNum2].hitbox.y/16)+((float)Tile.tiles[tileNum2].hitbox.height/16)>entityTopY&&((int)entityRightX+((float)Tile.tiles[tileNum2].hitbox.x)/16<entityRightX||(int)entityLeftX+((float)Tile.tiles[tileNum2].hitbox.x)/16+((float)Tile.tiles[tileNum2].hitbox.width)/16<entityLeftX)) {
+						if(Tile.tiles[tileNum2].isSolid&&(int)entityTopY+((float)Tile.tiles[tileNum2].hitbox.y/16)+((float)Tile.tiles[tileNum2].hitbox.height/16)>entityTopY&&((int)entityRightX+((float)Tile.tiles[tileNum2].hitbox.x)/16<entityRightX||(int)entityRightX+((float)Tile.tiles[tileNum2].hitbox.x)/16+((float)Tile.tiles[tileNum2].hitbox.width)/16<entityLeftX)) {
 							return true;
 						}
 						return false;
@@ -50,10 +50,10 @@ public class CollisionChecker {
 				tileNum2=level.getTileForeground((int)entityRightX,(int)entityBottomY);
 				if(Tile.tiles[tileNum1].isSolid||Tile.tiles[tileNum2].isSolid) {
 					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
-						if(Tile.tiles[tileNum1].isSolid&&(int)entityBottomY+((float)Tile.tiles[tileNum1].hitbox.y/16)<entityBottomY&&((int)entityLeftX+((float)Tile.tiles[tileNum1].hitbox.x)/16<entityRightX&&(int)entityLeftX+((float)Tile.tiles[tileNum1].hitbox.x)/16+((float)Tile.tiles[tileNum1].hitbox.width)/16<entityLeftX)) {
+						if(Tile.tiles[tileNum1].isSolid&&(int)entityBottomY+((float)Tile.tiles[tileNum1].hitbox.y/16)<entityBottomY&&((int)entityRightX+((float)Tile.tiles[tileNum1].hitbox.x)/16<entityRightX)) {
 							return true;
 						}
-						if(Tile.tiles[tileNum2].isSolid&&(int)entityBottomY+((float)Tile.tiles[tileNum2].hitbox.y/16)<entityBottomY&&((int)entityRightX+((float)Tile.tiles[tileNum2].hitbox.x)/16<entityRightX&&(int)entityRightX+((float)Tile.tiles[tileNum2].hitbox.x)/16+((float)Tile.tiles[tileNum2].hitbox.width)/16<entityLeftX)) {
+						if(Tile.tiles[tileNum2].isSolid&&(int)entityBottomY+((float)Tile.tiles[tileNum2].hitbox.y/16)<entityBottomY&&((int)entityLeftX+((float)Tile.tiles[tileNum2].hitbox.x)/16+((float)Tile.tiles[tileNum2].hitbox.width)/16<entityLeftX)) {
 							return true;
 						}
 						return false;
