@@ -1,19 +1,12 @@
-package towerGame;
+package levelEditor;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-public class KeyHandler implements MouseListener,KeyListener{
+public class KeyHandler implements KeyListener{
 	public boolean upPressed=false;
 	public boolean downPressed=false;
 	public boolean leftPressed=false;
 	public boolean rightPressed=false;
 	public boolean debugPressed=false;
-	public boolean mouse1Pressed=false;
-	public KeyHandler() {
-		super();
-		//this.requestFocus();
-	}
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
@@ -48,7 +41,7 @@ public class KeyHandler implements MouseListener,KeyListener{
 			this.rightPressed=true;
 		}
 		if(code==KeyEvent.VK_F3) {
-			this.debugPressed=!debugPressed;
+			this.debugPressed=true;
 		}
 		
 	}
@@ -80,30 +73,9 @@ public class KeyHandler implements MouseListener,KeyListener{
 		if(code==KeyEvent.VK_RIGHT) {
 			this.rightPressed=false;
 		}
+		if(code==KeyEvent.VK_F3) {
+			this.debugPressed=false;
+		}
 		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		//this.mouse1Pressed=true;
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		this.mouse1Pressed=true;
-	}
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		this.mouse1Pressed=false;
 	}
 }

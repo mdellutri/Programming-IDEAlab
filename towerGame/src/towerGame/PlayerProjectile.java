@@ -35,7 +35,7 @@ public class PlayerProjectile extends Entity {
 	}
 	public void render(Graphics2D g2) {
 		g2.setColor(new Color(222,215,180));
-		g2.fillOval((int)(this.posX*TowerGame.tileSize)+14,(int)(this.posY*TowerGame.tileSize)+14,2*TowerGame.scale,2*TowerGame.scale);
+		g2.fillOval((int)(this.posX*TowerGame.tileSize)+7*TowerGame.scale,(int)(this.posY*TowerGame.tileSize)+7*TowerGame.scale,2*TowerGame.scale,2*TowerGame.scale);
 	}
 
 }

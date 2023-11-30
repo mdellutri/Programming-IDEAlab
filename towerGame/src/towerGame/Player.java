@@ -2,6 +2,8 @@ package towerGame;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -62,7 +64,9 @@ public class Player extends Entity {
 				}
 			}
 		}
-		if(keyHandler.upPressed) {
+		if(keyHandler.mouse1Pressed) {
+			Point mousePos= MouseInfo.getPointerInfo().getLocation();
+			float angle=(float)Math.atan2(Math.round(this.posX*TowerGame.tileSize), Math.round(this.posY*TowerGame.tileSize));
 			PlayerProjectile p = new PlayerProjectile(this.level,this);
 			this.level.addEntity(p);
 		}
