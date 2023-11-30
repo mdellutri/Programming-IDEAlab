@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import towerGame.map.Level;
@@ -36,23 +37,31 @@ public class TowerGame extends JPanel implements Runnable {
 	
 	public TowerGame() {
 		this.addKeyListener(keyHandler);
-		this.setPreferredSize(new Dimension(640,480));
+		this.setPreferredSize(new Dimension(320*scale,240*scale));
 		this.setDoubleBuffered(true);
 		this.setBackground(Color.black);
 	}
 	public void update() {
-		level.update();
-		player.update(keyHandler);
+		try {
+			level.update();
+			player.update(keyHandler);
+		}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	};
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
 		g2.setColor(new Color(98,204,249));
-		g2.fillRect(0, 0, 640, 480);
+		g2.fillRect(0, 0, 320*scale, 240*scale);
 		//g2.setColor(Color.red);
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
-		level.render(g2);
-		player.render(g2);
+		try {
+			level.render(g2);
+			player.render(g2);
+		}catch(Exception e) {
+    		JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
 		if(keyHandler.debugPressed) {
 			level.cc.renderDebug(level,player,g2);
 			g2.drawString("H "+String.valueOf(level.sizeY-player.posY),10,20);
@@ -77,6 +86,11 @@ public class TowerGame extends JPanel implements Runnable {
     	test.posX=6;
     	test.loadImages();
     	level.addEntity(test);
+    	FireEnemy test2=new FireEnemy(level,true);
+    	test2.baseY=6;
+    	test2.posX=8;
+    	test2.loadImages();
+    	level.addEntity(test2);
     	
 		while (gameThread!=null) {
 			currentTime=System.nanoTime();
@@ -96,7 +110,7 @@ public class TowerGame extends JPanel implements Runnable {
 				Thread.sleep((long) remainingTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-				System.out.println("Failed to sleep thread");
+	    		JOptionPane.showMessageDialog(null, "Error: Failed to sleep thread", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	};

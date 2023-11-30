@@ -49,11 +49,16 @@ public class Level {
 				Tile.tiles[mapTilesForeground[x][y]].update(this,x,y,true);
 			}
 		}
+		
 		for (Entity entity : this.entities) {
 			if (entity!=null) {
 				entity.update();
 			}
+			if(entity.markedForRemoval) {
+				entity=null;
+			}
 		}
+		entities.removeIf((Entity e) -> e.markedForRemoval);
 	}
 	public void render(Graphics2D g2) {
 		for(int x=0;x<this.sizeX;x++) {

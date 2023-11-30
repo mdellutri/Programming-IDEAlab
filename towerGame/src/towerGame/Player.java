@@ -62,6 +62,10 @@ public class Player extends Entity {
 				}
 			}
 		}
+		if(keyHandler.upPressed) {
+			PlayerProjectile p = new PlayerProjectile(this.level,this);
+			this.level.addEntity(p);
+		}
 		/*if(!this.level.cc.checkTile(this.level, this, Direction.DOWN, 0.03F)) {
 			this.posY+=0.03F;
 		}*/

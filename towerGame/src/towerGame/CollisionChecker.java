@@ -10,7 +10,8 @@ public class CollisionChecker {
 	
 	public CollisionChecker() {}
 	public static boolean checkTile(Level level, Entity entity, Direction direction, float movement) {
-		float entityLeftX=entity.posX+((float)entity.hitbox.x/16);
+		float entityLeftX=entity.posX
+				+((float)entity.hitbox.x/16);
 		float entityRightX=entity.posX+((float)entity.hitbox.x/16)+((float)entity.hitbox.width/16);
 		float entityTopY=entity.posY+((float)entity.hitbox.y/16);
 		float entityBottomY=entity.posY+((float)entity.hitbox.y/16)+((float)entity.hitbox.height/16);

@@ -14,6 +14,7 @@ public class Entity {
 	public int id;
 	public Rectangle hitbox;
 	public Level level;
+	public boolean markedForRemoval;
 	public Entity(Level level) {
 		this.level=level;
 	}
