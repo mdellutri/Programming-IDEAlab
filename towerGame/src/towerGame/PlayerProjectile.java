@@ -10,6 +10,7 @@ public class PlayerProjectile extends Entity {
 	public Player player;
 	public float xVel;
 	public float yVel;
+	public long createTime;
 	public PlayerProjectile(Level level) {
 		this(level,null);
 	}

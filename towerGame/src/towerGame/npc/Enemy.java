@@ -3,10 +3,9 @@ package towerGame.npc;
 import towerGame.map.Level;
 
 public class Enemy extends LivingEntity{
+	float attackDamage;
 	public Enemy(Level level) {
 		super(level);
-		// TODO Auto-generated constructor stub
 	}
 
-	float attackDamage;
 }

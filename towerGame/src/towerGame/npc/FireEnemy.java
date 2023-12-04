@@ -7,15 +7,15 @@ import javax.swing.JOptionPane;
 import towerGame.map.Level;
 
 public class FireEnemy extends Enemy {
-	boolean isBlue;
+	public boolean isBlue;
 	public int baseY;
+	
 	public FireEnemy(Level level, boolean isBlue) {
 		super(level);
 		this.isBlue=isBlue;
 	}
 	public FireEnemy(Level level) {
-		super(level);
-		this.isBlue=false;
+		this(level,false);
 	}
 	@Override
 	public void update() {
