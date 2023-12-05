@@ -27,7 +27,8 @@ public class TowerGame extends JPanel implements Runnable {
 	public static int scale=2;
 	public static int tileSize=16*scale;
 	Thread gameThread;
-	KeyHandler keyHandler = new KeyHandler();
+	public static JFrame frame;
+	EventHandler eventHandler = new EventHandler(frame);
 	public Level level= new Level(16,32);
 	public Player player = new Player(level);
 	public FireEnemy test = new FireEnemy(level);
@@ -36,8 +37,8 @@ public class TowerGame extends JPanel implements Runnable {
 	double currentTime, remainingTime, finishedTime;
 	
 	public TowerGame() {
-		this.addKeyListener(keyHandler);
-		this.addMouseListener(keyHandler);
+		this.addKeyListener(eventHandler);
+		this.addMouseListener(eventHandler);
 		this.setPreferredSize(new Dimension(320*scale,240*scale));
 		this.setDoubleBuffered(true);
 		this.setBackground(Color.black);
@@ -45,7 +46,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public void update() {
 		try {
 			level.update();
-			player.update(keyHandler);
+			player.update(eventHandler);
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -61,9 +62,9 @@ public class TowerGame extends JPanel implements Runnable {
 			level.render(g2);
 			player.render(g2);
 		}catch(Exception e) {
-    		JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		if(keyHandler.debugPressed) {
+		if(eventHandler.debugPressed) {
 			level.cc.renderDebug(level,player,g2);
 			g2.drawString("H "+String.valueOf(level.sizeY-player.posY),10,20);
 			g2.drawString("F "+String.valueOf((int)(1/((finishedTime-currentTime)/1000000000))),10,30);
@@ -117,7 +118,7 @@ public class TowerGame extends JPanel implements Runnable {
 	};
 	
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Tower Game");
+		frame = new JFrame("Tower Game");
 		TowerGame gamePanel=new TowerGame();
 		gamePanel.setFocusable(true);
 		frame.getContentPane().add(gamePanel,BorderLayout.CENTER);

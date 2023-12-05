@@ -6,10 +6,8 @@ import java.awt.Rectangle;
 
 import towerGame.map.Level;
 
-public class PlayerProjectile extends Entity {
+public class PlayerProjectile extends GravityEntity {
 	public Player player;
-	public float xVel;
-	public float yVel;
 	public long createTime;
 	public PlayerProjectile(Level level) {
 		this(level,null);
@@ -22,18 +20,23 @@ public class PlayerProjectile extends Entity {
 		this.posY=this.player.posY;
 		this.hitbox=CollisionChecker.getHitbox(7,7,8,8);
 	}
+	@Override
 	public void update() {
-		if(this.level.cc.checkTile(this.level, this, (xVel<0)?Direction.LEFT:Direction.RIGHT, (xVel<0)?-xVel:xVel)) {
+		if(this.level.cc.checkTile(this.level, this, (xVelocity<0)?Direction.LEFT:Direction.RIGHT, (xVelocity<0)?-xVelocity:xVelocity)) {
 			this.markedForRemoval=true;
 		}
-		this.posX+=xVel;
-		if(this.level.cc.checkTile(this.level, this, (yVel<0)?Direction.UP:Direction.DOWN, (yVel<0)?-yVel:yVel)) {
+		this.posX+=xVelocity;
+		if(this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity)) {
 			this.markedForRemoval=true;
 		}
-		this.posY+=yVel;
-		this.yVel+=0.009F;
+		this.posY+=yVelocity;
+		this.yVelocity+=0.009F;
+		if(this.posY>500) {
+			this.markedForRemoval=true;
+		}
 		
 	}
+	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(new Color(222,215,180));
 		g2.fillOval((int)(this.posX*TowerGame.tileSize)+7*TowerGame.scale,(int)(this.posY*TowerGame.tileSize)+7*TowerGame.scale,2*TowerGame.scale,2*TowerGame.scale);

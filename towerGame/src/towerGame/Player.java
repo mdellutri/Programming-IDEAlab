@@ -35,12 +35,12 @@ public class Player extends Entity {
 	}
 	@Override
 	public void update() {
-		this.update((KeyHandler)null);
+		this.update((EventHandler)null);
 	}
-	public void update(KeyHandler keyHandler) {
-		if(keyHandler.upPressed&&this.onGround) {this.yVelocity=-0.158F;};
-		//if(keyHandler.downPressed) {this.posY+=0.04;};
-		if(keyHandler.leftPressed) {
+	public void update(EventHandler eventHandler) {
+		if(eventHandler.upPressed&&this.onGround) {this.yVelocity=-0.158F;};
+		//if(eventHandler.downPressed) {this.posY+=0.04;};
+		if(eventHandler.leftPressed) {
 			if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F)) {
 				this.posX-=0.052;
 			}else {
@@ -52,7 +52,7 @@ public class Player extends Entity {
 				}
 			}
 		}
-		if(keyHandler.rightPressed) {
+		if(eventHandler.rightPressed) {
 			if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.052F)) {
 				this.posX+=0.052;
 			}else {
@@ -64,10 +64,12 @@ public class Player extends Entity {
 				}
 			}
 		}
-		if(keyHandler.mouse1Pressed) {
+		if(eventHandler.mouse1Pressed) {
 			Point mousePos= MouseInfo.getPointerInfo().getLocation();
-			float angle=(float)Math.atan2(Math.round(this.posX*TowerGame.tileSize), Math.round(this.posY*TowerGame.tileSize));
+			float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize+0.5*TowerGame.tileSize));
 			PlayerProjectile p = new PlayerProjectile(this.level,this);
+			p.xVelocity=(float) Math.sin(angle)/5;
+			p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
 			this.level.addEntity(p);
 		}
 		/*if(!this.level.cc.checkTile(this.level, this, Direction.DOWN, 0.03F)) {
