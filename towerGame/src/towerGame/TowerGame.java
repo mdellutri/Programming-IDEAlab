@@ -29,7 +29,7 @@ public class TowerGame extends JPanel implements Runnable {
 	Thread gameThread;
 	public static JFrame frame;
 	EventHandler eventHandler = new EventHandler(frame);
-	public Level level= new Level(16,32);
+	public Level level= new Level(16,16);
 	public Player player = new Player(level);
 	public FireEnemy test = new FireEnemy(level);
 	int fpsCap = 60;

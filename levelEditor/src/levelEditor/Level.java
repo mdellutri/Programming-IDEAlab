@@ -1,4 +1,4 @@
-package towerGame.map;
+package levelEditor;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
-import towerGame.Entity;
-import towerGame.CollisionChecker;
-
 public class Level {
 	public int sizeX;
 	public int sizeY;
@@ -21,14 +18,13 @@ public class Level {
 	public int mapTilesBackground[][];
 	public BufferedImage tilemap;
 	public BufferedImage tilemap_dark;
-	public CollisionChecker cc=new CollisionChecker();
 	public RescaleOp bg_tint;
 	public List<Entity> entities=new ArrayList<Entity>();
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
 		mapTilesBackground=new int[sizeX][sizeY];
-	    bg_tint = new RescaleOp(0.87f, 0f, null);
+	    bg_tint = new RescaleOp(0.82f, 0f, null);
 		this.sizeX=sizeX;
 		this.sizeY=sizeY;
 		for(int x=0;x<sizeX;x++) {
@@ -44,24 +40,7 @@ public class Level {
 			JOptionPane.showMessageDialog(null, "Failed to load tilemap", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	public void update() {
-		for(int x=0;x<this.sizeX;x++) {
-			for(int y=0;y<this.sizeY;y++) {
-				Tile.tiles[mapTilesBackground[x][y]].update(this,x,y,false);
-				Tile.tiles[mapTilesForeground[x][y]].update(this,x,y,true);
-			}
-		}
-		
-		for (Entity entity : this.entities) {
-			if (entity!=null) {
-				entity.update();
-			}
-			if(entity.markedForRemoval) {
-				entity=null;
-			}
-		}
-		entities.removeIf((Entity e) -> e.markedForRemoval);
-	}
+	
 	public void render(Graphics2D g2) {
 		for(int x=0;x<this.sizeX;x++) {
 			for(int y=0;y<this.sizeY;y++) {
