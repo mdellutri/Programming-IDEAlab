@@ -65,6 +65,18 @@ public class Level {
 		}
 		return mapTilesBackground[x][y];
 	}
+	public void setTileForeground(int x,int y,int tile) {
+		if(x<0|x>15|y<0|y>15){	
+			return;
+		}
+		mapTilesForeground[x][y]=tile;
+	}
+	public void setTileBackground(int x,int y,int tile) {
+		if(x<0|x>15|y<0|y>15){	
+			return;
+		}
+		mapTilesBackground[x][y]=tile;
+	}
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
 	}

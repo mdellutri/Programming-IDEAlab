@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
@@ -65,6 +67,7 @@ public class LevelEditor extends JPanel implements Runnable {
 		int frames=0;
     	FireEnemy test2=new FireEnemy(level,true);
     	test2.baseY=6;
+    	test2.posY=6;
     	test2.posX=8;
     	test2.loadImages();
     	level.addEntity(test2);
@@ -76,6 +79,10 @@ public class LevelEditor extends JPanel implements Runnable {
 			repaint();
 			if(++frames%480==0){
 				System.gc();
+			}
+			if(eventHandler.mouse1Pressed) {
+				Point mousePos= MouseInfo.getPointerInfo().getLocation();
+				level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1,eventHandler.tileBrush);
 			}
 			try {
 				finishedTime=System.nanoTime();

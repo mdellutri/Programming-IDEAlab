@@ -12,6 +12,7 @@ public class EventHandler implements MouseListener,KeyListener{
 	public boolean rightPressed=false;
 	public boolean debugPressed=false;
 	public boolean mouse1Pressed=false;
+	public int tileBrush=1;
 	public JFrame frame;
 	public EventHandler(JFrame frame) {
 		super();
@@ -50,6 +51,36 @@ public class EventHandler implements MouseListener,KeyListener{
 		}
 		if(code==KeyEvent.VK_RIGHT) {
 			this.rightPressed=true;
+		}
+		if(code==KeyEvent.VK_0) {
+			this.tileBrush=0;
+		}
+		if(code==KeyEvent.VK_1) {
+			this.tileBrush=1;
+		}
+		if(code==KeyEvent.VK_2) {
+			this.tileBrush=2;
+		}
+		if(code==KeyEvent.VK_3) {
+			this.tileBrush=3;
+		}
+		if(code==KeyEvent.VK_4) {
+			this.tileBrush=4;
+		}
+		if(code==KeyEvent.VK_5) {
+			this.tileBrush=5;
+		}
+		if(code==KeyEvent.VK_6) {
+			this.tileBrush=6;
+		}
+		if(code==KeyEvent.VK_7) {
+			this.tileBrush=7;
+		}
+		if(code==KeyEvent.VK_8) {
+			this.tileBrush=8;
+		}
+		if(code==KeyEvent.VK_9) {
+			this.tileBrush=9;
 		}
 		if(code==KeyEvent.VK_F3) {
 			this.debugPressed=!debugPressed;
