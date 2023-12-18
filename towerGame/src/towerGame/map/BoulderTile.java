@@ -13,7 +13,7 @@ public class BoulderTile extends Tile {
 	@Override
 	public void update(Level level, int posX, int posY, boolean foreground) {
 		if(foreground&&level.mapTilesForeground[posX][posY+1]==0) {
-			
+			//coming soon: will fall and do damage to entities
 		}
 	}
 }

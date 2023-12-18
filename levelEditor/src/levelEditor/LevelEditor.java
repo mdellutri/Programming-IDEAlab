@@ -12,7 +12,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 
 import java.util.Random;
@@ -33,6 +33,7 @@ public class LevelEditor extends JPanel implements Runnable {
 	protected boolean debug=false;
 	double currentTime, remainingTime, finishedTime;
 	Level level = new Level(16,16);
+    Point mousePos;	
 	
 	public LevelEditor() {
 		this.addKeyListener(eventHandler);
@@ -50,6 +51,9 @@ public class LevelEditor extends JPanel implements Runnable {
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		try {
 			level.render(g2);
+			int frameX = (Tile.tiles[eventHandler.tileBrush].getTextureId() % 16) * 16;
+			int frameY = (Tile.tiles[eventHandler.tileBrush].getTextureId() / 16) * 16;
+			g2.drawImage(level.tilemap, mousePos.x-LevelEditor.frame.getLocation().x-(int)(LevelEditor.tileSize*0.5), mousePos.y-LevelEditor.frame.getLocation().y-(int)(LevelEditor.tileSize*1.5), mousePos.x-LevelEditor.frame.getLocation().x+(int)(LevelEditor.tileSize*0.5), mousePos.y-LevelEditor.frame.getLocation().y-(int)(LevelEditor.tileSize*0.5), frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -76,13 +80,13 @@ public class LevelEditor extends JPanel implements Runnable {
 			currentTime=System.nanoTime();
 			double nextDrawTime=System.nanoTime()+drawInterval;
 			//System.out.println("It's running");
+			mousePos= MouseInfo.getPointerInfo().getLocation();
+			if(eventHandler.mouse1Pressed) {
+				level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1,eventHandler.tileBrush);
+			}
 			repaint();
 			if(++frames%480==0){
 				System.gc();
-			}
-			if(eventHandler.mouse1Pressed) {
-				Point mousePos= MouseInfo.getPointerInfo().getLocation();
-				level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1,eventHandler.tileBrush);
 			}
 			try {
 				finishedTime=System.nanoTime();

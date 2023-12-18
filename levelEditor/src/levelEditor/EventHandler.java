@@ -41,13 +41,19 @@ public class EventHandler implements MouseListener,KeyListener{
 			this.rightPressed=true;
 		}
 		if(code==KeyEvent.VK_UP) {
-			this.upPressed=true;
+			this.tileBrush++;
+			if(tileBrush>17) {
+				tileBrush=0;
+			}
 		}
 		if(code==KeyEvent.VK_LEFT) {
 			this.leftPressed=true;
 		}
 		if(code==KeyEvent.VK_DOWN) {
-			this.downPressed=true;
+			this.tileBrush--;
+			if(tileBrush<0) {
+				tileBrush=0;
+			}
 		}
 		if(code==KeyEvent.VK_RIGHT) {
 			this.rightPressed=true;
