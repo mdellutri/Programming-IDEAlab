@@ -40,13 +40,23 @@ public class Level {
 			JOptionPane.showMessageDialog(null, "Failed to load tilemap", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
 	public void render(Graphics2D g2) {
 		for(int x=0;x<this.sizeX;x++) {
 			for(int y=0;y<this.sizeY;y++) {
 				Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y,false);
 				Tile.tiles[mapTilesForeground[x][y]].render(this,g2,x,y,true);
 				
+			}
+		}
+		for (Entity entity : this.entities) {
+			entity.render(g2);
+		}
+	}
+	public void renderBackground(Graphics2D g2) {
+		for(int x=0;x<this.sizeX;x++) {
+			for(int y=0;y<this.sizeY;y++) {
+				Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y,false);
 			}
 		}
 		for (Entity entity : this.entities) {

@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 public class EventHandler implements MouseListener,KeyListener{
 	public boolean upPressed=false;
 	public boolean downPressed=false;
@@ -12,6 +13,10 @@ public class EventHandler implements MouseListener,KeyListener{
 	public boolean rightPressed=false;
 	public boolean debugPressed=false;
 	public boolean mouse1Pressed=false;
+	public boolean mouse2Pressed=false;
+	public boolean mouse1Click=false;
+	public boolean mouse2Click=false;
+	public boolean editBackground=false;
 	public int tileBrush=1;
 	public JFrame frame;
 	public EventHandler(JFrame frame) {
@@ -88,6 +93,9 @@ public class EventHandler implements MouseListener,KeyListener{
 		if(code==KeyEvent.VK_9) {
 			this.tileBrush=9;
 		}
+		if(code==KeyEvent.VK_F) {
+			this.editBackground=!this.editBackground;
+		}
 		if(code==KeyEvent.VK_F3) {
 			this.debugPressed=!debugPressed;
 		}
@@ -126,7 +134,14 @@ public class EventHandler implements MouseListener,KeyListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		//this.mouse1Pressed=true;
+		/*if(SwingUtilities.isLeftMouseButton(arg0)) {
+			this.mouse1Pressed=true;
+			this.mouse1Click=true;
+		}
+		if(SwingUtilities.isRightMouseButton(arg0)) {
+			this.mouse2Pressed=true;
+			this.mouse2Click=true;
+		}*/
 	}
 
 	@Override
@@ -141,11 +156,25 @@ public class EventHandler implements MouseListener,KeyListener{
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		this.mouse1Pressed=true;
+		if(SwingUtilities.isLeftMouseButton(arg0)) {
+			this.mouse1Pressed=true;
+			this.mouse1Click=false;
+		}
+		if(SwingUtilities.isRightMouseButton(arg0)) {
+			this.mouse2Pressed=true;
+			this.mouse1Click=false;
+		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		this.mouse1Pressed=false;
+		if(SwingUtilities.isLeftMouseButton(arg0)) {
+			this.mouse1Pressed=false;
+			this.mouse1Click=false;
+		}
+		if(SwingUtilities.isRightMouseButton(arg0)) {
+			this.mouse2Pressed=false;
+			this.mouse1Click=false;
+		}
 	}
 	public void getMousePos() {
 		

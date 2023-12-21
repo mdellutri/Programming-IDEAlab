@@ -50,7 +50,11 @@ public class LevelEditor extends JPanel implements Runnable {
 		//g2.setColor(Color.red);
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		try {
-			level.render(g2);
+			if(eventHandler.editBackground) {
+				level.renderBackground(g2);
+			}else {
+				level.render(g2);
+			}
 			int frameX = (Tile.tiles[eventHandler.tileBrush].getTextureId() % 16) * 16;
 			int frameY = (Tile.tiles[eventHandler.tileBrush].getTextureId() / 16) * 16;
 			g2.drawImage(level.tilemap, mousePos.x-LevelEditor.frame.getLocation().x-(int)(LevelEditor.tileSize*0.5), mousePos.y-LevelEditor.frame.getLocation().y-(int)(LevelEditor.tileSize*1.5), mousePos.x-LevelEditor.frame.getLocation().x+(int)(LevelEditor.tileSize*0.5), mousePos.y-LevelEditor.frame.getLocation().y-(int)(LevelEditor.tileSize*0.5), frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
@@ -82,7 +86,22 @@ public class LevelEditor extends JPanel implements Runnable {
 			//System.out.println("It's running");
 			mousePos= MouseInfo.getPointerInfo().getLocation();
 			if(eventHandler.mouse1Pressed) {
-				level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1,eventHandler.tileBrush);
+				if(eventHandler.editBackground) {
+					level.setTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1,eventHandler.tileBrush);
+				}else {
+					level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1,eventHandler.tileBrush);
+				}
+				
+			}
+			if(eventHandler.mouse2Pressed) {
+				if(eventHandler.editBackground) {
+					eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1);
+				}else {
+					if((eventHandler.tileBrush=level.getTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1))==0) {
+						eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1);
+					}
+				}
+				
 			}
 			repaint();
 			if(++frames%480==0){

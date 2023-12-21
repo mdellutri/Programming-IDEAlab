@@ -12,6 +12,7 @@ public class EventHandler implements MouseListener,KeyListener{
 	public boolean rightPressed=false;
 	public boolean debugPressed=false;
 	public boolean mouse1Pressed=false;
+	public boolean mouse2Pressed=false;
 	public JFrame frame;
 	public EventHandler(JFrame frame) {
 		super();
@@ -101,14 +102,23 @@ public class EventHandler implements MouseListener,KeyListener{
 	public void mouseExited(MouseEvent arg0) {
 		
 	}
-
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		this.mouse1Pressed=true;
+		if(arg0.getButton()==MouseEvent.BUTTON1) {
+			this.mouse1Pressed=true;
+		}
+		if(arg0.getButton()==MouseEvent.BUTTON2) {
+			this.mouse2Pressed=true;
+		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		this.mouse1Pressed=false;
+		if(arg0.getButton()==MouseEvent.BUTTON1) {
+			this.mouse1Pressed=false;
+		}
+		if(arg0.getButton()==MouseEvent.BUTTON2) {
+			this.mouse2Pressed=false;
+		}
 	}
 	public void getMousePos() {
 		
