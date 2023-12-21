@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 public class EventHandler implements MouseListener,KeyListener{
 	public boolean upPressed=false;
 	public boolean downPressed=false;
@@ -102,21 +103,22 @@ public class EventHandler implements MouseListener,KeyListener{
 	public void mouseExited(MouseEvent arg0) {
 		
 	}
+
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		if(arg0.getButton()==MouseEvent.BUTTON1) {
+		if(SwingUtilities.isLeftMouseButton(arg0)) {
 			this.mouse1Pressed=true;
 		}
-		if(arg0.getButton()==MouseEvent.BUTTON2) {
+		if(SwingUtilities.isRightMouseButton(arg0)) {
 			this.mouse2Pressed=true;
 		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		if(arg0.getButton()==MouseEvent.BUTTON1) {
+		if(SwingUtilities.isLeftMouseButton(arg0)) {
 			this.mouse1Pressed=false;
 		}
-		if(arg0.getButton()==MouseEvent.BUTTON2) {
+		if(SwingUtilities.isRightMouseButton(arg0)) {
 			this.mouse2Pressed=false;
 		}
 	}

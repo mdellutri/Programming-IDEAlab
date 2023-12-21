@@ -10,8 +10,6 @@ public class GravityEntity extends Entity {
 	public boolean onGround=false;
 	public GravityEntity(Level level) {
 		super(level);
-		this.posX=6;
-		this.posY=6;
 		this.hitbox=this.level.cc.getHitbox(0,0,16,16);
 	}
 	public void update() {

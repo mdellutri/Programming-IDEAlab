@@ -14,8 +14,6 @@ public class EventHandler implements MouseListener,KeyListener{
 	public boolean debugPressed=false;
 	public boolean mouse1Pressed=false;
 	public boolean mouse2Pressed=false;
-	public boolean mouse1Click=false;
-	public boolean mouse2Click=false;
 	public boolean editBackground=false;
 	public int tileBrush=1;
 	public JFrame frame;
@@ -158,22 +156,18 @@ public class EventHandler implements MouseListener,KeyListener{
 	public void mousePressed(MouseEvent arg0) {
 		if(SwingUtilities.isLeftMouseButton(arg0)) {
 			this.mouse1Pressed=true;
-			this.mouse1Click=false;
 		}
 		if(SwingUtilities.isRightMouseButton(arg0)) {
 			this.mouse2Pressed=true;
-			this.mouse1Click=false;
 		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
 		if(SwingUtilities.isLeftMouseButton(arg0)) {
 			this.mouse1Pressed=false;
-			this.mouse1Click=false;
 		}
 		if(SwingUtilities.isRightMouseButton(arg0)) {
 			this.mouse2Pressed=false;
-			this.mouse1Click=false;
 		}
 	}
 	public void getMousePos() {
