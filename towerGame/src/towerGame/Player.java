@@ -12,10 +12,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import towerGame.map.Level;
+import towerGame.npc.LivingEntity;
 
-public class Player extends Entity {
-	public float maxHealth=10.0F;
-	public float health=maxHealth;
+public class Player extends LivingEntity {
 	public float xVelocity;
 	public float yVelocity;
 	public boolean onGround=false;
@@ -23,7 +22,9 @@ public class Player extends Entity {
 		super(level);
 		this.posX=4;
 		this.posY=6;
-		this.hitbox=this.level.cc.getHitbox(1,1,15,15);
+		this.maxHealth=10.0f;
+		this.health=this.maxHealth;
+		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
 	}
 	public void loadImages() {
     	try {
@@ -34,10 +35,10 @@ public class Player extends Entity {
     	}
 	}
 	@Override
-	public void update() {
-		this.update((EventHandler)null);
-	}
 	public void update(EventHandler eventHandler) {
+		if(this.damageTimer!=0) {
+			this.damageTimer--;
+		}
 		if(eventHandler.upPressed&&this.onGround) {this.yVelocity=-0.158F;};
 		//if(eventHandler.downPressed) {this.posY+=0.04;};
 		if(eventHandler.leftPressed) {

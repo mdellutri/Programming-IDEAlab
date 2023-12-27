@@ -7,13 +7,31 @@ import towerGame.TowerGame;
 import towerGame.map.Level;
 
 public class LivingEntity extends GravityEntity {
+	public float health;
+	public float maxHealth;
+	public int damageTimer;
+	public int damageCooldown=15;
 	public LivingEntity(Level level) {
 		super(level);
 	}
-	public float health;
-	public float maxHealth;
 	public void loadImages() {
 		
+	}
+	@Override
+	public void update() {
+		super.update();
+		if(this.damageTimer!=0) {
+			this.damageTimer--;
+		}
+	}
+	public void damage(float damage) {
+		if(this.damageTimer==0) {
+			this.health-=damage;
+			if(this.health<=0) {
+				this.markedForRemoval=true;
+			}
+			this.damageTimer=damageCooldown;
+		}
 	}
 	@Override
 	public void render(Graphics2D g2) {

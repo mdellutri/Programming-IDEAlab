@@ -91,7 +91,7 @@ public class EventHandler implements MouseListener,KeyListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		//this.mouse1Pressed=true;
+		
 	}
 
 	@Override

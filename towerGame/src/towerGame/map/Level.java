@@ -27,6 +27,7 @@ public class Level {
 	public RescaleOp bg_tint;
 	public List<Entity> entities=new ArrayList<Entity>();
 	public List<Entity> entityQueue=new ArrayList<Entity>();
+	public Player player;
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
@@ -61,6 +62,9 @@ public class Level {
 				entity.update(eventHandler);
 			}
 		}
+		if(this.player!=null) {
+			this.player.update(eventHandler);
+		}
 		entities.addAll(entityQueue);
 		entityQueue.clear();
 		entities.removeIf((Entity e) -> e.markedForRemoval);
@@ -78,6 +82,9 @@ public class Level {
 		}
 		for (Entity entity : this.entities) {
 			entity.render(g2);
+		}
+		if(this.player!=null) {
+			this.player.render(g2);
 		}
 	}
 	public int getTileForeground(int x,int y) {
@@ -106,5 +113,17 @@ public class Level {
 	}
 	public void addEntity(Entity entity) {
 		this.entityQueue.add(entity);
+	}
+	public void setPlayer(Player player) {
+		this.player=player;
+	}
+	public Player getPlayer() {
+		return this.player;
+	}
+	public List<Entity> getAllEntities(){
+		List<Entity> e2 = new ArrayList<Entity>();
+		e2.addAll(this.entities);
+		e2.add(player);
+		return e2;
 	}
 }

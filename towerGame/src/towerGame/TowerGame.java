@@ -46,7 +46,6 @@ public class TowerGame extends JPanel implements Runnable {
 	public void update() {
 		try {
 			level.update(eventHandler);
-			//player.update(eventHandler);
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     		e.printStackTrace();
@@ -57,20 +56,18 @@ public class TowerGame extends JPanel implements Runnable {
 		Graphics2D g2=(Graphics2D)g;
 		g2.setColor(new Color(98,204,249));
 		g2.fillRect(0, 0, 320*scale, 240*scale);
-		//g2.setColor(Color.red);
-		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		try {
 			level.render(g2);
-			//player.render(g2);
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		if(eventHandler.debugPressed) {
 			level.cc.renderDebug(level,player,g2);
-			g2.drawString("H "+String.valueOf(level.sizeY-player.posY),10,20);
+			g2.drawString("H "+String.valueOf(level.sizeY-level.player.posY),10,20);
 			g2.drawString("F "+String.valueOf((int)(1/((finishedTime-currentTime)/1000000000))),10,30);
 			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime))/1000000000)),10,40);
-			g2.drawString("EC "+String.valueOf(level.entities.size()),10,50);
+			g2.drawString("E "+String.valueOf(level.entities.size()),10,50);
+			g2.drawString("H "+String.valueOf(level.player.health),10,60);
 		}
 		
 		g2.dispose();
@@ -85,7 +82,6 @@ public class TowerGame extends JPanel implements Runnable {
 		double drawInterval=1000000000/fpsCap;
 		int frames=0;
     	player.loadImages();
-    	level.addEntity(player);
     	test.baseY=6;
     	test.posX=6;
     	test.loadImages();
@@ -95,6 +91,7 @@ public class TowerGame extends JPanel implements Runnable {
     	test2.posX=8;
     	test2.loadImages();
     	level.addEntity(test2);
+    	level.setPlayer(player);
     	
 		while (gameThread!=null) {
 			currentTime=System.nanoTime();

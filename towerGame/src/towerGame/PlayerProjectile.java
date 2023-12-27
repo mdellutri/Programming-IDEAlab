@@ -5,10 +5,13 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import towerGame.map.Level;
+import towerGame.map.Tile;
+import towerGame.npc.LivingEntity;
 
 public class PlayerProjectile extends GravityEntity {
 	public Player player;
 	public long createTime;
+	public int size;
 	public PlayerProjectile(Level level) {
 		this(level,null);
 	}
@@ -19,15 +22,55 @@ public class PlayerProjectile extends GravityEntity {
 		this.posX=this.player.posX;
 		this.posY=this.player.posY;
 		this.hitbox=CollisionChecker.getHitbox(7,7,8,8);
+		this.size=1;
 	}
 	@Override
 	public void update() {
+		int[] positions;
 		if(this.level.cc.checkTile(this.level, this, (xVelocity<0)?Direction.LEFT:Direction.RIGHT, (xVelocity<0)?-xVelocity:xVelocity)) {
 			this.markedForRemoval=true;
+			if(this.size>2) {
+				positions=this.level.cc.getTilePositions(this.level, this, (xVelocity<0)?Direction.LEFT:Direction.RIGHT, (xVelocity<0)?-xVelocity:xVelocity);
+				if(Tile.isCracked(this.level.getTileForeground(positions[0], positions[2]))) {
+					this.level.setTileForeground(positions[0], positions[2],0);
+				}
+				if(Tile.isCracked(this.level.getTileForeground(positions[1], positions[2]))) {
+					this.level.setTileForeground(positions[1], positions[2],0);
+				}
+				if(Tile.isCracked(this.level.getTileForeground(positions[0], positions[3]))) {
+					this.level.setTileForeground(positions[0], positions[3],0);
+				}
+				if(Tile.isCracked(this.level.getTileForeground(positions[1], positions[3]))) {
+					this.level.setTileForeground(positions[1], positions[3],0);
+				}
+			}
 		}
 		this.posX+=xVelocity;
 		if(this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity)) {
 			this.markedForRemoval=true;
+			if(this.size>2) {
+				positions=this.level.cc.getTilePositions(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity);
+				if(Tile.isCracked(this.level.getTileForeground(positions[0], positions[2]))) {
+					this.level.setTileForeground(positions[0], positions[2],0);
+				}
+				if(Tile.isCracked(this.level.getTileForeground(positions[1], positions[2]))) {
+					this.level.setTileForeground(positions[1], positions[2],0);
+				}
+				if(Tile.isCracked(this.level.getTileForeground(positions[0], positions[3]))) {
+					this.level.setTileForeground(positions[0], positions[3],0);
+				}
+				if(Tile.isCracked(this.level.getTileForeground(positions[1], positions[3]))) {
+					this.level.setTileForeground(positions[1], positions[3],0);
+				}
+			}
+		}
+		for(Entity e : this.level.entities) {
+			if( e instanceof LivingEntity) {
+				if(this.level.cc.checkEntities(this, e)) {
+					((LivingEntity) e).damage(0.5F + (0.5F*this.size));
+					this.markedForRemoval=true;
+				}
+			}
 		}
 		this.posY+=yVelocity;
 		this.yVelocity+=0.009F;
@@ -41,5 +84,4 @@ public class PlayerProjectile extends GravityEntity {
 		g2.setColor(new Color(222,215,180));
 		g2.fillOval((int)(this.posX*TowerGame.tileSize)+7*TowerGame.scale,(int)(this.posY*TowerGame.tileSize)+7*TowerGame.scale,2*TowerGame.scale,2*TowerGame.scale);
 	}
-
 }

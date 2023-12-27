@@ -10,7 +10,7 @@ public class GravityEntity extends Entity {
 	public boolean onGround=false;
 	public GravityEntity(Level level) {
 		super(level);
-		this.hitbox=this.level.cc.getHitbox(0,0,16,16);
+		this.hitbox=CollisionChecker.getHitbox(0,0,16,16);
 	}
 	public void update() {
 		this.yVelocity+=0.007F;//gravity
