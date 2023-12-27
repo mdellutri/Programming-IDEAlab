@@ -45,10 +45,11 @@ public class TowerGame extends JPanel implements Runnable {
 	}
 	public void update() {
 		try {
-			level.update();
-			player.update(eventHandler);
+			level.update(eventHandler);
+			//player.update(eventHandler);
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    		e.printStackTrace();
 		}
 	};
 	public void paintComponent(Graphics g) {
@@ -60,7 +61,7 @@ public class TowerGame extends JPanel implements Runnable {
 		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		try {
 			level.render(g2);
-			player.render(g2);
+			//player.render(g2);
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -84,6 +85,7 @@ public class TowerGame extends JPanel implements Runnable {
 		double drawInterval=1000000000/fpsCap;
 		int frames=0;
     	player.loadImages();
+    	level.addEntity(player);
     	test.baseY=6;
     	test.posX=6;
     	test.loadImages();

@@ -21,4 +21,7 @@ public class Entity {
 	public void update() {}
 	public void render(Graphics2D g2) {}
 	public void renderDebug(Graphics2D g2) {}
+	public void update(EventHandler eventHandler) {
+		this.update();
+	}
 }

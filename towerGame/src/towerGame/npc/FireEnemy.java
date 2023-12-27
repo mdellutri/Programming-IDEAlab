@@ -26,7 +26,7 @@ public class FireEnemy extends Enemy {
 		for(Entity e : this.level.entities) {
 			if(e instanceof Player) {
 				if(this.level.cc.checkAABB(this.posX+this.hitbox.x, this.posY+this.hitbox.y, this.posX+this.hitbox.x+this.hitbox.width, this.posY+this.hitbox.y+this.hitbox.height, e.posX+e.hitbox.x, e.posY+e.hitbox.y, e.posX+e.hitbox.x+e.hitbox.width, e.posY+e.hitbox.y+e.hitbox.height)) {
-					JOptionPane.showMessageDialog(null, "q", "q", JOptionPane.INFORMATION_MESSAGE);
+					//this always happens for some reason
 				}
 			}
 		}

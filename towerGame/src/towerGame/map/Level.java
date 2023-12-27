@@ -12,6 +12,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import towerGame.Entity;
+import towerGame.EventHandler;
+import towerGame.Player;
 import towerGame.CollisionChecker;
 
 public class Level {
@@ -24,6 +26,7 @@ public class Level {
 	public CollisionChecker cc=new CollisionChecker();
 	public RescaleOp bg_tint;
 	public List<Entity> entities=new ArrayList<Entity>();
+	public List<Entity> entityQueue=new ArrayList<Entity>();
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
@@ -42,9 +45,10 @@ public class Level {
     		tilemap_dark=bg_tint.filter(tilemap,null);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Failed to load tilemap", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
-	public void update() {
+	public void update(EventHandler eventHandler) {
 		for(int x=0;x<this.sizeX;x++) {
 			for(int y=0;y<this.sizeY;y++) {
 				Tile.tiles[mapTilesBackground[x][y]].update(this,x,y,false);
@@ -54,13 +58,15 @@ public class Level {
 		
 		for (Entity entity : this.entities) {
 			if (entity!=null) {
-				entity.update();
-			}
-			if(entity.markedForRemoval) {
-				entity=null;
+				entity.update(eventHandler);
 			}
 		}
+		entities.addAll(entityQueue);
+		entityQueue.clear();
 		entities.removeIf((Entity e) -> e.markedForRemoval);
+	}
+	public void update() {
+		this.update(null);
 	}
 	public void render(Graphics2D g2) {
 		for(int x=0;x<this.sizeX;x++) {
@@ -99,6 +105,6 @@ public class Level {
 		mapTilesBackground[x][y]=tile;
 	}
 	public void addEntity(Entity entity) {
-		this.entities.add(entity);
+		this.entityQueue.add(entity);
 	}
 }

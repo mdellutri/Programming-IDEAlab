@@ -21,7 +21,7 @@ public class Player extends Entity {
 	public boolean onGround=false;
 	public Player(Level level) {
 		super(level);
-		this.posX=6;
+		this.posX=4;
 		this.posY=6;
 		this.hitbox=this.level.cc.getHitbox(1,1,15,15);
 	}

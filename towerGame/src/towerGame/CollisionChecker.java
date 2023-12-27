@@ -152,6 +152,6 @@ public class CollisionChecker {
 		return new Rectangle(x0,y0,x1-x0,y1-y0);
 	}
 	public static boolean checkAABB(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3) {
-		return x0<=x3&&x1>=x2&&y0<=y3&&y1>=y2;
+		return (x0<=x3)&&(x1>=x2)&&(y0<=y3)&&(y1>=y2);
 	}
 }
