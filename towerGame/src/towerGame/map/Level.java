@@ -114,6 +114,15 @@ public class Level {
 		mapTilesBackground[x][y]=tile;
 	}
 	public void addEntity(Entity entity) {
+		String spriteName = entity.getSprite();
+		if(!this.sprites.containsKey(spriteName)) {
+			try {
+				this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Failed to load "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		entity.setSprite(this.sprites.get(spriteName));
 		this.entityQueue.add(entity);
 	}
 	public void setPlayer(Player player) {

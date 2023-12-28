@@ -83,12 +83,10 @@ public class TowerGame extends JPanel implements Runnable {
 		int frames=0;
     	test.baseY=6;
     	test.posX=6;
-    	test.loadImages();
     	level.addEntity(test);
     	FireEnemy test2=new FireEnemy(level,true);
     	test2.baseY=6;
     	test2.posX=8;
-    	test2.loadImages();
     	level.addEntity(test2);
 		Player player = new Player(level);
     	player.loadImages();

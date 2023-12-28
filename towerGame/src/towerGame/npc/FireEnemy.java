@@ -37,25 +37,13 @@ public class FireEnemy extends Enemy {
 			}
 		}
 	}
-	@Override
-	public void loadImages() {
-		try {
-			if(this.isBlue) {
-				this.sprite=ImageIO.read(getClass().getResourceAsStream("/bluefiresprite.png"));
-			} else {
-				this.sprite=ImageIO.read(getClass().getResourceAsStream("/redfiresprite.png"));
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Failed to load fire sprite", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-	}
 
 	@Override
 	public String getSprite() {
 		if(this.isBlue) {
-			return "/bluefiresprite.png";
+			return "bluefiresprite.png";
 		} else {
-			return "/redfiresprite.png";
+			return "redfiresprite.png";
 		}
 	}
 

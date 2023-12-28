@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import towerGame.map.Level;
+import towerGame.npc.FireProjectile;
 import towerGame.npc.LivingEntity;
 
 public class Player extends LivingEntity {
@@ -37,7 +38,7 @@ public class Player extends LivingEntity {
 	}
 	@Override
 	public String getSprite() {
-		return "/player.png";
+		return "player.png";
 	}
 	@Override
 	public void update(EventHandler eventHandler) {
@@ -45,7 +46,6 @@ public class Player extends LivingEntity {
 			this.damageTimer--;
 		}
 		if(eventHandler.upPressed&&this.onGround) {this.yVelocity=-0.158F;};
-		//if(eventHandler.downPressed) {this.posY+=0.04;};
 		if(eventHandler.leftPressed) {
 			if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F)) {
 				this.posX-=0.052;
@@ -90,9 +90,6 @@ public class Player extends LivingEntity {
 				this.mana--;
 			}
 		}
-		/*if(!this.level.cc.checkTile(this.level, this, Direction.DOWN, 0.03F)) {
-			this.posY+=0.03F;
-		}*/
 		this.posX+=xVelocity;
 		this.yVelocity+=0.007F;//gravity
 		if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity)) {

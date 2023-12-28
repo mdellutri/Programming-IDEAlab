@@ -19,9 +19,6 @@ public class LivingEntity extends Entity {
 		super(level);
 		this.hitbox=CollisionChecker.getHitbox(0,0,16,16);
 	}
-	public void loadImages() {
-		
-	}
 	@Override
 	public void update() {
 		super.update();
