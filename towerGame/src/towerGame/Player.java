@@ -18,6 +18,7 @@ public class Player extends LivingEntity {
 	public float xVelocity;
 	public float yVelocity;
 	public boolean onGround=false;
+	public float mana=10.0f;
 	public Player(Level level) {
 		super(level);
 		this.posX=4;
@@ -33,6 +34,10 @@ public class Player extends LivingEntity {
     		e.printStackTrace();
     		JOptionPane.showMessageDialog(null, "Failed to load player sprite", "Error", JOptionPane.ERROR_MESSAGE);
     	}
+	}
+	@Override
+	public String getSprite() {
+		return "/player.png";
 	}
 	@Override
 	public void update(EventHandler eventHandler) {
@@ -65,13 +70,25 @@ public class Player extends LivingEntity {
 				}
 			}
 		}
-		if(eventHandler.mouse1Pressed) {
+		if(eventHandler.mouse1Clicked) {
 			Point mousePos= MouseInfo.getPointerInfo().getLocation();
 			float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize+0.5*TowerGame.tileSize));
-			PlayerProjectile p = new PlayerProjectile(this.level,this);
+			PlayerProjectile p = new PlayerProjectile(this.level, this);
 			p.xVelocity=(float) Math.sin(angle)/5;
 			p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
 			this.level.addEntity(p);
+		}
+		if(eventHandler.mouse2Clicked) {
+			if(this.mana>0) {
+				Point mousePos= MouseInfo.getPointerInfo().getLocation();
+				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize+0.5*TowerGame.tileSize));
+				PlayerProjectile p = new PlayerProjectile(this.level, this);
+				p.xVelocity=(float) Math.sin(angle)/5;
+				p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
+				p.size=3;
+				this.level.addEntity(p);
+				this.mana--;
+			}
 		}
 		/*if(!this.level.cc.checkTile(this.level, this, Direction.DOWN, 0.03F)) {
 			this.posY+=0.03F;

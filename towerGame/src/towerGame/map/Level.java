@@ -7,6 +7,7 @@ import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ public class Level {
 	public RescaleOp bg_tint;
 	public List<Entity> entities=new ArrayList<Entity>();
 	public List<Entity> entityQueue=new ArrayList<Entity>();
+	public HashMap<String,BufferedImage> sprites = new HashMap<String,BufferedImage>();
 	public Player player;
 	
 	public Level(int sizeX, int sizeY) {
@@ -37,7 +39,7 @@ public class Level {
 		this.sizeY=sizeY;
 		for(int x=0;x<sizeX;x++) {
 			for(int y=0;y<sizeY;y++) {
-				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:y==6&x==3|y==8&x==11?17:y==8&x==5|y==7&x==4?7:0;
+				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:x==13&y==3?10:y==6&x==3|y==8&x==11?17:y==8&x==5|y==7&x==4?7:0;
 				mapTilesBackground[x][y]=y>8?8:y>6&y<9&x==7?6:y>2&x>4&x<10?x==6|x==8?y==5?13:y==4?12:3:3:y==2&x>4&x<10&(1&x)==1?3:x==12&y>3?2:0; // temporary
 			}
 		}

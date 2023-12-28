@@ -8,7 +8,9 @@ import towerGame.map.Level;
 import towerGame.map.Tile;
 import towerGame.npc.LivingEntity;
 
-public class PlayerProjectile extends GravityEntity {
+public class PlayerProjectile extends Entity {
+	public float xVelocity;
+	public float yVelocity;
 	public Player player;
 	public long createTime;
 	public int size;
@@ -82,6 +84,6 @@ public class PlayerProjectile extends GravityEntity {
 	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(new Color(222,215,180));
-		g2.fillOval((int)(this.posX*TowerGame.tileSize)+7*TowerGame.scale,(int)(this.posY*TowerGame.tileSize)+7*TowerGame.scale,2*TowerGame.scale,2*TowerGame.scale);
+		g2.fillOval((int)(this.posX*TowerGame.tileSize)+7*TowerGame.scale,(int)(this.posY*TowerGame.tileSize)+7*TowerGame.scale,2*TowerGame.scale*this.size,2*TowerGame.scale*this.size);
 	}
 }

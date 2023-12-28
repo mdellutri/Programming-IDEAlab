@@ -18,10 +18,16 @@ public class Entity {
 	public Entity(Level level) {
 		this.level=level;
 	}
+	public Entity(Level level, int posX, int posY) {
+		this(level);
+		this.posX=posX;
+		this.posY=posY;
+	}
 	public void update() {}
 	public void render(Graphics2D g2) {}
 	public void renderDebug(Graphics2D g2) {}
 	public void update(EventHandler eventHandler) {
 		this.update();
 	}
+	public String getSprite(){return "";}
 }

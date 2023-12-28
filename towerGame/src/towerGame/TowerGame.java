@@ -30,7 +30,6 @@ public class TowerGame extends JPanel implements Runnable {
 	public static JFrame frame;
 	EventHandler eventHandler = new EventHandler(frame);
 	public Level level= new Level(16,16);
-	public Player player = new Player(level);
 	public FireEnemy test = new FireEnemy(level);
 	int fpsCap = 60;
 	protected boolean debug=false;
@@ -62,12 +61,13 @@ public class TowerGame extends JPanel implements Runnable {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		if(eventHandler.debugPressed) {
-			level.cc.renderDebug(level,player,g2);
+			level.cc.renderDebug(level,level.player,g2);
 			g2.drawString("H "+String.valueOf(level.sizeY-level.player.posY),10,20);
 			g2.drawString("F "+String.valueOf((int)(1/((finishedTime-currentTime)/1000000000))),10,30);
 			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime))/1000000000)),10,40);
 			g2.drawString("E "+String.valueOf(level.entities.size()),10,50);
 			g2.drawString("H "+String.valueOf(level.player.health),10,60);
+			g2.drawString("M "+String.valueOf(level.player.mana),10,70);
 		}
 		
 		g2.dispose();
@@ -81,7 +81,6 @@ public class TowerGame extends JPanel implements Runnable {
 	public void run() {
 		double drawInterval=1000000000/fpsCap;
 		int frames=0;
-    	player.loadImages();
     	test.baseY=6;
     	test.posX=6;
     	test.loadImages();
@@ -91,6 +90,8 @@ public class TowerGame extends JPanel implements Runnable {
     	test2.posX=8;
     	test2.loadImages();
     	level.addEntity(test2);
+		Player player = new Player(level);
+    	player.loadImages();
     	level.setPlayer(player);
     	
 		while (gameThread!=null) {
@@ -99,6 +100,14 @@ public class TowerGame extends JPanel implements Runnable {
 			//System.out.println("It's running");
 			update();
 			repaint();
+			if(eventHandler.mouse1Clicked) {
+				eventHandler.mouse1Pressed=false;
+				eventHandler.mouse1Clicked=false;
+			}
+			if(eventHandler.mouse2Clicked) {
+				eventHandler.mouse2Pressed=false;
+				eventHandler.mouse2Clicked=false;
+			}
 			if(++frames%480==0){
 				System.gc();
 			}
