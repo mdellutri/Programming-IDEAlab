@@ -55,7 +55,7 @@ public class FallingBoulder extends Entity {
 	public void render(Graphics2D g2) {
 		int frameX = 11*16;
 		int frameY = 0;
-		g2.drawImage(level.tilemap, (int)(posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)), (int)(posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)), (int)(posX*TowerGame.tileSize+TowerGame.tileSize), (int)(posY*TowerGame.tileSize+TowerGame.tileSize), frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
+		g2.drawImage(level.tilemap, (int)(posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)), (int)(posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)), (int)(posX*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)), (int)(posY*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)), frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
 		
 	}
 }

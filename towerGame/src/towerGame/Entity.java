@@ -30,4 +30,8 @@ public class Entity {
 		this.posX=x;
 		this.posY=y;
 	}
+	public int[] getPositionOnScreen() {
+		int[] positions = {(int) (this.posX*TowerGame.tileSize-this.level.cameraX*TowerGame.tileSize),(int) (this.posY*TowerGame.tileSize-this.level.cameraY*TowerGame.tileSize)};
+		return positions;
+	}
 }
