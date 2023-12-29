@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -27,9 +28,10 @@ public class Level {
 	public CollisionChecker cc=new CollisionChecker();
 	public RescaleOp bg_tint;
 	public List<Entity> entities=new ArrayList<Entity>();
-	public List<Entity> entityQueue=new ArrayList<Entity>();
+	private List<Entity> entityQueue=new ArrayList<Entity>();
 	public HashMap<String,BufferedImage> sprites = new HashMap<String,BufferedImage>();
 	public Player player;
+	private final ReentrantLock entity_lock = new ReentrantLock();
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
@@ -58,18 +60,22 @@ public class Level {
 				Tile.tiles[mapTilesForeground[x][y]].update(this,x,y,true);
 			}
 		}
-		
-		for (Entity entity : this.entities) {
-			if (entity!=null) {
-				entity.update(eventHandler);
+		entity_lock.lock();
+		try {
+			for (Entity entity : this.entities) {
+				if (entity!=null) {
+					entity.update(eventHandler);
+				}
 			}
+			if(this.player!=null) {
+				this.player.update(eventHandler);
+			}
+			entities.addAll(entityQueue);
+			entityQueue.clear();
+			entities.removeIf((Entity e) -> e.markedForRemoval);
+		} finally {
+			entity_lock.unlock();
 		}
-		if(this.player!=null) {
-			this.player.update(eventHandler);
-		}
-		entities.addAll(entityQueue);
-		entityQueue.clear();
-		entities.removeIf((Entity e) -> e.markedForRemoval);
 	}
 	public void update() {
 		this.update(null);
@@ -82,8 +88,13 @@ public class Level {
 				
 			}
 		}
-		for (Entity entity : this.entities) {
-			entity.render(g2);
+		entity_lock.lock();
+		try {
+			for (Entity entity : this.entities) {
+				entity.render(g2);
+			}
+		} finally {
+			entity_lock.unlock();
 		}
 		if(this.player!=null) {
 			this.player.render(g2);
@@ -126,15 +137,29 @@ public class Level {
 		this.entityQueue.add(entity);
 	}
 	public void setPlayer(Player player) {
+		String spriteName = player.getSprite();
+		if(!this.sprites.containsKey(spriteName)) {
+			try {
+				this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Failed to load player: "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		player.setSprite(this.sprites.get(spriteName));
 		this.player=player;
 	}
 	public Player getPlayer() {
 		return this.player;
 	}
 	public List<Entity> getAllEntities(){
-		List<Entity> e2 = new ArrayList<Entity>();
-		e2.addAll(this.entities);
-		e2.add(player);
-		return e2;
+		entity_lock.lock();
+		try {
+			List<Entity> e2 = new ArrayList<Entity>();
+			e2.addAll(this.entities);
+			e2.add(player);
+			return e2;
+		} finally {
+			entity_lock.unlock();
+		}
 	}
 }

@@ -22,6 +22,10 @@ public class FireProjectile extends Entity {
 		super(level);
 		this.hitbox=CollisionChecker.getHitbox(6,6,9,9);
 	}
+	public FireProjectile(Level level, boolean isBlue) {
+		this(level);
+		this.isBlue=isBlue;
+	}
 	@Override
 	public void update() {
 		int[] positions;
@@ -65,7 +69,7 @@ public class FireProjectile extends Entity {
 		Player p = this.level.player;
 		if(this.level.cc.checkEntities(this, p)) {
 			p.damage(this.isBlue ? 2.0f : 1.5f);
-			//this.markedForRemoval=true;
+			this.markedForRemoval=true;
 		}
 		this.posY+=yVelocity;
 		this.yVelocity+=0.009F;

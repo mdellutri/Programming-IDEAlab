@@ -26,7 +26,6 @@ public class PlayerProjectile extends Entity {
 		this.hitbox=CollisionChecker.getHitbox(7,7,8,8);
 		this.size=1;
 	}
-	@Override
 	public void update() {
 		int[] positions;
 		if(this.level.cc.checkTile(this.level, this, (xVelocity<0)?Direction.LEFT:Direction.RIGHT, (xVelocity<0)?-xVelocity:xVelocity)) {
@@ -81,7 +80,6 @@ public class PlayerProjectile extends Entity {
 		}
 		
 	}
-	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(new Color(222,215,180));
 		g2.fillOval((int)(this.posX*TowerGame.tileSize)+7*TowerGame.scale,(int)(this.posY*TowerGame.tileSize)+7*TowerGame.scale,2*TowerGame.scale*this.size,2*TowerGame.scale*this.size);

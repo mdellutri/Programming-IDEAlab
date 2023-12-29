@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 import towerGame.map.Level;
 import towerGame.npc.FireEnemy;
 public class TowerGame extends JPanel implements Runnable {
-	public static int scale=2;
+	public static int scale=4;
 	public static int tileSize=16*scale;
 	Thread gameThread;
 	public static JFrame frame;
@@ -85,11 +85,9 @@ public class TowerGame extends JPanel implements Runnable {
     	test.posX=6;
     	level.addEntity(test);
     	FireEnemy test2=new FireEnemy(level,true);
-    	test2.baseY=6;
-    	test2.posX=8;
+    	test2.setPosition(8,6);
     	level.addEntity(test2);
 		Player player = new Player(level);
-    	player.loadImages();
     	level.setPlayer(player);
     	
 		while (gameThread!=null) {

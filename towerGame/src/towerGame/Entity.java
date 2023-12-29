@@ -26,4 +26,8 @@ public class Entity {
 	}
 	public String getSprite(){return "";}
 	public void setSprite(BufferedImage sprite) {this.sprite=sprite;}
+	public void setPosition(float x, float y) {
+		this.posX=x;
+		this.posY=y;
+	}
 }

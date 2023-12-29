@@ -10,7 +10,6 @@ public class Thing extends Enemy {
 	public Thing(Level level) {
 		super(level);
 	}
-	@Override
 	public String getSprite() {
 		return "thing.png";
 	}

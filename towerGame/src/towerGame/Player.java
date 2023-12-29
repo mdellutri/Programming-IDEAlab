@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import towerGame.map.Level;
+import towerGame.npc.FireEnemy;
 import towerGame.npc.FireProjectile;
 import towerGame.npc.LivingEntity;
 
@@ -20,6 +21,7 @@ public class Player extends LivingEntity {
 	public float yVelocity;
 	public boolean onGround=false;
 	public float mana=10.0f;
+	public float armor=0.0f;
 	public Player(Level level) {
 		super(level);
 		this.posX=4;
@@ -28,19 +30,9 @@ public class Player extends LivingEntity {
 		this.health=this.maxHealth;
 		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
 	}
-	public void loadImages() {
-    	try {
-    		this.sprite=ImageIO.read(getClass().getResourceAsStream("/player.png"));
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		JOptionPane.showMessageDialog(null, "Failed to load player sprite", "Error", JOptionPane.ERROR_MESSAGE);
-    	}
-	}
-	@Override
 	public String getSprite() {
 		return "player.png";
 	}
-	@Override
 	public void update(EventHandler eventHandler) {
 		if(this.damageTimer!=0) {
 			this.damageTimer--;
@@ -111,11 +103,13 @@ public class Player extends LivingEntity {
 			this.yVelocity=yVelocity>0?-(this.yVelocity/8):-(this.yVelocity); //bounce
 		}
 	}
-	@Override
 	public void render(Graphics2D g2) {
 		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize),(int)Math.round(this.posY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize,null);
 	}
-	@Override
 	public void renderDebug(Graphics2D g2) {
+	}
+	public void damage(float damage) {
+		super.damage(damage/(1+this.armor));
+		
 	}
 }
