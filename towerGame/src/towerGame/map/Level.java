@@ -126,26 +126,30 @@ public class Level {
 	}
 	public void addEntity(Entity entity) {
 		String spriteName = entity.getSprite();
-		if(!this.sprites.containsKey(spriteName)) {
-			try {
-				this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Failed to load "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+			if(spriteName != "") {
+			if(!this.sprites.containsKey(spriteName)) {
+				try {
+					this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Failed to load "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
+			entity.setSprite(this.sprites.get(spriteName));
 		}
-		entity.setSprite(this.sprites.get(spriteName));
 		this.entityQueue.add(entity);
 	}
 	public void setPlayer(Player player) {
 		String spriteName = player.getSprite();
-		if(!this.sprites.containsKey(spriteName)) {
-			try {
-				this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
-			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Failed to load player: "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+		if(spriteName != "") {
+			if(!this.sprites.containsKey(spriteName)) {
+				try {
+					this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Failed to load player: "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
+			player.setSprite(this.sprites.get(spriteName));
 		}
-		player.setSprite(this.sprites.get(spriteName));
 		this.player=player;
 	}
 	public Player getPlayer() {
