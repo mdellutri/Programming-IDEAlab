@@ -89,6 +89,6 @@ public class FireProjectile extends Entity {
 	@Override
 	public void render(Graphics2D g2) {
 		g2.setColor(new Color(252,71,21));
-		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize)+6*TowerGame.scale,(int)Math.round(this.posY*TowerGame.tileSize)+6*TowerGame.scale,4*TowerGame.scale,4*TowerGame.scale,null);
+		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize))+6*TowerGame.scale,(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize))+6*TowerGame.scale,4*TowerGame.scale,4*TowerGame.scale,null);
 	}
 }

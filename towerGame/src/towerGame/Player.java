@@ -64,7 +64,7 @@ public class Player extends LivingEntity {
 		}
 		if(eventHandler.mouse1Clicked) {
 			Point mousePos= MouseInfo.getPointerInfo().getLocation();
-			float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize+0.5*TowerGame.tileSize));
+			float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize+0.5*TowerGame.tileSize));
 			PlayerProjectile p = new PlayerProjectile(this.level, this);
 			p.xVelocity=(float) Math.sin(angle)/5;
 			p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
@@ -73,7 +73,7 @@ public class Player extends LivingEntity {
 		if(eventHandler.mouse2Clicked) {
 			if(this.mana>0) {
 				Point mousePos= MouseInfo.getPointerInfo().getLocation();
-				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize+0.5*TowerGame.tileSize));
+				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize+0.5*TowerGame.tileSize));
 				PlayerProjectile p = new PlayerProjectile(this.level, this);
 				p.xVelocity=(float) Math.sin(angle)/5;
 				p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
@@ -104,7 +104,7 @@ public class Player extends LivingEntity {
 		}
 	}
 	public void render(Graphics2D g2) {
-		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize),(int)Math.round(this.posY*TowerGame.tileSize),TowerGame.tileSize,TowerGame.tileSize,null);
+		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)),(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)),TowerGame.tileSize,TowerGame.tileSize,null);
 	}
 	public void renderDebug(Graphics2D g2) {
 	}

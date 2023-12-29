@@ -32,6 +32,8 @@ public class Level {
 	public HashMap<String,BufferedImage> sprites = new HashMap<String,BufferedImage>();
 	public Player player;
 	private final ReentrantLock entity_lock = new ReentrantLock();
+	public float cameraX;
+	public float cameraY;
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
@@ -41,7 +43,7 @@ public class Level {
 		this.sizeY=sizeY;
 		for(int x=0;x<sizeX;x++) {
 			for(int y=0;y<sizeY;y++) {
-				mapTilesForeground[x][y]=y>8?5:x==13&y>3&y<8?2:x==13&y==3?10:y==6&x==3|y==8&x==11?17:y==8&x==5|y==7&x==4?7:0;
+				mapTilesForeground[x][y]=y>8?5:x==13&y>7&y<9?2:x==13&y<8?10:y==6&x==3|y==8&x==11?17:y==8&x==5|y==7&x==4?7:0;
 				mapTilesBackground[x][y]=y>8?8:y>6&y<9&x==7?6:y>2&x>4&x<10?x==6|x==8?y==5?13:y==4?12:3:3:y==2&x>4&x<10&(1&x)==1?3:x==12&y>3?2:0; // temporary
 			}
 		}
@@ -75,6 +77,18 @@ public class Level {
 			entities.removeIf((Entity e) -> e.markedForRemoval);
 		} finally {
 			entity_lock.unlock();
+		}
+		if(player.posX<cameraX+2) {
+			cameraX=player.posX-2;
+		}
+		if(player.posX>cameraX+18) {
+			cameraX=player.posX-18;
+		}
+		if(player.posY<cameraY+2) {
+			cameraY=player.posY-2;
+		}
+		if(player.posY>cameraY+13) {
+			cameraY=player.posY-13;
 		}
 	}
 	public void update() {

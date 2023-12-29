@@ -42,9 +42,9 @@ public class Tile {
 		int frameX = (this.getTextureId() % 16) * 16;
 		int frameY = (this.getTextureId() / 16) * 16;
 		if(!foreground) {
-			g2.drawImage(level.tilemap_dark, posX*TowerGame.tileSize, posY*TowerGame.tileSize, posX*TowerGame.tileSize+TowerGame.tileSize, posY*TowerGame.tileSize+TowerGame.tileSize,frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
+			g2.drawImage(level.tilemap_dark, posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize), posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize), posX*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize), posY*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize),frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
 		}else {
-			g2.drawImage(level.tilemap, posX*TowerGame.tileSize, posY*TowerGame.tileSize, posX*TowerGame.tileSize+TowerGame.tileSize, posY*TowerGame.tileSize+TowerGame.tileSize,frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
+			g2.drawImage(level.tilemap, posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize), posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize), posX*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize), posY*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize),frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
 		}
 
 	};
