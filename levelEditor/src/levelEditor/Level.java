@@ -6,10 +6,14 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+
+import levelEditor.entity.Entity;
 
 public class Level {
 	public int sizeX;
@@ -20,6 +24,8 @@ public class Level {
 	public BufferedImage tilemap_dark;
 	public RescaleOp bg_tint;
 	public List<Entity> entities=new ArrayList<Entity>();
+	public HashMap<String,BufferedImage> sprites = new HashMap<String,BufferedImage>();
+	public final ReentrantLock entity_lock = new ReentrantLock();
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];
@@ -49,8 +55,14 @@ public class Level {
 				
 			}
 		}
-		for (Entity entity : this.entities) {
-			entity.render(g2);
+
+		entity_lock.lock();
+		try {
+			for (Entity entity : this.entities) {
+				entity.render(g2);
+			}
+		} finally {
+			entity_lock.unlock();
 		}
 	}
 	public void renderBackground(Graphics2D g2) {
@@ -88,6 +100,17 @@ public class Level {
 		mapTilesBackground[x][y]=tile;
 	}
 	public void addEntity(Entity entity) {
+		String spriteName = entity.getSprite();
+		if(spriteName != "") {
+			if(!this.sprites.containsKey(spriteName)) {
+				try {
+					this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Failed to load "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			entity.setSprite(this.sprites.get(spriteName));
+		}
 		this.entities.add(entity);
 	}
 }
