@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import saveFile.SaveFile;
 import towerGame.map.Level;
 import towerGame.npc.FireEnemy;
 public class TowerGame extends JPanel implements Runnable {
@@ -33,7 +34,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public FireEnemy test = new FireEnemy(level);
 	int fpsCap = 60;
 	protected boolean debug=false;
-	double currentTime, remainingTime, finishedTime;
+	double currentTime, currentTime2, remainingTime, finishedTime;
 	
 	public TowerGame() {
 		this.addKeyListener(eventHandler);
@@ -61,17 +62,20 @@ public class TowerGame extends JPanel implements Runnable {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		if(eventHandler.debugPressed) {
+			level.entity_lock.lock();
 			for(Entity e : level.entities) {
 				level.cc.renderDebug(level,e,g2);
 			}
+			level.entity_lock.unlock();
 			level.cc.renderDebug(level,level.player,g2);
 			g2.setColor(new Color(128,0,0,192));
 			g2.drawString("H "+String.valueOf(level.sizeY-level.player.posY),10,20);
-			g2.drawString("F "+String.valueOf((int)(1/((finishedTime-currentTime)/1000000000))),10,30);
-			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime))/1000000000)),10,40);
+			g2.drawString("F "+String.valueOf((((finishedTime-currentTime2)/1000000000))),10,30);
+			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime2))/1000000000)),10,40);
 			g2.drawString("E "+String.valueOf(level.entities.size()),10,50);
 			g2.drawString("H "+String.valueOf(level.player.health),10,60);
 			g2.drawString("M "+String.valueOf(level.player.mana),10,70);
+			g2.drawString("M "+String.valueOf((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1000000)+ "M",10,80);
 		}
 		
 		g2.dispose();
@@ -87,12 +91,13 @@ public class TowerGame extends JPanel implements Runnable {
 		int frames=0;
     	test.baseY=6;
     	test.posX=6;
-    	level.addEntity(test);
+    	//level.addEntity(test);
     	FireEnemy test2=new FireEnemy(level,true);
     	test2.setPosition(8,6);
-    	level.addEntity(test2);
+    	//level.addEntity(test2);
 		Player player = new Player(level);
     	level.setPlayer(player);
+    	SaveFile.load(level, "level1.dat");
     	
 		while (gameThread!=null) {
 			currentTime=System.nanoTime();
@@ -108,9 +113,7 @@ public class TowerGame extends JPanel implements Runnable {
 				eventHandler.mouse2Pressed=false;
 				eventHandler.mouse2Clicked=false;
 			}
-			if(++frames%480==0){
-				System.gc();
-			}
+			currentTime2=currentTime;
 			try {
 				finishedTime=System.nanoTime();
 				remainingTime=(nextDrawTime-System.nanoTime())/1000000;

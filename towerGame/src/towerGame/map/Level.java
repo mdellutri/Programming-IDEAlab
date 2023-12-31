@@ -31,7 +31,7 @@ public class Level {
 	private List<Entity> entityQueue=new ArrayList<Entity>();
 	public HashMap<String,BufferedImage> sprites = new HashMap<String,BufferedImage>();
 	public Player player;
-	private final ReentrantLock entity_lock = new ReentrantLock();
+	public final ReentrantLock entity_lock = new ReentrantLock();
 	public float cameraX;
 	public float cameraY;
 	
