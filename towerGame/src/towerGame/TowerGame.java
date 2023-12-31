@@ -91,12 +91,13 @@ public class TowerGame extends JPanel implements Runnable {
 		int frames=0;
     	test.baseY=6;
     	test.posX=6;
-    	//level.addEntity(test);
+    	level.addEntity(test);
     	FireEnemy test2=new FireEnemy(level,true);
     	test2.setPosition(8,6);
-    	//level.addEntity(test2);
+    	level.addEntity(test2);
 		Player player = new Player(level);
     	level.setPlayer(player);
+    	update();
     	SaveFile.load(level, "level1.dat");
     	
 		while (gameThread!=null) {
