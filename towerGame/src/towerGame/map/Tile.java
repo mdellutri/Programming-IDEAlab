@@ -62,12 +62,13 @@ public class Tile {
 	public static Tile dirt=new Tile(8,12,true);
 	public static Tile log=new Tile(9,13,true);
 	public static Tile boulder=new BoulderTile(10,11,CollisionChecker.getHitbox(1, 1, 15, 15));
-	public static Tile tallGrass=new Tile(11,7,false);
+	public static Tile tallGrass=new GrassTile(11,19);
 	public static Tile stoneWindowTop=new Tile(12,8,true);
 	public static Tile stoneWindowBottom=new Tile(13,9,true);
 	public static Tile flower1=new FlowerTile((byte)14,(byte)0);
 	public static Tile flower2=new FlowerTile((byte)15,(byte)1);
 	public static Tile flower3=new FlowerTile((byte)16,(byte)2);
 	public static Tile weirdBlackOrbOfSomeKindWhichDoesNotDoAnythingAtTheMomentIJustAddedItToTestCustomHitboxesForTiles=new Tile(17,14,true,CollisionChecker.getHitbox(4, 4, 12, 12));
+	public static Tile stoneVines=new Tile(18,15,true);
 	
 }
