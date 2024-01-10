@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 
+
 public class Tile {
 	public final int id;
 	public final int textureId;
@@ -49,7 +50,7 @@ public class Tile {
 	public static Tile dirt=new Tile(8,12,true);
 	public static Tile log=new Tile(9,13,true);
 	public static Tile boulder=new BoulderTile(10,11);
-	public static Tile tallGrass=new Tile(11,7,false);
+	public static Tile tallGrass=new GrassTile(11,19);
 	public static Tile stoneWindowTop=new Tile(12,8,true);
 	public static Tile stoneWindowBottom=new Tile(13,9,true);
 	public static Tile flower1=new FlowerTile((byte)14,(byte)0);

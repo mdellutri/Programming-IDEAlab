@@ -147,8 +147,8 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	};
 	
 	public static void main(String[] args) {
-	    JMenu menu, submenu;
-	    JMenuItem menuItemSave, menuItemLoad;
+	    JMenu menu, menuEntity, menuWorld, submenu;
+	    JMenuItem menuItemSave, menuItemLoad, menuItemAddEntity, menuItemChangeSkyColor;
 		frame = new JFrame("Level Editor");
 		LevelEditor gamePanel=new LevelEditor();
 		gamePanel.setFocusable(true);
@@ -157,6 +157,12 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 		menu = new JMenu("File");
 		menu.setMnemonic(KeyEvent.VK_F);
 		menuBar.add(menu);
+		menuEntity = new JMenu("Entity");
+		menuEntity.setMnemonic(KeyEvent.VK_E);
+		menuBar.add(menuEntity);
+		menuWorld = new JMenu("World");
+		menuWorld.setMnemonic(KeyEvent.VK_W);
+		menuBar.add(menuWorld);
 		
 		menuItemSave=new JMenuItem("Save", KeyEvent.VK_S);
 		menu.add(menuItemSave);
@@ -165,6 +171,14 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 		menuItemLoad=new JMenuItem("Load", KeyEvent.VK_L);
 		menu.add(menuItemLoad);
         menuItemLoad.addActionListener(gamePanel);
+		
+		menuItemAddEntity=new JMenuItem("Add Entity", KeyEvent.VK_A);
+		menuEntity.add(menuItemAddEntity);
+        menuItemAddEntity.addActionListener(gamePanel);
+		
+        menuItemChangeSkyColor=new JMenuItem("Change Sky Color", KeyEvent.VK_C);
+		menuWorld.add(menuItemChangeSkyColor);
+		menuItemChangeSkyColor.addActionListener(gamePanel);
 		
 		frame.setJMenuBar(menuBar);
 		frame.pack();
