@@ -1,6 +1,7 @@
 package levelEditor;
 
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
@@ -26,6 +27,7 @@ public class Level {
 	public List<Entity> entities=new ArrayList<Entity>();
 	public HashMap<String,BufferedImage> sprites = new HashMap<String,BufferedImage>();
 	public final ReentrantLock entity_lock = new ReentrantLock();
+    public Color skyColor=new Color(98,204,249);
 	
 	public Level(int sizeX, int sizeY) {
 		mapTilesForeground=new int[sizeX][sizeY];

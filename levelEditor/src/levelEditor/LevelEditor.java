@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,10 +54,8 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
-		g2.setColor(new Color(98,204,249));
+		g2.setColor(level.skyColor);
 		g2.fillRect(0, 0, 320*scale, 240*scale);
-		//g2.setColor(Color.red);
-		//g2.fillRect(player.posX-1, player.posY-1, 34, 34);
 		try {
 			if(eventHandler.editBackground) {
 				level.renderBackground(g2);
@@ -77,6 +76,7 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	};
 	public void actionPerformed(ActionEvent e) {
 		JFileChooser fc = new JFileChooser();
+		JColorChooser cc = new JColorChooser();
 		String fileName;
 		if(e.getActionCommand()=="Save") {
 			int returnVal = fc.showSaveDialog(this);
@@ -89,6 +89,19 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				SaveFile.load(level, fc.getSelectedFile().getPath());
 			}
+		}
+		if(e.getActionCommand()=="Change Sky Color") {
+			level.skyColor = cc.showDialog(this, "Choose Color", new Color(98,204,249));
+			
+		}
+		if(e.getActionCommand()=="Add Entity") {
+			String userInput = JOptionPane.showInputDialog(null, "Entity type", "Add Entity", JOptionPane.QUESTION_MESSAGE);
+		    if(userInput!=null) {
+		    	if(userInput=="FireEnemy") {
+		    		FireEnemy entity = new FireEnemy(level,false);
+		    		level.addEntity(entity);
+		    	}
+		    }
 		}
 	}
 	public void startGameThread() {

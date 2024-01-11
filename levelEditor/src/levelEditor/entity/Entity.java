@@ -23,4 +23,9 @@ public class Entity {
 	public void setSprite(BufferedImage sprite) {this.sprite=sprite;}
 	public void render(Graphics2D g2) {}
 	public void renderDebug(Graphics2D g2) {}
+	public void setPosition(float x, float y) {
+		this.posX=x;
+		this.posY=y;
+	}
+	public void update() {}
 }

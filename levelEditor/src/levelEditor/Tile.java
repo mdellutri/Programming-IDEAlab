@@ -57,5 +57,6 @@ public class Tile {
 	public static Tile flower2=new FlowerTile((byte)15,(byte)1);
 	public static Tile flower3=new FlowerTile((byte)16,(byte)2);
 	public static Tile weirdBlackOrbOfSomeKindWhichDoesNotDoAnythingAtTheMomentIJustAddedItToTestCustomHitboxesForTiles=new Tile(17,14,true);
+	public static Tile stoneVines=new Tile(18,15,true);
 	
 }

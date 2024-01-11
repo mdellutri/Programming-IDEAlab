@@ -43,6 +43,7 @@ public class SaveFile {
 			gs.playerHealth=10.0f;
 			gs.playerMana=10.0f;
 			gs.playerArmor=0.0f;
+			gs.skyColor=level.skyColor;
 			output.writeObject(gs);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -81,6 +82,7 @@ public class SaveFile {
 			//level.player.health=10.0f;
 			//level.player.mana=10.0f;
 			//level.player.armor=0.0f;
+			level.skyColor=gs.skyColor;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
