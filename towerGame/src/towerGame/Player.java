@@ -6,6 +6,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -22,6 +23,7 @@ public class Player extends LivingEntity {
 	public boolean onGround=false;
 	public float mana=10.0f;
 	public float armor=0.0f;
+	BufferedImage swordSprite;
 	public Player(Level level) {
 		super(level);
 		this.posX=4;
@@ -29,6 +31,7 @@ public class Player extends LivingEntity {
 		this.maxHealth=10.0f;
 		this.health=this.maxHealth;
 		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
+		this.swordSprite=level.getSprite("sword.png");
 	}
 	public String getSprite() {
 		return "player.png";
@@ -105,6 +108,7 @@ public class Player extends LivingEntity {
 	}
 	public void render(Graphics2D g2) {
 		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)),(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)),TowerGame.tileSize,TowerGame.tileSize,null);
+		//g2.drawImage(this.swordSprite, (int)(posX*TowerGame.tileSize+0.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)-(int)(level.cameraY*TowerGame.tileSize), (int)(posX*TowerGame.tileSize+1.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize),0, 0, 16, 16, (ImageObserver)null);
 	}
 	public void renderDebug(Graphics2D g2) {
 	}

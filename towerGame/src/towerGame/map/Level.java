@@ -171,6 +171,20 @@ public class Level {
 	public Player getPlayer() {
 		return this.player;
 	}
+	public BufferedImage getSprite(String spriteName) {
+		if(spriteName != "") {
+			if(!this.sprites.containsKey(spriteName)) {
+				try {
+					this.sprites.put(spriteName, ImageIO.read(getClass().getResourceAsStream("/"+spriteName)));
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Failed to load player: "+spriteName+" sprite", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+			return this.sprites.get(spriteName);
+		}
+		return null;
+		
+	}
 	public List<Entity> getAllEntities(){
 		entity_lock.lock();
 		try {
