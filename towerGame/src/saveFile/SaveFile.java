@@ -11,6 +11,7 @@ import saveFile.entity.*;
 public class SaveFile {
 	public static void save(Level level, String fileName) {
 		try {
+			level.entity_lock.lock();
 			ObjectOutputStream output = new ObjectOutputStream(new FileOutputStream(new File(fileName)));
 			GameSerializable gs = new GameSerializable();
 			for ( Entity e : level.entities) {
@@ -38,20 +39,24 @@ public class SaveFile {
 			gs.mapTilesForeground=level.mapTilesForeground;
 			gs.levelSizeX=level.sizeX;
 			gs.levelSizeY=level.sizeY;
-			gs.playerX=4;
-			gs.playerY=6;
+			gs.playerX=level.player.posX;
+			gs.playerY=level.player.posY;
 			gs.playerStartX=4;
 			gs.playerStartY=6; // these will be changeable in the future
-			gs.playerHealth=10.0f;
-			gs.playerMana=10.0f;
-			gs.playerArmor=0.0f;
+			gs.playerHealth=level.player.health;
+			gs.playerMana=level.player.mana;
+			gs.playerArmor=level.player.armor;
+			gs.skyColor=level.skyColor;
 			output.writeObject(gs);
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			level.entity_lock.unlock();
 		}
 	}
 	public static void load(Level level, String fileName) {
 		try {
+			level.entity_lock.lock();
 			ObjectInputStream input = new ObjectInputStream(new FileInputStream(new File(fileName)));
 			GameSerializable gs = (GameSerializable)input.readObject();
 			level.entities.clear();
@@ -78,13 +83,16 @@ public class SaveFile {
 			level.mapTilesForeground=gs.mapTilesForeground;
 			level.sizeX=gs.levelSizeX;
 			level.sizeY=gs.levelSizeY;
-			//level.player.posX=gs.playerX;
-			//level.player.posY=gs.playerY;
-			//level.player.health=10.0f;
-			//level.player.mana=10.0f;
-			//level.player.armor=0.0f;
+			level.player.posX=gs.playerX;
+			level.player.posY=gs.playerY;
+			level.player.health=gs.playerHealth;
+			level.player.mana=gs.playerMana;
+			level.player.armor=gs.playerArmor;
+			level.skyColor=gs.skyColor;
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			level.entity_lock.unlock();
 		}
 	}
 }

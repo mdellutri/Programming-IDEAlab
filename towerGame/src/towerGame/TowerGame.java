@@ -54,7 +54,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
-		g2.setColor(new Color(98,204,249));
+		g2.setColor(level.skyColor);
 		g2.fillRect(0, 0, 320*scale, 240*scale);
 		try {
 			level.render(g2);
@@ -103,7 +103,6 @@ public class TowerGame extends JPanel implements Runnable {
 		while (gameThread!=null) {
 			currentTime=System.nanoTime();
 			double nextDrawTime=System.nanoTime()+drawInterval;
-			//System.out.println("It's running");
 			update();
 			repaint();
 			if(eventHandler.mouse1Clicked) {
