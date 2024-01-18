@@ -23,7 +23,10 @@ public class Player extends LivingEntity {
 	public boolean onGround=false;
 	public float mana=10.0f;
 	public float armor=0.0f;
+	public Weapon weapon;
 	BufferedImage swordSprite;
+	boolean swordSwing=false;
+	Direction facing = Direction.RIGHT;
 	public Player(Level level) {
 		super(level);
 		this.posX=4;
@@ -31,7 +34,7 @@ public class Player extends LivingEntity {
 		this.maxHealth=10.0f;
 		this.health=this.maxHealth;
 		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
-		this.swordSprite=level.getSprite("sword.png");
+		this.swordSprite=level.getSprite("staff.png");
 	}
 	public String getSprite() {
 		return "player.png";
@@ -42,6 +45,7 @@ public class Player extends LivingEntity {
 		}
 		if(eventHandler.upPressed&&this.onGround) {this.yVelocity=-0.158F;};
 		if(eventHandler.leftPressed) {
+			this.facing=Direction.LEFT;
 			if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F)) {
 				this.posX-=0.052;
 			}else {
@@ -54,6 +58,7 @@ public class Player extends LivingEntity {
 			}
 		}
 		if(eventHandler.rightPressed) {
+			this.facing=Direction.RIGHT;
 			if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.052F)) {
 				this.posX+=0.052;
 			}else {
@@ -64,6 +69,11 @@ public class Player extends LivingEntity {
 					this.posX+=0.052F/7;
 				}
 			}
+		}
+		if(eventHandler.mouse1Pressed) {
+			this.swordSwing=true;
+		}else {
+			this.swordSwing=false;
 		}
 		if(eventHandler.mouse1Clicked) {
 			Point mousePos= MouseInfo.getPointerInfo().getLocation();
@@ -107,13 +117,17 @@ public class Player extends LivingEntity {
 		}
 	}
 	public void render(Graphics2D g2) {
-		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)),(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)),TowerGame.tileSize,TowerGame.tileSize,null);
-		//g2.drawImage(this.swordSprite, (int)(posX*TowerGame.tileSize+0.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)-(int)(level.cameraY*TowerGame.tileSize), (int)(posX*TowerGame.tileSize+1.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize),0, 0, 16, 16, (ImageObserver)null);
+		if(this.facing==Direction.LEFT) {
+			g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)),(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)),-TowerGame.tileSize,TowerGame.tileSize,null);
+			g2.drawImage(this.swordSprite, (int)(posX*TowerGame.tileSize-0.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)-(int)(level.cameraY*TowerGame.tileSize), (int)(posX*TowerGame.tileSize+0.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize),16, this.swordSwing?16:0, 0, this.swordSwing?32:16, (ImageObserver)null);
+		} else {
+			g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)),(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)),TowerGame.tileSize,TowerGame.tileSize,null);
+			g2.drawImage(this.swordSprite, (int)(posX*TowerGame.tileSize+0.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)-(int)(level.cameraY*TowerGame.tileSize), (int)(posX*TowerGame.tileSize+1.5*TowerGame.tileSize)-(int)(level.cameraX*TowerGame.tileSize), (int)(posY*TowerGame.tileSize)+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize),0, this.swordSwing?16:0, 16, this.swordSwing?32:16, (ImageObserver)null);
+		}
 	}
 	public void renderDebug(Graphics2D g2) {
 	}
 	public void damage(float damage) {
 		super.damage(damage/(1+this.armor));
-		
 	}
 }

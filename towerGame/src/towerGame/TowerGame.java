@@ -69,7 +69,7 @@ public class TowerGame extends JPanel implements Runnable {
 			level.entity_lock.unlock();
 			level.cc.renderDebug(level,level.player,g2);
 			g2.setColor(new Color(128,0,0,192));
-			g2.drawString("Tower Game version 0.1",10,20);
+			g2.drawString("TowerGame version 0.1",10,20);
 			g2.drawString("H "+String.valueOf(level.sizeY-level.player.posY),10,30);
 			g2.drawString("F "+String.valueOf((((finishedTime-currentTime2)/1000000000))),10,40);
 			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime2))/1000000000)),10,50);

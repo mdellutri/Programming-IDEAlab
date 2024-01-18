@@ -183,7 +183,11 @@ public class CollisionChecker {
 	public boolean checkAABB(float x0, float y0, float x1, float y1, float x2, float y2, float x3, float y3) {
 		return (x0<=x3)&&(x1>=x2)&&(y0<=y3)&&(y1>=y2);
 	}
+	public boolean checkHitboxes(Rectangle h1, Rectangle h2, float h1x, float h1y, float h2x, float h2y) {
+		return checkAABB(h1x+((float)h1.x/16), h1y+((float)h1.y/16), h1x+((float)h1.x/16)+((float)h1.width/16), h1y+((float)h1.y/16)+((float)h1.height/16), h1x+((float)h2.x/16), h1y+((float)h2.y/16), h1x+((float)h2.x/16)+((float)h2.width/16), h1y+((float)h2.y/16)+((float)h2.height/16));
+	}
 	public boolean checkEntities(Entity e1, Entity e2) {
 		return checkAABB(e1.posX+((float)e1.hitbox.x/16), e1.posY+((float)e1.hitbox.y/16), e1.posX+((float)e1.hitbox.x/16)+((float)e1.hitbox.width/16), e1.posY+((float)e1.hitbox.y/16)+((float)e1.hitbox.height/16), e2.posX+((float)e2.hitbox.x/16), e2.posY+((float)e2.hitbox.y/16), e2.posX+((float)e2.hitbox.x/16)+((float)e2.hitbox.width/16), e2.posY+((float)e2.hitbox.y/16)+((float)e2.hitbox.height/16));
 	}
+	
 }

@@ -60,8 +60,12 @@ public class Level {
 	public void update(EventHandler eventHandler) {
 		for(int x=0;x<this.sizeX;x++) {
 			for(int y=0;y<this.sizeY;y++) {
-				Tile.tiles[mapTilesBackground[x][y]].update(this,x,y,false);
-				Tile.tiles[mapTilesForeground[x][y]].update(this,x,y,true);
+				if(mapTilesBackground[x][y]!=0) {
+					Tile.tiles[mapTilesBackground[x][y]].update(this,x,y,false);
+				}
+				if(mapTilesForeground[x][y]!=0) {
+					Tile.tiles[mapTilesForeground[x][y]].update(this,x,y,true);
+				}
 			}
 		}
 		entity_lock.lock();
@@ -99,8 +103,12 @@ public class Level {
 	public void render(Graphics2D g2) {
 		for(int x=0;x<this.sizeX;x++) {
 			for(int y=0;y<this.sizeY;y++) {
-				Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y,false);
-				Tile.tiles[mapTilesForeground[x][y]].render(this,g2,x,y,true);
+				if(mapTilesBackground[x][y]!=0) {
+					Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y,false);
+				}
+				if(mapTilesForeground[x][y]!=0) {
+					Tile.tiles[mapTilesForeground[x][y]].render(this,g2,x,y,true);
+				}
 				
 			}
 		}

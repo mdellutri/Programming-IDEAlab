@@ -51,7 +51,7 @@ public class Tile {
 	public static boolean isCracked(int id) {
 		return id==crackedStone.id || id==crackedBricks.id || id==boulder.id;
 	}
-	public static Tile air=new Tile(0,0,false);
+	public static Tile air=new Tile(0,-1,false);
 	public static Tile stone=new Tile(1,1,true);
 	public static Tile crackedStone=new Tile(2,2,true);
 	public static Tile bricks=new Tile(3,3,true);
