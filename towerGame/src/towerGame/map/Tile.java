@@ -70,5 +70,7 @@ public class Tile {
 	public static Tile flower3=new FlowerTile((byte)16,(byte)2);
 	public static Tile weirdBlackOrbOfSomeKindWhichDoesNotDoAnythingAtTheMomentIJustAddedItToTestCustomHitboxesForTiles=new Tile(17,14,true,CollisionChecker.getHitbox(4, 4, 12, 12));
 	public static Tile stoneVines=new Tile(18,15,true);
+	public static Tile lavaTop=new LavaTile(19,22,true);
+	public static Tile lavaBottom=new LavaTile(20,31,false);
 	
 }
