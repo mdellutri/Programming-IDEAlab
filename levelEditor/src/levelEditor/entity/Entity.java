@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import levelEditor.Level;
+import levelEditor.LevelEditor;
 
 import java.awt.Rectangle;
 
@@ -28,4 +29,8 @@ public class Entity {
 		this.posY=y;
 	}
 	public void update() {}
+	public int[] getPositionOnScreen() {
+		int[] positions = {(int) (this.posX*LevelEditor.tileSize-this.level.cameraX*LevelEditor.tileSize),(int) (this.posY*LevelEditor.tileSize-this.level.cameraY*LevelEditor.tileSize)};
+		return positions;
+	}
 }

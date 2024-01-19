@@ -19,6 +19,8 @@ import levelEditor.entity.Entity;
 public class Level {
 	public int sizeX;
 	public int sizeY;
+	public int cameraX=0;
+	public int cameraY=0;
 	public int mapTilesForeground[][];
 	public int mapTilesBackground[][];
 	public BufferedImage tilemap;

@@ -28,7 +28,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import levelEditor.entity.Entity;
 import levelEditor.entity.FireEnemy;
+import levelEditor.entity.Thing;
 import saveFile.SaveFile;
 
 public class LevelEditor extends JPanel implements Runnable, ActionListener {
@@ -74,34 +76,60 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 		
 		g2.dispose();
 	};
-	public void actionPerformed(ActionEvent e) {
-		JFileChooser fc = new JFileChooser();
-		JColorChooser cc = new JColorChooser();
-		String fileName;
-		if(e.getActionCommand()=="Save") {
-			int returnVal = fc.showSaveDialog(this);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				SaveFile.save(level, fc.getSelectedFile().getPath());
+	public void actionPerformed(ActionEvent event) {
+		try {
+			JFileChooser fc = new JFileChooser();
+			String fileName;
+			if(event.getActionCommand()=="Save") {
+				int returnVal = fc.showSaveDialog(this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					SaveFile.save(level, fc.getSelectedFile().getPath());
+				}
 			}
-		}
-		if(e.getActionCommand()=="Load") {
-			int returnVal = fc.showOpenDialog(this);
-			if (returnVal == JFileChooser.APPROVE_OPTION) {
-				SaveFile.load(level, fc.getSelectedFile().getPath());
+			if(event.getActionCommand()=="Load") {
+				int returnVal = fc.showOpenDialog(this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					SaveFile.load(level, fc.getSelectedFile().getPath());
+				}
 			}
-		}
-		if(e.getActionCommand()=="Change Sky Color") {
-			level.skyColor = cc.showDialog(this, "Choose Color", new Color(98,204,249));
-			
-		}
-		if(e.getActionCommand()=="Add Entity") {
-			String userInput = JOptionPane.showInputDialog(null, "Entity type", "Add Entity", JOptionPane.QUESTION_MESSAGE);
-		    if(userInput!=null) {
-		    	if(userInput=="FireEnemy") {
-		    		FireEnemy entity = new FireEnemy(level,false);
-		    		level.addEntity(entity);
-		    	}
-		    }
+			if(event.getActionCommand()=="Change Sky Color") {
+				level.skyColor = JColorChooser.showDialog(this, "Choose Color", new Color(98,204,249));
+				
+			}
+			if(event.getActionCommand()=="Add Entity") {
+				String userInput = JOptionPane.showInputDialog(null, "Entity type (New UI coming soon)", "Add Entity", JOptionPane.QUESTION_MESSAGE);
+			    if(userInput!=null) {
+			    	if(userInput.contains("FireEnemy")) {
+			    		userInput = JOptionPane.showInputDialog(null, "Entity isBlue", "Add Entity", JOptionPane.QUESTION_MESSAGE);
+			    		FireEnemy entity = new FireEnemy(level, Boolean.parseBoolean(userInput));
+			    		userInput = JOptionPane.showInputDialog(null, "Entity posX", "Add Entity", JOptionPane.QUESTION_MESSAGE);
+			    		entity.posX=Integer.parseInt(userInput);
+			    		userInput = JOptionPane.showInputDialog(null, "Entity posY", "Add Entity", JOptionPane.QUESTION_MESSAGE);
+			    		entity.posY=Integer.parseInt(userInput);
+			    		level.addEntity(entity);
+			    	}
+			    	if(userInput.contains("Thing")) {
+			    		Thing entity = new Thing(level);
+			    		userInput = JOptionPane.showInputDialog(null, "Entity posX", "Add Entity", JOptionPane.QUESTION_MESSAGE);
+			    		entity.posX=Integer.parseInt(userInput);
+			    		userInput = JOptionPane.showInputDialog(null, "Entity posY", "Add Entity", JOptionPane.QUESTION_MESSAGE);
+			    		entity.posY=Integer.parseInt(userInput);
+			    		level.addEntity(entity);
+			    	}
+			    }
+			}
+			if(event.getActionCommand()=="Remove Entity") {
+				Object[] possibleValues = level.entities.toArray();
+
+				Object en = JOptionPane.showInputDialog(null,
+				             "Choose an entity", "Remove Entity",
+				             JOptionPane.INFORMATION_MESSAGE, null,
+				             possibleValues, possibleValues[0]);
+				level.entities.remove(en);
+			}
+		} catch (Exception e){
+			JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
 	public void startGameThread() {
@@ -161,7 +189,7 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	
 	public static void main(String[] args) {
 	    JMenu menu, menuEntity, menuWorld, submenu;
-	    JMenuItem menuItemSave, menuItemLoad, menuItemAddEntity, menuItemChangeSkyColor;
+	    JMenuItem menuItemSave, menuItemLoad, menuItemAddEntity, menuItemRemoveEntity, menuItemChangeSkyColor;
 		frame = new JFrame("Level Editor");
 		LevelEditor gamePanel=new LevelEditor();
 		gamePanel.setFocusable(true);
@@ -188,6 +216,10 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 		menuItemAddEntity=new JMenuItem("Add Entity", KeyEvent.VK_A);
 		menuEntity.add(menuItemAddEntity);
         menuItemAddEntity.addActionListener(gamePanel);
+		
+		menuItemRemoveEntity=new JMenuItem("Remove Entity", KeyEvent.VK_R);
+		menuEntity.add(menuItemRemoveEntity);
+        menuItemRemoveEntity.addActionListener(gamePanel);
 		
         menuItemChangeSkyColor=new JMenuItem("Change Sky Color", KeyEvent.VK_C);
 		menuWorld.add(menuItemChangeSkyColor);
