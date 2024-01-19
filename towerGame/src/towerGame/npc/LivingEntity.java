@@ -56,6 +56,7 @@ public class LivingEntity extends Entity {
 	}
 	@Override
 	public void render(Graphics2D g2) {
-		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)),(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)),TowerGame.tileSize,TowerGame.tileSize,null);
+		int[] positions = this.getPositionOnScreen();
+		g2.drawImage(this.sprite,positions[0],positions[1],TowerGame.tileSize,TowerGame.tileSize,null);
 	}
 }
