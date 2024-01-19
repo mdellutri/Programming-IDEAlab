@@ -18,7 +18,12 @@ public class SaveFile {
 							if( e instanceof FireEnemy) {
 								gs.entities.add(new FireEnemySerializable((FireEnemy)e));
 							}else {
-								gs.entities.add(new EnemySerializable((Enemy)e));
+
+								if( e instanceof Thing) {
+									gs.entities.add(new ThingSerializable((Thing)e));
+								}else {
+									gs.entities.add(new EnemySerializable((Enemy)e));
+								}
 							}
 						}else {
 							if( e instanceof NPC) {

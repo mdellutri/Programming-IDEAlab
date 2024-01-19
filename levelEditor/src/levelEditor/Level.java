@@ -19,8 +19,8 @@ import levelEditor.entity.Entity;
 public class Level {
 	public int sizeX;
 	public int sizeY;
-	public int cameraX=0;
-	public int cameraY=0;
+	public float cameraX=0;
+	public float cameraY=0;
 	public int mapTilesForeground[][];
 	public int mapTilesBackground[][];
 	public BufferedImage tilemap;
@@ -80,25 +80,25 @@ public class Level {
 		}
 	}
 	public int getTileForeground(int x,int y) {
-		if(x<0|x>15|y<0|y>15){	
+		if(x<0|x>=this.sizeX|y<0|y>=this.sizeY){	
 			return 0;
 		}
 		return mapTilesForeground[x][y];
 	}
 	public int getTileBackground(int x,int y) {
-		if(x<0|x>15|y<0|y>15){	
+		if(x<0|x>=this.sizeX|y<0|y>=this.sizeY){	
 			return 0;
 		}
 		return mapTilesBackground[x][y];
 	}
 	public void setTileForeground(int x,int y,int tile) {
-		if(x<0|x>15|y<0|y>15){	
+		if(x<0|x>=this.sizeX|y<0|y>=this.sizeY){	
 			return;
 		}
 		mapTilesForeground[x][y]=tile;
 	}
 	public void setTileBackground(int x,int y,int tile) {
-		if(x<0|x>15|y<0|y>15){	
+		if(x<0|x>=this.sizeX|y<0|y>=this.sizeY){	
 			return;
 		}
 		mapTilesBackground[x][y]=tile;

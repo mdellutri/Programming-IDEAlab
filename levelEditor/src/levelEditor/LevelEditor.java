@@ -32,7 +32,6 @@ import levelEditor.entity.Entity;
 import levelEditor.entity.FireEnemy;
 import levelEditor.entity.Thing;
 import saveFile.SaveFile;
-
 public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	public static int scale=2;
 	public static int tileSize=16*scale;
@@ -92,29 +91,24 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 					SaveFile.load(level, fc.getSelectedFile().getPath());
 				}
 			}
-			if(event.getActionCommand()=="Change Sky Color") {
-				level.skyColor = JColorChooser.showDialog(this, "Choose Color", new Color(98,204,249));
-				
-			}
 			if(event.getActionCommand()=="Add Entity") {
 				String userInput = JOptionPane.showInputDialog(null, "Entity type (New UI coming soon)", "Add Entity", JOptionPane.QUESTION_MESSAGE);
 			    if(userInput!=null) {
+			    	Entity entity = null;
 			    	if(userInput.contains("FireEnemy")) {
 			    		userInput = JOptionPane.showInputDialog(null, "Entity isBlue", "Add Entity", JOptionPane.QUESTION_MESSAGE);
-			    		FireEnemy entity = new FireEnemy(level, Boolean.parseBoolean(userInput));
-			    		userInput = JOptionPane.showInputDialog(null, "Entity posX", "Add Entity", JOptionPane.QUESTION_MESSAGE);
-			    		entity.posX=Integer.parseInt(userInput);
-			    		userInput = JOptionPane.showInputDialog(null, "Entity posY", "Add Entity", JOptionPane.QUESTION_MESSAGE);
-			    		entity.posY=Integer.parseInt(userInput);
-			    		level.addEntity(entity);
+			    		entity = new FireEnemy(level, Boolean.parseBoolean(userInput));
 			    	}
 			    	if(userInput.contains("Thing")) {
-			    		Thing entity = new Thing(level);
+			    		entity = new Thing(level);
+			    	}
+			    	if(entity!=null) {
 			    		userInput = JOptionPane.showInputDialog(null, "Entity posX", "Add Entity", JOptionPane.QUESTION_MESSAGE);
 			    		entity.posX=Integer.parseInt(userInput);
 			    		userInput = JOptionPane.showInputDialog(null, "Entity posY", "Add Entity", JOptionPane.QUESTION_MESSAGE);
 			    		entity.posY=Integer.parseInt(userInput);
 			    		level.addEntity(entity);
+			    		
 			    	}
 			    }
 			}
@@ -126,6 +120,17 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 				             JOptionPane.INFORMATION_MESSAGE, null,
 				             possibleValues, possibleValues[0]);
 				level.entities.remove(en);
+			}
+			if(event.getActionCommand()=="Change Sky Color") {
+				level.skyColor = JColorChooser.showDialog(this, "Choose Color", new Color(98,204,249));
+				
+			}
+			if(event.getActionCommand()=="New") {
+	    		String userInput = JOptionPane.showInputDialog(null, "Level sizeX", "New Level", JOptionPane.QUESTION_MESSAGE);
+	    		int levelSizeX=Integer.parseInt(userInput);
+	    		userInput = JOptionPane.showInputDialog(null, "Level sizeY", "New Level", JOptionPane.QUESTION_MESSAGE);
+	    		int levelSizeY=Integer.parseInt(userInput);
+				level = new Level(levelSizeX, levelSizeY);
 			}
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -153,21 +158,33 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 			mousePos= MouseInfo.getPointerInfo().getLocation();
 			if(eventHandler.mouse1Pressed && mousePos!=null) {
 				if(eventHandler.editBackground) {
-					level.setTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize-1,eventHandler.tileBrush);
+					level.setTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(int)(level.cameraY-1),eventHandler.tileBrush);
 				}else {
-					level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize-1,eventHandler.tileBrush);
+					level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(int)(level.cameraY-1),eventHandler.tileBrush);
 				}
 				
 			}
 			if(eventHandler.mouse2Pressed) {
 				if(eventHandler.editBackground) {
-					eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1);
+					eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize+(int)(level.cameraY-1));
 				}else {
-					if((eventHandler.tileBrush=level.getTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1))==0) {
-						eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize,(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize-1);
+					if((eventHandler.tileBrush=level.getTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize+(int)(level.cameraY-1)))==0) {
+						eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize+(int)(level.cameraY-1));
 					}
 				}
 				
+			}
+			if(eventHandler.downPressed) {
+				level.cameraY+=0.14;
+			}
+			if(eventHandler.upPressed) {
+				level.cameraY-=0.14;
+			}
+			if(eventHandler.leftPressed) {
+				level.cameraX-=0.14;
+			}
+			if(eventHandler.rightPressed) {
+				level.cameraX+=0.14;
 			}
 			repaint();
 			if(++frames%480==0){
@@ -189,7 +206,7 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	
 	public static void main(String[] args) {
 	    JMenu menu, menuEntity, menuWorld, submenu;
-	    JMenuItem menuItemSave, menuItemLoad, menuItemAddEntity, menuItemRemoveEntity, menuItemChangeSkyColor;
+	    JMenuItem menuItemSave, menuItemLoad, menuItemAddEntity, menuItemRemoveEntity, menuItemNewWorld, menuItemChangeSkyColor;
 		frame = new JFrame("Level Editor");
 		LevelEditor gamePanel=new LevelEditor();
 		gamePanel.setFocusable(true);
@@ -220,6 +237,10 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 		menuItemRemoveEntity=new JMenuItem("Remove Entity", KeyEvent.VK_R);
 		menuEntity.add(menuItemRemoveEntity);
         menuItemRemoveEntity.addActionListener(gamePanel);
+		
+        menuItemNewWorld=new JMenuItem("New", KeyEvent.VK_N);
+		menuWorld.add(menuItemNewWorld);
+		menuItemNewWorld.addActionListener(gamePanel);
 		
         menuItemChangeSkyColor=new JMenuItem("Change Sky Color", KeyEvent.VK_C);
 		menuWorld.add(menuItemChangeSkyColor);

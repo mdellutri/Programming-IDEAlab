@@ -10,7 +10,7 @@ import levelEditor.Level;
 import levelEditor.LevelEditor;
 
 public class Thing extends Enemy {
-	boolean isAttacking;
+	public boolean isAttacking;
 	public Thing(Level level) {
 		super(level);
 	}
