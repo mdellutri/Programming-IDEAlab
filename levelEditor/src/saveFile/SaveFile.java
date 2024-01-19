@@ -41,12 +41,12 @@ public class SaveFile {
 			gs.mapTilesForeground=level.mapTilesForeground;
 			gs.levelSizeX=level.sizeX;
 			gs.levelSizeY=level.sizeY;
-			gs.playerX=4;
-			gs.playerY=6;
 			gs.playerStartX=4;
 			gs.playerStartY=6; // these will be changeable in the future
+			gs.playerX=gs.playerStartX;
+			gs.playerY=gs.playerStartY;
 			gs.playerHealth=10.0f;
-			gs.playerMana=10.0f;
+			gs.playerMana=15.0f;
 			gs.playerArmor=0.0f;
 			gs.skyColor=level.skyColor;
 			output.writeObject(gs);
