@@ -68,7 +68,7 @@ public class PlayerProjectile extends Entity {
 		for(Entity e : this.level.entities) {
 			if( e instanceof LivingEntity) {
 				if(this.level.cc.checkEntities(this, e)) {
-					((LivingEntity) e).damage(0.5F + (0.5F*this.size));
+					((LivingEntity) e).damage(1.0F + (0.5F*this.size));
 					this.markedForRemoval=true;
 				}
 			}

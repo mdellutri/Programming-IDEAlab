@@ -21,7 +21,7 @@ public class Player extends LivingEntity {
 	public float xVelocity;
 	public float yVelocity;
 	public boolean onGround=false;
-	public float mana=10.0f;
+	public float mana=15.0f;
 	public float armor=0.0f;
 	public Weapon weapon;
 	BufferedImage swordSprite;
@@ -76,15 +76,18 @@ public class Player extends LivingEntity {
 			this.swordSwing=false;
 		}
 		if(eventHandler.mouse1Clicked) {
-			Point mousePos= MouseInfo.getPointerInfo().getLocation();
-			float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)+0.5*TowerGame.tileSize));
-			PlayerProjectile p = new PlayerProjectile(this.level, this);
-			p.xVelocity=(float) Math.sin(angle)/5;
-			p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
-			this.level.addEntity(p);
+			if(this.mana>0) {
+				Point mousePos= MouseInfo.getPointerInfo().getLocation();
+				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)+0.5*TowerGame.tileSize));
+				PlayerProjectile p = new PlayerProjectile(this.level, this);
+				p.xVelocity=(float) Math.sin(angle)/5;
+				p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
+				this.level.addEntity(p);
+				this.mana -= 0.1;
+			}
 		}
 		if(eventHandler.mouse2Clicked) {
-			if(this.mana>0) {
+			if(this.mana>0.96) {
 				Point mousePos= MouseInfo.getPointerInfo().getLocation();
 				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)+0.5*TowerGame.tileSize));
 				PlayerProjectile p = new PlayerProjectile(this.level, this);

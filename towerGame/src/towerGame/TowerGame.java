@@ -34,6 +34,7 @@ public class TowerGame extends JPanel implements Runnable {
 	public FireEnemy test = new FireEnemy(level);
 	int fpsCap = 60;
 	protected boolean debug=false;
+	HealthBarManager hBarManager = new HealthBarManager();
 	double currentTime, currentTime2, remainingTime, finishedTime;
 	
 	public TowerGame() {
@@ -58,6 +59,7 @@ public class TowerGame extends JPanel implements Runnable {
 		g2.fillRect(0, 0, 320*scale, 240*scale);
 		try {
 			level.render(g2);
+			hBarManager.render(g2, level.player.health, level.player.mana, level);
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
@@ -69,14 +71,12 @@ public class TowerGame extends JPanel implements Runnable {
 			level.entity_lock.unlock();
 			level.cc.renderDebug(level,level.player,g2);
 			g2.setColor(new Color(128,0,0,192));
-			g2.drawString("TowerGame version 0.1",10,20);
-			g2.drawString("H "+String.valueOf(level.sizeY-level.player.posY),10,30);
-			g2.drawString("F "+String.valueOf((((finishedTime-currentTime2)/1000000000))),10,40);
-			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime2))/1000000000)),10,50);
-			g2.drawString("E "+String.valueOf(level.entities.size()),10,60);
-			g2.drawString("H "+String.valueOf(level.player.health),10,70);
-			g2.drawString("M "+String.valueOf(level.player.mana),10,80);
-			g2.drawString("M "+String.valueOf((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1000000)+ "M",10,90);
+			g2.drawString("TowerGame version 0.1",10,30);
+			g2.drawString("H "+String.valueOf(level.sizeY-level.player.posY),10,40);
+			g2.drawString("F "+String.valueOf((((finishedTime-currentTime2)/1000000000))),10,50);
+			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime2))/1000000000)),10,60);
+			g2.drawString("E "+String.valueOf(level.entities.size()),10,70);
+			g2.drawString("M "+String.valueOf((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1000000)+ "M",10,80);
 		}
 		
 		g2.dispose();
