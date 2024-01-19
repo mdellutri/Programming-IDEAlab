@@ -107,11 +107,9 @@ public class TowerGame extends JPanel implements Runnable {
 			update();
 			repaint();
 			if(eventHandler.mouse1Clicked) {
-				eventHandler.mouse1Pressed=false;
 				eventHandler.mouse1Clicked=false;
 			}
 			if(eventHandler.mouse2Clicked) {
-				eventHandler.mouse2Pressed=false;
 				eventHandler.mouse2Clicked=false;
 			}
 			currentTime2=currentTime;

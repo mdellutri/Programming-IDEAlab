@@ -1,7 +1,6 @@
 package saveFile.entity;
 
 import towerGame.map.Level;
-import towerGame.npc.LivingEntity;
 import towerGame.npc.NPC;
 
 public class NPCSerializable  extends LivingEntitySerializable{

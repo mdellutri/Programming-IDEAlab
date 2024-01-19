@@ -93,15 +93,6 @@ public class EventHandler implements MouseListener,KeyListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		if(SwingUtilities.isLeftMouseButton(arg0)) {
-			this.mouse1Pressed=true;
-			this.mouse1Clicked=true;
-		}
-		if(SwingUtilities.isRightMouseButton(arg0)) {
-			this.mouse2Pressed=true;
-			this.mouse2Clicked=true;
-		}
-		
 	}
 
 	@Override
@@ -118,11 +109,11 @@ public class EventHandler implements MouseListener,KeyListener{
 	public void mousePressed(MouseEvent arg0) {
 		if(SwingUtilities.isLeftMouseButton(arg0)) {
 			this.mouse1Pressed=true;
-			this.mouse1Clicked=false;
+			this.mouse1Clicked=true;
 		}
 		if(SwingUtilities.isRightMouseButton(arg0)) {
 			this.mouse2Pressed=true;
-			this.mouse2Clicked=false;
+			this.mouse2Clicked=true;
 		}
 	}
 	@Override

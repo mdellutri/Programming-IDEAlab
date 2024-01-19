@@ -70,7 +70,7 @@ public class Player extends LivingEntity {
 				}
 			}
 		}
-		if(eventHandler.mouse1Pressed) {
+		if(eventHandler.mouse1Pressed || eventHandler.mouse2Pressed) {
 			this.swordSwing=true;
 		}else {
 			this.swordSwing=false;

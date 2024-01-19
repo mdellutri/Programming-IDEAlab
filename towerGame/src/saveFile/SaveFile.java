@@ -21,7 +21,11 @@ public class SaveFile {
 							if( e instanceof FireEnemy) {
 								gs.entities.add(new FireEnemySerializable((FireEnemy)e));
 							}else {
-								gs.entities.add(new EnemySerializable((Enemy)e));
+								if( e instanceof Thing) {
+									gs.entities.add(new ThingSerializable((Thing)e));
+								}else {
+									gs.entities.add(new EnemySerializable((Enemy)e));
+								}
 							}
 						}else {
 							if( e instanceof NPC) {
@@ -66,7 +70,11 @@ public class SaveFile {
 						if( se instanceof FireEnemySerializable) {
 							level.addEntity(FireEnemySerializable.deserialize((FireEnemySerializable)se, level));
 						}else {
-							level.addEntity(EnemySerializable.deserialize((EnemySerializable)se, level));
+							if(se instanceof ThingSerializable) {
+								level.addEntity(ThingSerializable.deserialize((ThingSerializable)se, level));
+							} else {
+								level.addEntity(EnemySerializable.deserialize((EnemySerializable)se, level));
+							}
 						}
 					}else {
 						if( se instanceof NPCSerializable) {

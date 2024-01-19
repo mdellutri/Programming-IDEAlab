@@ -36,6 +36,7 @@ public class Tile {
 		return this.textureId;
 	}
 	public void update(Level level, int posX, int posY, boolean foreground) {};
+	
 	public void render(Level level, Graphics2D g2, int posX, int posY, boolean foreground) {
 		if(this.id==0) {return;}
 		
@@ -47,9 +48,12 @@ public class Tile {
 			g2.drawImage(level.tilemap, posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize), posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize), posX*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize), posY*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize),frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
 		}
 
-	};
+	}
 	public static boolean isCracked(int id) {
-		return id==crackedStone.id || id==crackedBricks.id || id==boulder.id;
+		return id == crackedStone.id || id == crackedBricks.id || id == boulder.id;
+	}
+	public static boolean doesDamage(int id) {
+		return id == lavaTop.id || id == lavaBottom.id || id == spike.id;
 	}
 	public static Tile air=new Tile(0,-1,false);
 	public static Tile stone=new Tile(1,1,true);
@@ -62,15 +66,19 @@ public class Tile {
 	public static Tile dirt=new Tile(8,12,true);
 	public static Tile log=new Tile(9,13,true);
 	public static Tile boulder=new BoulderTile(10,11,CollisionChecker.getHitbox(1, 1, 15, 15));
-	public static Tile tallGrass=new GrassTile(11,19);
+	public static Tile tallGrass=new AnimatedTile(11,19,false,3);
 	public static Tile stoneWindowTop=new Tile(12,8,true);
 	public static Tile stoneWindowBottom=new Tile(13,9,true);
 	public static Tile flower1=new FlowerTile((byte)14,(byte)0);
 	public static Tile flower2=new FlowerTile((byte)15,(byte)1);
 	public static Tile flower3=new FlowerTile((byte)16,(byte)2);
-	public static Tile weirdBlackOrbOfSomeKindWhichDoesNotDoAnythingAtTheMomentIJustAddedItToTestCustomHitboxesForTiles=new Tile(17,14,true,CollisionChecker.getHitbox(4, 4, 12, 12));
+	public static Tile blackOrb=new Tile(17,14,true,CollisionChecker.getHitbox(4, 4, 12, 12));
 	public static Tile stoneVines=new Tile(18,15,true);
 	public static Tile lavaTop=new LavaTile(19,22,true);
 	public static Tile lavaBottom=new LavaTile(20,31,false);
+	public static Tile cloud=new AnimatedTile(21,39,false,3);
+	public static Tile spike=new Tile(22,53,true,CollisionChecker.getHitbox(0, 14, 16, 16));
+	public static Tile darkBricks=new Tile(23,55,true);
+	public static Tile darkBricksVine=new Tile(24,56,true);
 	
 }
