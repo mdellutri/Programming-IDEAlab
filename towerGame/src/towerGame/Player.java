@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 import towerGame.map.Level;
+import towerGame.map.Tile;
 import towerGame.npc.FireEnemy;
 import towerGame.npc.FireProjectile;
 import towerGame.npc.LivingEntity;
@@ -46,6 +47,9 @@ public class Player extends LivingEntity {
 		if(eventHandler.upPressed&&this.onGround) {this.yVelocity=-0.158F;};
 		if(eventHandler.leftPressed) {
 			this.facing=Direction.LEFT;
+			if(this.level.cc.checkSpecificTiles(this.level, this, Direction.LEFT, 0.052F,Tile.damage_tiles)) {
+				this.health=0;
+			}
 			if(!this.level.cc.checkTile(this.level, this, Direction.LEFT, 0.052F)) {
 				this.posX-=0.052;
 			}else {
@@ -59,6 +63,9 @@ public class Player extends LivingEntity {
 		}
 		if(eventHandler.rightPressed) {
 			this.facing=Direction.RIGHT;
+			if(this.level.cc.checkSpecificTiles(this.level, this, Direction.RIGHT, 0.052F, Tile.damage_tiles)) {
+				this.health=0;
+			}
 			if(!this.level.cc.checkTile(this.level, this, Direction.RIGHT, 0.052F)) {
 				this.posX+=0.052;
 			}else {
@@ -101,6 +108,10 @@ public class Player extends LivingEntity {
 		}
 		this.posX+=xVelocity;
 		this.yVelocity+=0.007F;//gravity
+
+		if(this.level.cc.checkSpecificTiles(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity, Tile.damage_tiles)) {
+			this.health=0;
+		}
 		if(!this.level.cc.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity)) {
 			this.posY+=yVelocity;
 			this.onGround=false;

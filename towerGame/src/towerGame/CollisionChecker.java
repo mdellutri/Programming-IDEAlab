@@ -2,6 +2,7 @@ package towerGame;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.List;
 
 import towerGame.TowerGame;
 import towerGame.map.Level;
@@ -149,6 +150,164 @@ public class CollisionChecker {
 							return true;
 						}
 						if(Tile.tiles[tileNum2].isSolid
+								&&(int)entityRightX
+								+((float)Tile.tiles[tileNum2].hitbox.x/16)
+								<entityRightX
+								&&((int)entityTopY
+								+((float)Tile.tiles[tileNum2].hitbox.y)/16
+								+((float)Tile.tiles[tileNum2].hitbox.height)/16
+								>entityTopY)) {
+							return true;
+						}
+						return false;
+					}else {
+						return true;
+					}
+				}
+				break;
+			}
+		return false;
+	}
+	public boolean checkSpecificTiles(Level level, Entity entity, Direction direction, float movement, List tiles) {
+		float entityLeftX=entity.posX
+				+((float)entity.hitbox.x/16);
+		float entityRightX=entity.posX+((float)entity.hitbox.x/16)+((float)entity.hitbox.width/16);
+		float entityTopY=entity.posY+((float)entity.hitbox.y/16);
+		float entityBottomY=entity.posY+((float)entity.hitbox.y/16)+((float)entity.hitbox.height/16);
+		int tileNum1,tileNum2;
+		/*float entityLeftCol=entityLeftX/(TowerGame.tileSize);
+		float entityRightCol=entityLeftX/(TowerGame.tileSize);
+		float entityTopRow=entityLeftX/(TowerGame.tileSize);
+		float entityBottomRow=entityLeftX/(TowerGame.tileSize);*/
+		switch(direction) {
+			case UP:
+				entityTopY=entity.posY+((float)entity.hitbox.y/16)-movement;
+				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
+					return false;
+				}
+				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityTopY);
+				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
+				if(tiles.contains(Tile.tiles[tileNum1])||tiles.contains(Tile.tiles[tileNum2])) {
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(tiles.contains(Tile.tiles[tileNum1])
+								&&(int)entityTopY
+								+((float)Tile.tiles[tileNum1].hitbox.y/16)
+								+((float)Tile.tiles[tileNum1].hitbox.height/16)
+								>entityTopY
+								&&((int)entityLeftX
+								+((float)Tile.tiles[tileNum1].hitbox.x)/16
+								+((float)Tile.tiles[tileNum1].hitbox.width)/16
+								>entityLeftX)) {
+							return true;
+						}
+						if(tiles.contains(Tile.tiles[tileNum2])
+								&&(int)entityTopY
+								+((float)Tile.tiles[tileNum2].hitbox.y/16)
+								+((float)Tile.tiles[tileNum2].hitbox.height/16)
+								>entityTopY
+								&&((int)entityRightX
+								+((float)Tile.tiles[tileNum2].hitbox.x)/16
+								<entityRightX)) {
+							return true;
+						}
+						return false;
+					}else {
+						return true;
+					}
+				}
+				break;
+			case DOWN:
+				entityBottomY=entity.posY+((float)entity.hitbox.y/16)+((float)entity.hitbox.height/16)+movement;
+				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
+					return false;
+				}
+				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
+				tileNum2=level.getTileForeground((int)entityRightX,(int)entityBottomY);
+				if(tiles.contains(Tile.tiles[tileNum1])||tiles.contains(Tile.tiles[tileNum2])) {
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(tiles.contains(Tile.tiles[tileNum1])
+								&&(int)entityBottomY
+								+((float)Tile.tiles[tileNum1].hitbox.y/16)
+								<entityBottomY
+								&&((int)entityLeftX
+								+((float)Tile.tiles[tileNum1].hitbox.x)/16
+								+((float)Tile.tiles[tileNum1].hitbox.width)/16
+								>entityLeftX)) {
+							return true;
+						}
+						if(tiles.contains(Tile.tiles[tileNum2])
+								&&(int)entityBottomY
+								+((float)Tile.tiles[tileNum2].hitbox.y/16)
+								<entityBottomY
+								&&((int)entityRightX
+								+((float)Tile.tiles[tileNum2].hitbox.x)/16
+								<entityRightX)) {
+							return true;
+						}
+						return false;
+					}else {
+						return true;
+					}
+				}
+				break;
+			case LEFT:
+				entityLeftX=entity.posX+((float)entity.hitbox.x/16)-movement;
+				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
+					return false;
+				}
+				tileNum1=level.getTileForeground((int)entityLeftX,(int)entityBottomY);
+				tileNum2=level.getTileForeground((int)entityLeftX,(int)entityTopY);
+				if(tiles.contains(Tile.tiles[tileNum1])||tiles.contains(Tile.tiles[tileNum2])) {
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(tiles.contains(Tile.tiles[tileNum1])
+								&&(int)entityLeftX
+								+((float)Tile.tiles[tileNum1].hitbox.x/16)
+								+((float)Tile.tiles[tileNum1].hitbox.width/16)
+								>entityLeftX
+								&&((int)entityBottomY
+								+((float)Tile.tiles[tileNum1].hitbox.y)/16
+								//+((float)Tile.tiles[tileNum1].hitbox.height)/16
+								<entityBottomY)) {
+							return true;
+						}
+						if(tiles.contains(Tile.tiles[tileNum2])
+								&&(int)entityLeftX
+								+((float)Tile.tiles[tileNum2].hitbox.x/16)
+								+((float)Tile.tiles[tileNum2].hitbox.width/16)
+								>entityLeftX
+								&&((int)entityTopY
+								+((float)Tile.tiles[tileNum2].hitbox.y)/16
+								+((float)Tile.tiles[tileNum2].hitbox.height)/16
+								>entityTopY)) {
+							return true;
+						}
+						return false;
+					}else {
+						return true;
+					}
+				}
+				break;
+			case RIGHT:
+				entityRightX=entity.posX+((float)entity.hitbox.x/16)+((float)entity.hitbox.width/16)+movement;
+				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
+					return false;
+				}
+				
+				tileNum1=level.getTileForeground((int)entityRightX,(int)entityBottomY);
+				tileNum2=level.getTileForeground((int)entityRightX,(int)entityTopY);
+				if(tiles.contains(Tile.tiles[tileNum1])||tiles.contains(Tile.tiles[tileNum2])) {
+					if(Tile.tiles[tileNum1].hasCustomHitbox||Tile.tiles[tileNum2].hasCustomHitbox) {
+						if(tiles.contains(Tile.tiles[tileNum1])
+								&&(int)entityRightX
+								+((float)Tile.tiles[tileNum1].hitbox.x/16)
+								<entityRightX
+								&&((int)entityBottomY
+								+((float)Tile.tiles[tileNum1].hitbox.y)/16
+								//+((float)Tile.tiles[tileNum1].hitbox.height)/16
+								<entityBottomY)) {
+							return true;
+						}
+						if(tiles.contains(Tile.tiles[tileNum2])
 								&&(int)entityRightX
 								+((float)Tile.tiles[tileNum2].hitbox.x/16)
 								<entityRightX

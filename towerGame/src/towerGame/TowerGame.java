@@ -31,8 +31,8 @@ public class TowerGame extends JPanel implements Runnable {
 	public static JFrame frame;
 	EventHandler eventHandler = new EventHandler(frame);
 	public Level level= new Level(16,16);
-	public FireEnemy test = new FireEnemy(level);
-	int fpsCap = 60;
+	public static int frames = 0;
+	public static int fpsCap = 60;
 	protected boolean debug=false;
 	HealthBarManager hBarManager = new HealthBarManager();
 	double currentTime, currentTime2, remainingTime, finishedTime;
@@ -59,9 +59,17 @@ public class TowerGame extends JPanel implements Runnable {
 		g2.fillRect(0, 0, 320*scale, 240*scale);
 		try {
 			level.render(g2);
-			hBarManager.render(g2, level.player.health, level.player.mana, level);
+			if(level.player!=null) {
+				level.entity_lock.lock();
+				try {
+					hBarManager.render(g2, level.player.health, level.player.mana, level);
+				} finally {
+					level.entity_lock.unlock();
+				}
+			}
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    		e.printStackTrace();
 		}
 		if(eventHandler.debugPressed) {
 			level.entity_lock.lock();
@@ -77,7 +85,11 @@ public class TowerGame extends JPanel implements Runnable {
 			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime2))/1000000000)),10,60);
 			g2.drawString("E "+String.valueOf(level.entities.size()),10,70);
 			g2.drawString("M "+String.valueOf((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1000000)+ "M",10,80);
-			g2.drawString("M "+String.valueOf(level.player.mana),10,90);
+			g2.drawString("F "+String.valueOf(frames),10,90);
+		}
+		if(eventHandler.paused) {
+			g2.setColor(new Color(0,0,0,127));
+			g2.fillRect(0,0,320*TowerGame.scale,240*TowerGame.scale);
 		}
 		
 		g2.dispose();
@@ -90,7 +102,7 @@ public class TowerGame extends JPanel implements Runnable {
 	@Override
 	public void run() {
 		double drawInterval=1000000000/fpsCap;
-		int frames=0;
+		FireEnemy test = new FireEnemy(level);
     	test.baseY=6;
     	test.posX=6;
     	level.addEntity(test);
@@ -105,8 +117,19 @@ public class TowerGame extends JPanel implements Runnable {
 		while (gameThread!=null) {
 			currentTime=System.nanoTime();
 			double nextDrawTime=System.nanoTime()+drawInterval;
-			update();
+			if(!eventHandler.paused) {
+				update();
+				frames++;
+			}
+			if(level.player.health<=0.0F) {
+		    	SaveFile.load(level, "level1.dat");
+		    	hBarManager.refreshBar();
+		    	hBarManager.render(null, level.player.health, level.player.mana, level);
+			}
 			repaint();
+			if((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) > 100000000) {
+				System.gc();
+			}
 			if(eventHandler.mouse1Clicked) {
 				eventHandler.mouse1Clicked=false;
 			}

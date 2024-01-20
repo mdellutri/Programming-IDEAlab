@@ -1,6 +1,6 @@
 package towerGame.map;
 
-public class LavaTile extends Tile {
+public class LavaTile extends DamageTile {
 	boolean top;
 	public LavaTile(int id, int textureId, boolean top) {
 		super(id, textureId, false);

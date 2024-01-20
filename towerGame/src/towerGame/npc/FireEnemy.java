@@ -33,7 +33,7 @@ public class FireEnemy extends Enemy {
 	}
 	public void update() {
 		super.update();
-		this.posY=baseY+(float) Math.sin(System.nanoTime()/500000000.0D);
+		this.posY=baseY+(float) Math.sin(((double)TowerGame.frames)/30.0D);
 		if(this.level.player!=null) {
 			if(this.level.cc.checkEntities(this,level.player)) {
 				this.level.player.damage(this.attackDamage);

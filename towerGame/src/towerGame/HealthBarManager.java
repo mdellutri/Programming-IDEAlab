@@ -189,46 +189,37 @@ import towerGame.npc.LivingEntity;
 
 import java.util.ArrayList;
 
-
-
-
 public class HealthBarManager {
     private float prevHealth = -1;
     private float prevMana = -1;
 
     public class MainHealthBarManager {
-    public float health = 5;
-    public float mana = 6f;
-    public float maxHealth = 10;
-    public int hBarWidth = 100;
-    public int mBarWidth = 100;
-    public int hBarHeight = 10;
-    public int mBarHeight = 10;
-    public float minimumHealthForChangedAppearanceOfHealthBar = 3;
-    BufferedImage img = new BufferedImage(hBarWidth,hBarHeight+mBarHeight, BufferedImage.TYPE_4BYTE_ABGR);
-    Graphics2D grphx = (Graphics2D)img.getGraphics();
-
-
+	    public float health = 5;
+	    public float mana = 6f;
+	    public float maxHealth = 10;
+	    public int hBarWidth = 100;
+	    public int mBarWidth = 100;
+	    public int hBarHeight = 10;
+	    public int mBarHeight = 10;
+	    public float minimumHealthForChangedAppearanceOfHealthBar = 3;
+	    BufferedImage img = new BufferedImage(hBarWidth,hBarHeight+mBarHeight, BufferedImage.TYPE_4BYTE_ABGR);
+	    Graphics2D grphx = (Graphics2D)img.getGraphics();
     }
 
     public class CharacterHealthBarManager {
-    public float health = 3.1f;
-    public float mana = 10;
-    public float maxHealth = 10;
-    public int hBarWidth = 100;
-    public int hBarHeight = 3;
-    public int Width = 640;
-    public int Height = 480;
-    public final int framerulesperframe = 2;
-    private int count = 0;
-    public boolean isDrawing = false;
-    public boolean reducedFlickering = true;
-    public float minimumHealthForChangedAppearanceOfHealthBar = 2;
-    public renderThread t[];
-    BufferedImage img = new BufferedImage(Width, Height, BufferedImage.TYPE_4BYTE_ABGR);
-    Graphics2D grphx = (Graphics2D)img.getGraphics();
-
-
+	    public float health = 3.1f;
+	    public float mana = 15;
+	    public float maxHealth = 10;
+	    public int hBarWidth = 100;
+	    public int hBarHeight = 3;
+	    public int Width = 320*TowerGame.scale;
+	    public int Height = 240*TowerGame.scale;
+	    public final int framerulesperframe = 2;
+	    private int count = 0;
+	    public boolean isDrawing = false;
+	    public float minimumHealthForChangedAppearanceOfHealthBar = 2;
+	    //BufferedImage img = new BufferedImage(Width, Height, BufferedImage.TYPE_4BYTE_ABGR);
+	    Graphics2D grphx;// = (Graphics2D)img.getGraphics();
     }
     public MainHealthBarManager mhb;
     public CharacterHealthBarManager chb;
@@ -238,12 +229,16 @@ public class HealthBarManager {
         render(null, 5f, 6f, null);
         prevHealth = 10;
     }
+    public void refreshBar() {
+    	prevHealth=-1;
+    	prevMana=-1;
+    }
 
     public void render(Graphics2D c, float h, float m, Level lvl){
         if(prevHealth != h || prevMana != m){
 	        mhb.img = new BufferedImage(mhb.hBarWidth,mhb.hBarHeight+mhb.mBarHeight, BufferedImage.TYPE_4BYTE_ABGR);
 	        mhb.grphx = (Graphics2D)mhb.img.getGraphics();
-	        if(mhb.health > mhb.minimumHealthForChangedAppearanceOfHealthBar){
+	        if(h > mhb.minimumHealthForChangedAppearanceOfHealthBar){
 		        mhb.grphx.setPaint(Color.GREEN);
 		        mhb.grphx.setStroke(new BasicStroke(1.0f));
 		        mhb.grphx.fillRect(0, 0, (int)(h*10), mhb.hBarHeight);
@@ -285,14 +280,16 @@ public class HealthBarManager {
         }
         if(lvl != null && chb.count == chb.framerulesperframe){
 	        //mhb.grphx.translate((int)(lvl.cameraX*TowerGame.tileSize), (int)(lvl.cameraY*TowerGame.tileSize));
-	        renderSprites(c, h, m, lvl);
+        	//renderSprites(c, h, m, lvl);
 	        //mhb.grphx.translate(-(int)(lvl.cameraX*TowerGame.tileSize), -(int)(lvl.cameraY*TowerGame.tileSize));
 	        chb.count = 0;
         } 
         if(c != null){
-	        c.drawImage(chb.img, 0, 0, null);
+	        //c.drawImage(chb.img, 0, 0, null);
 	        c.drawImage(mhb.img, 0, 0, null);
+	        renderSprites(c, h, m, lvl);
         }
+        
         prevHealth = h;
         prevMana = m;
         chb.count++;
@@ -300,26 +297,25 @@ public class HealthBarManager {
     }
 
     public void renderSprites(Graphics2D c, float h, float m, Level lvl){
-        chb.img = new BufferedImage(chb.Width, chb.Height, BufferedImage.TYPE_4BYTE_ABGR);
-        chb.t = new renderThread[lvl.entities.size()];
+    	// Clear the screen instead of declaring a new one. This saves a lot of memory.
+        //chb.img = new BufferedImage(chb.Width, chb.Height, BufferedImage.TYPE_4BYTE_ABGR);
+    	// or just render it on the already existing screen
+        chb.grphx = c;//(Graphics2D)chb.img.getGraphics();
+        //chb.grphx.setBackground(new Color(255, 255, 255, 0));
+        //chb.grphx.clearRect(0,0, (int)chb.img.getWidth(), (int)chb.img.getHeight());
         int j=0;
         for(Entity i : lvl.entities){
 	        if(/*!i.hbishidden && */i instanceof LivingEntity){
-		        if(chb.reducedFlickering){
-			        chb.grphx = (Graphics2D)chb.img.getGraphics();
-			        
-			        chb.grphx.setColor(Color.GREEN);
-			        chb.grphx.setPaint(((LivingEntity)i).health < 3 ? Color.RED : Color.GREEN);  
-			        int[] positions = i.getPositionOnScreen();
-			        try{
-			        	chb.grphx.fillRect((positions[0])-(((int)((((LivingEntity)i).health/((LivingEntity)i).maxHealth)*(20*TowerGame.scale))-(TowerGame.tileSize))/2), Math.abs(positions[1] - 20)==(positions[1] - 20) ? (positions[1] - 20) : (positions[1] + 20), (int)((((LivingEntity)i).health/((LivingEntity)i).maxHealth)*(20*TowerGame.scale)), chb.hBarHeight*TowerGame.scale);
-			        } catch(Exception e){
-			            e.printStackTrace();
-			        }
-		        }else{
-			        chb.t[j] = new renderThread(c, h, m, lvl, (LivingEntity)i);
-			        chb.t[j].start();
-		        }
+		        
+			    chb.grphx.setColor(Color.GREEN);
+			    chb.grphx.setPaint(((LivingEntity)i).health < 3 ? Color.RED : Color.GREEN);  
+			    int[] positions = i.getPositionOnScreen();
+			    try{
+			    	chb.grphx.fillRect((positions[0])-(((int)((((LivingEntity)i).health/((LivingEntity)i).maxHealth)*(20*TowerGame.scale))-(TowerGame.tileSize))/2), Math.abs(positions[1] - 20)==(positions[1] - 20) ? (positions[1] - 20) : (positions[1] + 20), (int)((((LivingEntity)i).health/((LivingEntity)i).maxHealth)*(20*TowerGame.scale)), chb.hBarHeight*TowerGame.scale);
+			    } catch(Exception e){
+			        e.printStackTrace();
+			    }
+		        
 	        }
 	        j++;
         }
@@ -327,37 +323,5 @@ public class HealthBarManager {
         mhb.health = i.health;
         
         
-    }
-    private class renderThread extends Thread {
-        Graphics2D c;
-        float h;
-        float m;
-        Level lvl;
-        int type;
-        LivingEntity enmy;
-        public renderThread(Graphics2D ci, float hi, float mi, Level lvli, LivingEntity en){
-            this.c = ci;
-            this.h = hi;
-            this.m = mi;
-            this.lvl = lvli;
-            this.enmy = en;
-        }
-        public void run(){
-            try {
-                //Renders characters
-		        if(!chb.isDrawing){
-			        chb.isDrawing = true;
-			        chb.grphx = (Graphics2D)chb.img.getGraphics();
-			        chb.grphx.setColor(Color.GREEN);
-			        chb.grphx.setPaint(enmy.health < 3 ? Color.RED : Color.GREEN);        
-			        int[] positions = enmy.getPositionOnScreen();
-			        chb.grphx.fillRect(((int)positions[0])-(((int)((enmy.health/enmy.maxHealth)*40)-(TowerGame.tileSize))/2), Math.abs((int)positions[1] - 20)==(positions[1] - 20) ? (positions[1] - 20) : (positions[1] + 20), (int)((enmy.health/enmy.maxHealth)*40), chb.hBarHeight*TowerGame.scale);
-			        chb.isDrawing = false;   
-		    	}
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 }

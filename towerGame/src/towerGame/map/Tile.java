@@ -3,6 +3,9 @@ package towerGame.map;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import towerGame.CollisionChecker;
 import towerGame.TowerGame;
@@ -14,6 +17,7 @@ public class Tile {
 	public final boolean hasCustomHitbox;
 	public final Rectangle hitbox;
 	public static final Tile[] tiles=new Tile[256];
+	public static final List<Tile> damage_tiles=new ArrayList<Tile>();
 	public Tile(int id,int textureId, boolean isSolid) {
 		tiles[id]=this;
 		this.id=id;	
@@ -52,9 +56,6 @@ public class Tile {
 	public static boolean isCracked(int id) {
 		return id == crackedStone.id || id == crackedBricks.id || id == boulder.id;
 	}
-	public static boolean doesDamage(int id) {
-		return id == lavaTop.id || id == lavaBottom.id || id == spike.id;
-	}
 	public static Tile air=new Tile(0,-1,false);
 	public static Tile stone=new Tile(1,1,true);
 	public static Tile crackedStone=new Tile(2,2,true);
@@ -77,7 +78,7 @@ public class Tile {
 	public static Tile lavaTop=new LavaTile(19,22,true);
 	public static Tile lavaBottom=new LavaTile(20,31,false);
 	public static Tile cloud=new AnimatedTile(21,39,false,3);
-	public static Tile spike=new Tile(22,53,true,CollisionChecker.getHitbox(0, 14, 16, 16));
+	public static Tile spike=new DamageTile(22,53,true,CollisionChecker.getHitbox(0, 14, 16, 16));
 	public static Tile darkBricks=new Tile(23,55,true);
 	public static Tile darkBricksVine=new Tile(24,56,true);
 	

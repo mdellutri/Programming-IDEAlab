@@ -16,6 +16,7 @@ public class EventHandler implements MouseListener,KeyListener{
 	public boolean mouse2Pressed=false;
 	public boolean mouse1Clicked=false;
 	public boolean mouse2Clicked=false;
+	public boolean paused=false;
 	public JFrame frame;
 	public EventHandler(JFrame frame) {
 		super();
@@ -57,6 +58,9 @@ public class EventHandler implements MouseListener,KeyListener{
 		}
 		if(code==KeyEvent.VK_F3) {
 			this.debugPressed=!debugPressed;
+		}
+		if(code==KeyEvent.VK_ESCAPE) {
+			this.paused=!paused;
 		}
 		
 	}
