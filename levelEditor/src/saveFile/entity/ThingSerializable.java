@@ -1,7 +1,5 @@
 package saveFile.entity;
 
-import java.io.Serializable;
-
 import levelEditor.Level;
 import levelEditor.entity.Thing;
 

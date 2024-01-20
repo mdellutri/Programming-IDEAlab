@@ -1,7 +1,6 @@
 package saveFile.entity;
 
 import levelEditor.Level;
-import levelEditor.entity.Enemy;
 import levelEditor.entity.FireEnemy;
 
 public class FireEnemySerializable extends EnemySerializable {

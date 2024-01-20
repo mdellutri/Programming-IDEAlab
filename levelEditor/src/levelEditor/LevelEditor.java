@@ -34,7 +34,7 @@ import levelEditor.entity.ManaOrb;
 import levelEditor.entity.Thing;
 import saveFile.SaveFile;
 public class LevelEditor extends JPanel implements Runnable, ActionListener {
-	public static int scale=2;
+	public static int scale=4;
 	public static int tileSize=16*scale;
 	Thread gameThread;
 	public static JFrame frame;
@@ -167,18 +167,18 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 			mousePos= MouseInfo.getPointerInfo().getLocation();
 			if(eventHandler.mouse1Pressed && mousePos!=null) {
 				if(eventHandler.editBackground) {
-					level.setTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(int)(level.cameraY-1),eventHandler.tileBrush);
+					level.setTileBackground((int)((mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+level.cameraX+0.5),(int)((mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(level.cameraY-0.5)),eventHandler.tileBrush);
 				}else {
-					level.setTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(int)(level.cameraY-1),eventHandler.tileBrush);
+					level.setTileForeground((int)((mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+level.cameraX+0.5),(int)((mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(level.cameraY-0.5)),eventHandler.tileBrush);
 				}
 				
 			}
 			if(eventHandler.mouse2Pressed) {
 				if(eventHandler.editBackground) {
-					eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize+(int)(level.cameraY-1));
+					eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)((mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(level.cameraY-0.5)));
 				}else {
-					if((eventHandler.tileBrush=level.getTileForeground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize+(int)(level.cameraY-1)))==0) {
-						eventHandler.tileBrush=level.getTileBackground((int)(mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+(int)(level.cameraX),(int)(mousePos.y-LevelEditor.frame.getLocation().y)/LevelEditor.tileSize+(int)(level.cameraY-1));
+					if((eventHandler.tileBrush=level.getTileForeground((int)((mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+level.cameraX+0.5),(int)((mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(level.cameraY-0.5))))==0) {
+						eventHandler.tileBrush=level.getTileBackground((int)((mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+level.cameraX+0.5),(int)((mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(level.cameraY-0.5)));
 					}
 				}
 				

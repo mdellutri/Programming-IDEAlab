@@ -1,11 +1,9 @@
 package saveFile.entity;
-import java.io.Serializable;
 
 import levelEditor.Level;
-import levelEditor.entity.Entity;
 import levelEditor.entity.ManaOrb;
 
-public class ManaOrbSerializable extends EntitySerializable implements Serializable {
+public class ManaOrbSerializable extends EntitySerializable {
 	private static final long serialVersionUID = -7350000987201728233L;
 	public ManaOrbSerializable(ManaOrb e) {
 		super(e);

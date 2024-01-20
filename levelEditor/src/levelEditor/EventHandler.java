@@ -11,7 +11,7 @@ public class EventHandler implements MouseListener,KeyListener{
 	public boolean downPressed=false;
 	public boolean leftPressed=false;
 	public boolean rightPressed=false;
-	public boolean debugPressed=false;
+	public boolean mouseCoordsTool=false;
 	public boolean mouse1Pressed=false;
 	public boolean mouse2Pressed=false;
 	public boolean editBackground=false;
@@ -94,8 +94,8 @@ public class EventHandler implements MouseListener,KeyListener{
 		if(code==KeyEvent.VK_F) {
 			this.editBackground=!this.editBackground;
 		}
-		if(code==KeyEvent.VK_F3) {
-			this.debugPressed=!debugPressed;
+		if(code==KeyEvent.VK_C) {
+			this.mouseCoordsTool=!mouseCoordsTool;
 		}
 		
 	}

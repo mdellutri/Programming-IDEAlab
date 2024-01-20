@@ -1,7 +1,6 @@
 package saveFile.entity;
 
 import levelEditor.Level;
-import levelEditor.entity.LivingEntity;
 import levelEditor.entity.NPC;
 
 public class NPCSerializable  extends LivingEntitySerializable{
