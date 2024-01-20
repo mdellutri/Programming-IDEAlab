@@ -19,7 +19,6 @@ public class LivingEntity extends Entity {
 		super(level);
 		this.hitbox=CollisionChecker.getHitbox(0,0,16,16);
 	}
-	@Override
 	public void update() {
 		super.update();
 		this.yVelocity+=0.007F;//gravity

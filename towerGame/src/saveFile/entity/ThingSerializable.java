@@ -3,12 +3,11 @@ package saveFile.entity;
 import java.io.Serializable;
 
 import towerGame.map.Level;
-import towerGame.npc.Enemy;
 import towerGame.npc.LivingEntity;
 import towerGame.npc.Thing;
 
 public class ThingSerializable extends EnemySerializable {
-	private static final long serialVersionUID = 2017524676486334348L;
+	private static final long serialVersionUID = -4386605737797832530L;
 	float attackDamage;
 	public boolean isAttacking;
 	public ThingSerializable(Thing e) {

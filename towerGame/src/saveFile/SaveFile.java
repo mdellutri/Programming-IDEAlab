@@ -2,6 +2,7 @@ package saveFile;
 
 import java.io.*;
 
+import towerGame.ManaOrb;
 import towerGame.map.Level;
 import towerGame.Entity;
 import towerGame.npc.*;
@@ -35,7 +36,11 @@ public class SaveFile {
 							}
 						}
 					}else {
-						gs.entities.add(new EntitySerializable(e));
+						if(e instanceof ManaOrb) {
+							gs.entities.add(new ManaOrbSerializable((ManaOrb)e));
+						}else {
+							gs.entities.add(new EntitySerializable(e));
+						}
 					}
 				}
 			}
@@ -84,7 +89,11 @@ public class SaveFile {
 						}
 					}
 				}else {
-					level.addEntity(EntitySerializable.deserialize(se, level));
+					if(se instanceof ManaOrbSerializable) {
+						level.addEntity(ManaOrbSerializable.deserialize((ManaOrbSerializable)se, level));
+					}else {
+						level.addEntity(EntitySerializable.deserialize(se, level));
+					}
 				}
 			}
 			level.mapTilesBackground=gs.mapTilesBackground;

@@ -76,18 +76,19 @@ public class Player extends LivingEntity {
 			this.swordSwing=false;
 		}
 		if(eventHandler.mouse1Clicked) {
-			if(this.mana>0) {
+			if(this.mana>=0.1) {
 				Point mousePos= MouseInfo.getPointerInfo().getLocation();
 				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)+0.5*TowerGame.tileSize));
 				PlayerProjectile p = new PlayerProjectile(this.level, this);
 				p.xVelocity=(float) Math.sin(angle)/5;
 				p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
 				this.level.addEntity(p);
-				this.mana -= 0.1;
+				this.mana -= 0.1F;
+				this.mana = Math.round(this.mana *10.0d) / 10.0f;
 			}
 		}
 		if(eventHandler.mouse2Clicked) {
-			if(this.mana>0.96) {
+			if(this.mana>=1) {
 				Point mousePos= MouseInfo.getPointerInfo().getLocation();
 				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)+0.5*TowerGame.tileSize));
 				PlayerProjectile p = new PlayerProjectile(this.level, this);
@@ -95,7 +96,7 @@ public class Player extends LivingEntity {
 				p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
 				p.size=3;
 				this.level.addEntity(p);
-				this.mana--;
+				this.mana -= 1F;
 			}
 		}
 		this.posX+=xVelocity;

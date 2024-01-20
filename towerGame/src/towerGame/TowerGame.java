@@ -77,6 +77,7 @@ public class TowerGame extends JPanel implements Runnable {
 			g2.drawString("F "+String.valueOf(1/((((1000000*remainingTime)+finishedTime-currentTime2))/1000000000)),10,60);
 			g2.drawString("E "+String.valueOf(level.entities.size()),10,70);
 			g2.drawString("M "+String.valueOf((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1000000)+ "M",10,80);
+			g2.drawString("M "+String.valueOf(level.player.mana),10,90);
 		}
 		
 		g2.dispose();
