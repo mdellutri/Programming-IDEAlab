@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 import levelEditor.Level;
 import levelEditor.entity.Entity;
+import levelEditor.entity.ManaOrb;
 
 public class EntitySerializable implements Serializable {
 	private static final long serialVersionUID = -2820278841533918266L;

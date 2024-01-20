@@ -30,6 +30,7 @@ import javax.swing.JPanel;
 
 import levelEditor.entity.Entity;
 import levelEditor.entity.FireEnemy;
+import levelEditor.entity.ManaOrb;
 import levelEditor.entity.Thing;
 import saveFile.SaveFile;
 public class LevelEditor extends JPanel implements Runnable, ActionListener {
@@ -102,6 +103,9 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 			    	if(userInput.contains("Thing")) {
 			    		entity = new Thing(level);
 			    	}
+			    	if(userInput.contains("ManaOrb")) {
+			    		entity = new ManaOrb(level);
+			    	}
 			    	if(entity!=null) {
 			    		userInput = JOptionPane.showInputDialog(null, "Entity posX", "Add Entity", JOptionPane.QUESTION_MESSAGE);
 			    		entity.posX=Integer.parseInt(userInput);
@@ -121,16 +125,21 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 				             possibleValues, possibleValues[0]);
 				level.entities.remove(en);
 			}
-			if(event.getActionCommand()=="Change Sky Color") {
-				level.skyColor = JColorChooser.showDialog(this, "Choose Color", new Color(98,204,249));
-				
-			}
 			if(event.getActionCommand()=="New") {
 	    		String userInput = JOptionPane.showInputDialog(null, "Level sizeX", "New Level", JOptionPane.QUESTION_MESSAGE);
 	    		int levelSizeX=Integer.parseInt(userInput);
 	    		userInput = JOptionPane.showInputDialog(null, "Level sizeY", "New Level", JOptionPane.QUESTION_MESSAGE);
 	    		int levelSizeY=Integer.parseInt(userInput);
 				level = new Level(levelSizeX, levelSizeY);
+			}
+			if(event.getActionCommand()=="Change Sky Color") {
+				level.skyColor = JColorChooser.showDialog(this, "Choose Color", new Color(98,204,249));
+			}
+			if(event.getActionCommand()=="Change Player Start") {
+	    		String userInput = JOptionPane.showInputDialog(null, "Level playerSpawnX", "Change Player Start", JOptionPane.QUESTION_MESSAGE);
+	    		level.playerSpawnX=Integer.parseInt(userInput);
+	    		userInput = JOptionPane.showInputDialog(null, "Level playerSpawnY", "Change Player Start", JOptionPane.QUESTION_MESSAGE);
+	    		level.playerSpawnY=Integer.parseInt(userInput);
 			}
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -206,7 +215,7 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	
 	public static void main(String[] args) {
 	    JMenu menu, menuEntity, menuWorld, submenu;
-	    JMenuItem menuItemSave, menuItemLoad, menuItemAddEntity, menuItemRemoveEntity, menuItemNewWorld, menuItemChangeSkyColor;
+	    JMenuItem menuItemSave, menuItemLoad, menuItemAddEntity, menuItemRemoveEntity, menuItemChangeSkyColor, menuItemNewWorld, menuItemChangePlayerSpawn;
 		frame = new JFrame("Level Editor");
 		LevelEditor gamePanel=new LevelEditor();
 		gamePanel.setFocusable(true);
@@ -245,6 +254,10 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
         menuItemChangeSkyColor=new JMenuItem("Change Sky Color", KeyEvent.VK_C);
 		menuWorld.add(menuItemChangeSkyColor);
 		menuItemChangeSkyColor.addActionListener(gamePanel);
+
+		menuItemChangePlayerSpawn=new JMenuItem("Change Player Start", KeyEvent.VK_P);
+		menuWorld.add(menuItemChangePlayerSpawn);
+		menuItemChangePlayerSpawn.addActionListener(gamePanel);
 		
 		frame.setJMenuBar(menuBar);
 		frame.pack();

@@ -19,6 +19,8 @@ import levelEditor.entity.Entity;
 public class Level {
 	public int sizeX;
 	public int sizeY;
+	public int playerSpawnX;
+	public int playerSpawnY;
 	public float cameraX=0;
 	public float cameraY=0;
 	public int mapTilesForeground[][];
