@@ -235,7 +235,7 @@ public class HealthBarManager {
     }
 
     public void render(Graphics2D c, float h, float m, Level lvl){
-        if(prevHealth != h || prevMana != m){
+        if((prevHealth != h || prevMana != m) && c != null){
 	        mhb.img = new BufferedImage(mhb.hBarWidth,mhb.hBarHeight+mhb.mBarHeight, BufferedImage.TYPE_4BYTE_ABGR);
 	        mhb.grphx = (Graphics2D)mhb.img.getGraphics();
 	        if(h > mhb.minimumHealthForChangedAppearanceOfHealthBar){
@@ -278,14 +278,7 @@ public class HealthBarManager {
 	        mhb.grphx.setFont(new Font("Serif", Font.PLAIN, 12));
 	        mhb.grphx.drawString(String.valueOf(Math.round(m*10.0D)/10.0F), m >= 4.1 ? ((int)((m/15)*100))-22 : 3, 9+10);
         }
-        if(lvl != null && chb.count == chb.framerulesperframe){
-	        //mhb.grphx.translate((int)(lvl.cameraX*TowerGame.tileSize), (int)(lvl.cameraY*TowerGame.tileSize));
-        	//renderSprites(c, h, m, lvl);
-	        //mhb.grphx.translate(-(int)(lvl.cameraX*TowerGame.tileSize), -(int)(lvl.cameraY*TowerGame.tileSize));
-	        chb.count = 0;
-        } 
         if(c != null){
-	        //c.drawImage(chb.img, 0, 0, null);
 	        c.drawImage(mhb.img, 0, 0, null);
 	        renderSprites(c, h, m, lvl);
         }

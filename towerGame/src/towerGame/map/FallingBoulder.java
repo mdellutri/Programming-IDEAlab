@@ -44,8 +44,9 @@ public class FallingBoulder extends Entity {
 				Player p=this.level.player;
 				if(this.level.cc.checkEntities(this, p)) {
 					p.damage(5.0F);
+				}else {
+					this.level.setTileForeground((int)this.posX, (int)Math.floor(this.posY+0.1), Tile.boulder.id);
 				}
-				this.level.setTileForeground((int)this.posX, (int)Math.floor(this.posY+0.1), Tile.boulder.id);
 			}else {
 				this.onGround=false;
 			}

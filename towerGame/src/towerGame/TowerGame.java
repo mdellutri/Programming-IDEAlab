@@ -33,7 +33,6 @@ public class TowerGame extends JPanel implements Runnable {
 	public Level level= new Level(16,16);
 	public static int frames = 0;
 	public static int fpsCap = 60;
-	protected boolean debug=false;
 	HealthBarManager hBarManager = new HealthBarManager();
 	double currentTime, currentTime2, remainingTime, finishedTime;
 	
@@ -121,12 +120,12 @@ public class TowerGame extends JPanel implements Runnable {
 				update();
 				frames++;
 			}
+			repaint();
 			if(level.player.health<=0.0F) {
 		    	SaveFile.load(level, "level1.dat");
 		    	hBarManager.refreshBar();
 		    	hBarManager.render(null, level.player.health, level.player.mana, level);
 			}
-			repaint();
 			if((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) > 100000000) {
 				System.gc();
 			}

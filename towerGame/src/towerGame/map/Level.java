@@ -101,8 +101,8 @@ public class Level {
 		this.update(null);
 	}
 	public void render(Graphics2D g2) {
-		for(int x=0;x<this.sizeX;x++) {
-			for(int y=0;y<this.sizeY;y++) {
+		for(int x=Math.max(0, (int)cameraX);x<Math.min((int)cameraX+21,this.sizeX);x++) {
+			for(int y=Math.max(0, (int)cameraY);y<Math.min((int)cameraY+16,this.sizeY);y++) {
 				if(mapTilesBackground[x][y]!=0) {
 					Tile.tiles[mapTilesBackground[x][y]].render(this,g2,x,y,false);
 				}
