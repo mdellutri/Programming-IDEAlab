@@ -13,6 +13,8 @@ public class Thing extends Enemy {
 	public boolean isAttacking;
 	public Thing(Level level) {
 		super(level);
+		this.health=5;
+		this.maxHealth=5;
 	}
 	public String getSprite() {
 		return "thing.png";

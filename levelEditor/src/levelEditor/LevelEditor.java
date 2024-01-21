@@ -34,7 +34,7 @@ import levelEditor.entity.ManaOrb;
 import levelEditor.entity.Thing;
 import saveFile.SaveFile;
 public class LevelEditor extends JPanel implements Runnable, ActionListener {
-	public static int scale=4;
+	public static int scale=2;
 	public static int tileSize=16*scale;
 	Thread gameThread;
 	public static JFrame frame;
@@ -72,6 +72,17 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 		}catch(Exception e) {
     		JOptionPane.showMessageDialog(null, e.getClass()+": "+e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     		e.printStackTrace();
+		}
+		if(eventHandler.debugPressed) {
+			g2.setColor(new Color(128,0,0,192));
+			g2.drawString("TowerGame Level Editor version 0.1",10,20);
+			g2.drawString("E "+String.valueOf(level.entities.size()),10,30);
+			g2.drawString("M "+String.valueOf((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1000000)+ "M",10,40);
+		}
+		if(eventHandler.mouseCoordsTool) {
+			g2.setColor(new Color(128,0,0,192));
+			g2.drawString("X "+String.valueOf((int)((mousePos.x-LevelEditor.frame.getLocation().x)/LevelEditor.tileSize+level.cameraX+0.5)),10,(LevelEditor.scale*240)-20);
+			g2.drawString("Y "+String.valueOf((int)((mousePos.y-LevelEditor.frame.getLocation().y-menuBar.getHeight())/LevelEditor.tileSize+(level.cameraY-0.5))),10,(LevelEditor.scale*240)-10);
 		}
 		
 		g2.dispose();
@@ -111,6 +122,9 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 			    		entity.posX=Integer.parseInt(userInput);
 			    		userInput = JOptionPane.showInputDialog(null, "Entity posY", "Add Entity", JOptionPane.QUESTION_MESSAGE);
 			    		entity.posY=Integer.parseInt(userInput);
+			    		if(entity instanceof FireEnemy) {
+			    			((FireEnemy)entity).baseY=Integer.parseInt(userInput);
+			    		}
 			    		level.addEntity(entity);
 			    		
 			    	}
@@ -130,6 +144,10 @@ public class LevelEditor extends JPanel implements Runnable, ActionListener {
 	    		int levelSizeX=Integer.parseInt(userInput);
 	    		userInput = JOptionPane.showInputDialog(null, "Level sizeY", "New Level", JOptionPane.QUESTION_MESSAGE);
 	    		int levelSizeY=Integer.parseInt(userInput);
+				level.mapTilesBackground = new int[0][0];
+				level.mapTilesForeground = new int[0][0];
+				level = null;
+				System.gc();
 				level = new Level(levelSizeX, levelSizeY);
 			}
 			if(event.getActionCommand()=="Change Sky Color") {

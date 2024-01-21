@@ -11,6 +11,7 @@ public class EventHandler implements MouseListener,KeyListener{
 	public boolean downPressed=false;
 	public boolean leftPressed=false;
 	public boolean rightPressed=false;
+	public boolean debugPressed=false;
 	public boolean mouseCoordsTool=false;
 	public boolean mouse1Pressed=false;
 	public boolean mouse2Pressed=false;
@@ -49,17 +50,14 @@ public class EventHandler implements MouseListener,KeyListener{
 				tileBrush=0;
 			}
 		}
-		if(code==KeyEvent.VK_LEFT) {
-			this.leftPressed=true;
-		}
 		if(code==KeyEvent.VK_DOWN) {
 			this.tileBrush--;
 			if(tileBrush<0) {
 				tileBrush=24;
 			}
 		}
-		if(code==KeyEvent.VK_RIGHT) {
-			this.rightPressed=true;
+		if(code==KeyEvent.VK_F3) {
+			this.debugPressed=!debugPressed;
 		}
 		if(code==KeyEvent.VK_0) {
 			this.tileBrush=0;

@@ -45,8 +45,8 @@ public class SaveFile {
 			gs.mapTilesForeground=level.mapTilesForeground;
 			gs.levelSizeX=level.sizeX;
 			gs.levelSizeY=level.sizeY;
-			gs.playerStartX=4;
-			gs.playerStartY=6; // these will be changeable in the future
+			gs.playerStartX=level.playerSpawnX;
+			gs.playerStartY=level.playerSpawnY;
 			gs.playerX=gs.playerStartX;
 			gs.playerY=gs.playerStartY;
 			gs.playerHealth=10.0f;
@@ -69,7 +69,11 @@ public class SaveFile {
 						if( se instanceof FireEnemySerializable) {
 							level.addEntity(FireEnemySerializable.deserialize((FireEnemySerializable)se, level));
 						}else {
-							level.addEntity(EnemySerializable.deserialize((EnemySerializable)se, level));
+							if( se instanceof ThingSerializable) {
+								level.addEntity(ThingSerializable.deserialize((ThingSerializable)se, level));
+							}else {
+								level.addEntity(EnemySerializable.deserialize((EnemySerializable)se, level));
+							}
 						}
 					}else {
 						if( se instanceof NPCSerializable) {
