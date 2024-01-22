@@ -1,6 +1,7 @@
 package towerGame.weapon;
 
 import towerGame.CollisionChecker;
+import towerGame.Direction;
 import towerGame.Player;
 import towerGame.entity.Entity;
 import towerGame.entity.LivingEntity;
@@ -14,7 +15,7 @@ public class Weapon {
 	public void onAttack(Level level, Player player, boolean isMouseRight, int mouseX, int mouseY) {
 		for(Entity e : level.entities) {
 			if(e instanceof LivingEntity){
-				if(CollisionChecker.checkHitboxes(player.hitbox,e.hitbox,player.posX,player.posY,e.posX,e.posY)) {
+				if(CollisionChecker.checkHitboxes(player.hitbox,e.hitbox,player.posX+(player.facing == Direction.LEFT ? -0.5f: 0.5f),player.posY,e.posX,e.posY)) {
 					((LivingEntity) e).damage(this.damage);
 				}
 			}

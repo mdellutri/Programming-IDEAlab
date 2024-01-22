@@ -11,6 +11,11 @@ public class NPC extends LivingEntity {
 		super(level);
 		// TODO Auto-generated constructor stub
 	}
+	public void damage(float damage) {
+		if(this.killable) {
+			super.damage(damage);
+		}
+	}
 	public static List<Object> serialize(NPC e2) {
 		List<Object> attr = LivingEntity.serialize(e2);
 		NPC e = (NPC)e2;

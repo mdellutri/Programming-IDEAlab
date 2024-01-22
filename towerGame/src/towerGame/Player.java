@@ -29,7 +29,7 @@ public class Player extends LivingEntity {
 	public List<Integer> weapons = new ArrayList<Integer>();
 	BufferedImage swordSprite;
 	boolean swordSwing=false;
-	Direction facing = Direction.RIGHT;
+	public Direction facing = Direction.RIGHT;
 	public Player(Level level) {
 		super(level);
 		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
@@ -37,7 +37,7 @@ public class Player extends LivingEntity {
 		this.posY=6;
 		this.maxHealth=10.0f;
 		this.health=this.maxHealth;
-		this.weapon = Weapon.staff.id;
+		this.weapon = Weapon.staffUpgraded.id;
 		this.swordSprite=level.getSprite(Weapon.weapons[this.weapon].texture);
 	}
 	public String getSprite() {
@@ -87,28 +87,12 @@ public class Player extends LivingEntity {
 			this.swordSwing=false;
 		}
 		if(eventHandler.mouse1Clicked) {
-			if(this.mana>=0.1) {
-				Point mousePos= MouseInfo.getPointerInfo().getLocation();
-				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)+0.5*TowerGame.tileSize));
-				PlayerProjectile p = new PlayerProjectile(this.level, this);
-				p.xVelocity=(float) Math.sin(angle)/5;
-				p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
-				this.level.addEntity(p);
-				this.mana -= 0.1F;
-				this.mana = Math.round(this.mana *10.0d) / 10.0f;
-			}
+			Point mousePos= MouseInfo.getPointerInfo().getLocation();
+			Weapon.weapons[this.weapon].onAttack(level, this, false, mousePos.x, mousePos.y);
 		}
 		if(eventHandler.mouse2Clicked) {
-			if(this.mana>=1) {
-				Point mousePos= MouseInfo.getPointerInfo().getLocation();
-				float angle=(float)Math.atan2((mousePos.x-TowerGame.frame.getLocation().x)-Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)+0.5*TowerGame.tileSize), (mousePos.y-TowerGame.frame.getLocation().y)-Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)+0.5*TowerGame.tileSize));
-				PlayerProjectile p = new PlayerProjectile(this.level, this);
-				p.xVelocity=(float) Math.sin(angle)/5;
-				p.yVelocity=(float) (Math.cos(angle)/5)-0.1F;
-				p.size=3;
-				this.level.addEntity(p);
-				this.mana -= 1F;
-			}
+			Point mousePos= MouseInfo.getPointerInfo().getLocation();
+			Weapon.weapons[this.weapon].onAttack(level, this, true, mousePos.x, mousePos.y);
 		}
 		this.posX+=xVelocity;
 		this.yVelocity+=0.007F;//gravity

@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import towerGame.CollisionChecker;
