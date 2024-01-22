@@ -1,5 +1,5 @@
 - Fix levelEditor mouse cursor
-- New save format
+- New save format (Completed)
 - Add Thing attacks
 - New levelEditor UI
 - Working weapons and a way of switching between them
