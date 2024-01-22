@@ -26,6 +26,7 @@ public class Weapon {
 		this.id=id;
 		this.texture=texture;
 		this.damage=damage;
+		weapons[id] = this;
 	}
 	public static final Weapon sword = new Weapon(0, "sword.png",1.0f);
 	public static final Weapon staff = new Staff(1, "staff.png",1);

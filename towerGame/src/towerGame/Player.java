@@ -32,11 +32,11 @@ public class Player extends LivingEntity {
 	Direction facing = Direction.RIGHT;
 	public Player(Level level) {
 		super(level);
+		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
 		this.posX=4;
 		this.posY=6;
 		this.maxHealth=10.0f;
 		this.health=this.maxHealth;
-		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
 		this.weapon = Weapon.staff.id;
 		this.swordSprite=level.getSprite(Weapon.weapons[this.weapon].texture);
 	}
@@ -44,6 +44,7 @@ public class Player extends LivingEntity {
 		return "player.png";
 	}
 	public void update(EventHandler eventHandler) {
+		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
 		if(this.damageTimer!=0) {
 			this.damageTimer--;
 		}
