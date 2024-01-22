@@ -8,6 +8,8 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -24,6 +26,7 @@ public class Player extends LivingEntity {
 	public float mana=15.0f;
 	public float armor=0.0f;
 	public int weapon;
+	public List<Integer> weapons = new ArrayList<Integer>();
 	BufferedImage swordSprite;
 	boolean swordSwing=false;
 	Direction facing = Direction.RIGHT;
@@ -34,8 +37,8 @@ public class Player extends LivingEntity {
 		this.maxHealth=10.0f;
 		this.health=this.maxHealth;
 		this.hitbox=CollisionChecker.getHitbox(1,1,15,15);
-		this.swordSprite=level.getSprite("staff.png");
 		this.weapon = Weapon.staff.id;
+		this.swordSprite=level.getSprite(Weapon.weapons[this.weapon].texture);
 	}
 	public String getSprite() {
 		return "player.png";

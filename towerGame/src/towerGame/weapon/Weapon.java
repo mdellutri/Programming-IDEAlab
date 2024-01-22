@@ -28,6 +28,6 @@ public class Weapon {
 		this.damage=damage;
 	}
 	public static final Weapon sword = new Weapon(0, "sword.png",1.0f);
-	public static final Weapon staff = new Staff(1, "staff.png",1.0f);
-	public static final Weapon staffUpgraded = new Staff(2, "staff2.png",1.5f);
+	public static final Weapon staff = new Staff(1, "staff.png",1);
+	public static final Weapon staffUpgraded = new Staff(2, "staff2.png",2);
 }
