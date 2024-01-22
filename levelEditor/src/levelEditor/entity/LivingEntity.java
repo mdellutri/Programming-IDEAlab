@@ -1,5 +1,6 @@
 package levelEditor.entity;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.List;
 
 import levelEditor.LevelEditor;
@@ -16,6 +17,7 @@ public class LivingEntity extends Entity {
 	public boolean onGround=false;
 	public LivingEntity(Level level) {
 		super(level);
+		this.hitbox= new Rectangle(0,0,16,16);
 	}
 	@Override
 	public void update() {

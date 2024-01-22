@@ -1,6 +1,7 @@
 package levelEditor.entity;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.List;
 
 import levelEditor.EntityRegistry;
@@ -11,6 +12,7 @@ public class ManaOrb extends Entity {
 	
 	public ManaOrb(Level level) {
 		super(level);
+		this.hitbox= new Rectangle(2,2,12,12);
 	}
 	public String getSprite() {
 		return "manaorb.png";
