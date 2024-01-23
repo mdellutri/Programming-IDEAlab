@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 
+import towerGame.map.Tile;
+
 public class Tile {
 	public final int id;
 	public final int textureId;
@@ -64,5 +66,6 @@ public class Tile {
 	public static Tile spike=new Tile(22,53,true);
 	public static Tile darkBricks=new Tile(23,55,true);
 	public static Tile darkBricksVine=new Tile(24,56,true);
+	public static Tile conveyorRight=new Tile(25,64,true);
 	
 }
