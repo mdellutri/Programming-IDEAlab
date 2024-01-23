@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 
-import towerGame.map.Tile;
-
 public class Tile {
 	public final int id;
 	public final int textureId;
