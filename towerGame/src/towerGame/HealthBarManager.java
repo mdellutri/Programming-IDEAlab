@@ -236,8 +236,10 @@ public class HealthBarManager {
 
     public void render(Graphics2D c, float h, float m, Level lvl){
         if((prevHealth != h || prevMana != m) && c != null){
-	        mhb.img = new BufferedImage(mhb.hBarWidth,mhb.hBarHeight+mhb.mBarHeight, BufferedImage.TYPE_4BYTE_ABGR);
 	        mhb.grphx = (Graphics2D)mhb.img.getGraphics();
+	        mhb.grphx.setComposite(AlphaComposite.Clear);
+	        mhb.grphx.fillRect(0, 0, mhb.hBarWidth, mhb.hBarHeight+mhb.mBarHeight);
+	        mhb.grphx.setComposite(AlphaComposite.SrcOver);
 	        if(h > mhb.minimumHealthForChangedAppearanceOfHealthBar){
 		        mhb.grphx.setPaint(Color.GREEN);
 		        mhb.grphx.setStroke(new BasicStroke(1.0f));

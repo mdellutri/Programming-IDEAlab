@@ -19,7 +19,7 @@ public class EntitySerializable implements Serializable {
 		es.type = EntityRegistry.getRegistryFromClass(e);
 		try {
 			Class c = e.getClass();
-			es.attr = (List<Object>) c.getMethod("serialize", c).invoke(e, (Entity)e);
+			es.attr = (List<Object>) c.getMethod("serialize", Entity.class).invoke(e, (Entity)e);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}

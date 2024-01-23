@@ -61,7 +61,7 @@ public class FallingBoulder extends Entity {
 		g2.drawImage(level.tilemap, (int)(posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)), (int)(posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)), (int)(posX*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize)), (int)(posY*TowerGame.tileSize+TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize)), frameX, frameY, frameX+16, frameY+16, (ImageObserver)null);
 		
 	}
-	public static List<Object> serialize(FallingBoulder e2) {
+	public static List<Object> serialize(Entity e2) {
 		List<Object> attr = Entity.serialize(e2);
 		FallingBoulder e = (FallingBoulder)e2;
 		attr.add(e.xVelocity);

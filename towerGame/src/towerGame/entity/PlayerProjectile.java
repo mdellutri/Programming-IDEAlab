@@ -88,7 +88,7 @@ public class PlayerProjectile extends Entity {
 		g2.setColor(new Color(227, 216, 177));
 		g2.fillOval((int)(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize))+7*TowerGame.scale,(int)(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize))+7*TowerGame.scale,(int)(TowerGame.scale*(1+1.4*this.size)),(int)(TowerGame.scale*(1+1.4*this.size)));
 	}
-	public static List<Object> serialize(PlayerProjectile e2) {
+	public static List<Object> serialize(Entity e2) {
 		List<Object> attr = Entity.serialize(e2);
 		PlayerProjectile e = (PlayerProjectile)e2;
 		attr.add(e.xVelocity);

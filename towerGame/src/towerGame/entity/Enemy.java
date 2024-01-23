@@ -21,8 +21,9 @@ public class Enemy extends LivingEntity{
 			}
 		}
 	}
-	public static List<Object> serialize(Enemy e) {
-		List<Object> attr = LivingEntity.serialize(e);
+	public static List<Object> serialize(Entity e2) {
+		List<Object> attr = LivingEntity.serialize(e2);
+		Enemy e = (Enemy)e2;
 		attr.add(e.attackDamage);
 		attr.add(e.attackCooldown);
 		return attr;

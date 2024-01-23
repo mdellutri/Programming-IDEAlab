@@ -20,6 +20,7 @@ public class Entity {
 	public Rectangle hitbox;
 	public Level level;
 	public boolean markedForRemoval;
+	//public final static transient String regName;
 	public Entity(Level level) {
 		this.level=level;
 	}

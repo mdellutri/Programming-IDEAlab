@@ -80,5 +80,6 @@ public class Tile {
 	public static Tile spike=new DamageTile(22,53,true,CollisionChecker.getHitbox(0, 14, 16, 16));
 	public static Tile darkBricks=new Tile(23,55,true);
 	public static Tile darkBricksVine=new Tile(24,56,true);
+	public static Tile conveyorRight=new Tile(25,64,true);
 	
 }

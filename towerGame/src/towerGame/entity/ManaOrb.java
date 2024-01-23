@@ -21,19 +21,15 @@ public class ManaOrb extends Entity {
 	public void update() {
 		Player p = this.level.player;
 		if(p!=null) {
-			//if(CollisionChecker.checkEntities(this, p)) {
-				//p.mana=15.0f;
-				//this.markedForRemoval=true;
-			//}
+			if(CollisionChecker.checkEntities(this, p)) {
+				p.mana=15.0f;
+				this.markedForRemoval=true;
+			}
 		}
 	}
 	public void render(Graphics2D g2) {
 		int[] positions = this.getPositionOnScreen();
 		g2.drawImage(this.sprite,positions[0],positions[1],TowerGame.tileSize,TowerGame.tileSize,null);
-	}
-
-	public static List<Object> serialize(ManaOrb e2) {
-		return Entity.serialize(e2);
 	}
 	public static Entity deserialize(Level level, List<Object> attr){
 		ManaOrb e = new ManaOrb(level);

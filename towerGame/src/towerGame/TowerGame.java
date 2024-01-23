@@ -18,8 +18,7 @@ import javax.swing.JPanel;
 
 import save.EntitySerializable;
 import save.SaveFile;
-import towerGame.entity.Entity;
-import towerGame.entity.FireEnemy;
+import towerGame.entity.*;
 import towerGame.map.Level;
 
 public class TowerGame extends JPanel implements Runnable {
@@ -103,7 +102,7 @@ public class TowerGame extends JPanel implements Runnable {
     	test.baseY=6;
     	test.posX=6;
     	level.addEntity(test);
-    	FireEnemy test2=new FireEnemy(level,true);
+    	ManaOrb test2=new ManaOrb(level);
     	test2.setPosition(8,6);
     	level.addEntity(EntitySerializable.deserialize(level, EntitySerializable.serialize(test2)));
 		Player player = new Player(level);
@@ -120,7 +119,7 @@ public class TowerGame extends JPanel implements Runnable {
 			}
 			repaint();
 			if(level.player.health<=0.0F) {
-		    	SaveFile.load(level, "level1.dat");
+				SaveFile.load(level, "level1.dat");
 		    	hBarManager.refreshBar();
 		    	hBarManager.render(null, level.player.health, level.player.mana, level);
 			}

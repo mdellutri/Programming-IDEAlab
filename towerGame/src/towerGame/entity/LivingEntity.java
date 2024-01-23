@@ -62,8 +62,9 @@ public class LivingEntity extends Entity {
 		int[] positions = this.getPositionOnScreen();
 		g2.drawImage(this.sprite,positions[0],positions[1],TowerGame.tileSize,TowerGame.tileSize,null);
 	}
-	public static List<Object> serialize(LivingEntity e) {
-		List<Object> attr = Entity.serialize(e);
+	public static List<Object> serialize(Entity e2) {
+		List<Object> attr = Entity.serialize(e2);
+		LivingEntity e = (LivingEntity)e2;
 		attr.add(e.health);
 		attr.add(e.maxHealth);
 		attr.add(e.damageTimer);

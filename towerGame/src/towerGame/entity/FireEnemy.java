@@ -54,7 +54,7 @@ public class FireEnemy extends Enemy {
 		super.setPosition(x, y);
 		this.baseY=y;
 	}
-	public static List<Object> serialize(FireEnemy e2) {
+	public static List<Object> serialize(Entity e2) {
 		List<Object> attr = Enemy.serialize(e2);
 		FireEnemy e = (FireEnemy)e2;
 		attr.add(e.isBlue);

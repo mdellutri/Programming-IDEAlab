@@ -22,7 +22,7 @@ public class Thing extends Enemy {
 		int[] positions = this.getPositionOnScreen();
 		g2.drawImage(this.sprite, positions[0], positions[1], positions[0]+TowerGame.tileSize, positions[1]+TowerGame.tileSize, this.isAttacking?16:0, 0, this.isAttacking?32:16, 16, (ImageObserver)null);
 	}
-	public static List<Object> serialize(Thing e2) {
+	public static List<Object> serialize(Entity e2) {
 		List<Object> attr = Enemy.serialize(e2);
 		Thing e = (Thing)e2;
 		attr.add(e.isAttacking);

@@ -92,7 +92,7 @@ public class FireProjectile extends Entity {
 		g2.setColor(new Color(252,71,21));
 		g2.drawImage(this.sprite,(int)Math.round(this.posX*TowerGame.tileSize-(int)(level.cameraX*TowerGame.tileSize))+6*TowerGame.scale,(int)Math.round(this.posY*TowerGame.tileSize-(int)(level.cameraY*TowerGame.tileSize))+6*TowerGame.scale,4*TowerGame.scale,4*TowerGame.scale,null);
 	}
-	public static List<Object> serialize(FireProjectile e2) {
+	public static List<Object> serialize(Entity e2) {
 		List<Object> attr = Entity.serialize(e2);
 		FireProjectile e = (FireProjectile)e2;
 		attr.add(e.xVelocity);

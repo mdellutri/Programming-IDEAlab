@@ -16,7 +16,7 @@ public class NPC extends LivingEntity {
 			super.damage(damage);
 		}
 	}
-	public static List<Object> serialize(NPC e2) {
+	public static List<Object> serialize(Entity e2) {
 		List<Object> attr = LivingEntity.serialize(e2);
 		NPC e = (NPC)e2;
 		attr.add(e.killable);
