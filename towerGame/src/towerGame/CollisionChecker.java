@@ -3,6 +3,7 @@ package towerGame;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
 
 import towerGame.entity.Entity;
@@ -326,6 +327,12 @@ public class CollisionChecker {
 			}
 		return false;
 	}
+	public static boolean checkSpecificTile(Level level, Entity entity, Direction direction, float movement, Tile tile) {
+		List<Tile> list = new ArrayList<Tile>();
+		list.add(tile);
+		return checkSpecificTiles(level, entity, direction, movement, list);
+	}
+		
 	public static int[] getTilePositions(Level level, Entity entity, Direction direction, float movement) {
 		float entityLeftX=entity.posX
 				+((float)entity.hitbox.x/16);
