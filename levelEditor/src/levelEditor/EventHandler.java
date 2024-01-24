@@ -46,14 +46,14 @@ public class EventHandler implements MouseListener,KeyListener{
 		}
 		if(code==KeyEvent.VK_UP) {
 			this.tileBrush++;
-			if(tileBrush>24) {
+			if(tileBrush>26) {
 				tileBrush=0;
 			}
 		}
 		if(code==KeyEvent.VK_DOWN) {
 			this.tileBrush--;
 			if(tileBrush<0) {
-				tileBrush=24;
+				tileBrush=26;
 			}
 		}
 		if(code==KeyEvent.VK_F3) {
@@ -93,7 +93,7 @@ public class EventHandler implements MouseListener,KeyListener{
 			this.editBackground=!this.editBackground;
 		}
 		if(code==KeyEvent.VK_C) {
-			this.mouseCoordsTool=!mouseCoordsTool;
+			this.mouseCoordsTool=!this.mouseCoordsTool;
 		}
 		
 	}

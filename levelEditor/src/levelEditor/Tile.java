@@ -64,6 +64,7 @@ public class Tile {
 	public static Tile spike=new Tile(22,53,true);
 	public static Tile darkBricks=new Tile(23,55,true);
 	public static Tile darkBricksVine=new Tile(24,56,true);
-	public static Tile conveyorRight=new Tile(25,64,true);
+	public static Tile conveyorLeft=new Tile(25,65,true);
+	public static Tile conveyorRight=new Tile(26,64,true);
 	
 }
