@@ -28,7 +28,9 @@ public class FireEnemy extends Enemy {
 		this(level,false);
 	}
 	public void update() {
-		super.update();
+		if(this.damageTimer!=0) {
+			this.damageTimer--;
+		}
 		this.posY=baseY+(float) Math.sin(((double)TowerGame.frames)/30.0D);
 		if(this.attackCooldown==0) {
 			float angle=(float)Math.atan2((this.level.player.posX)-this.posX, this.level.player.posY-this.posY);

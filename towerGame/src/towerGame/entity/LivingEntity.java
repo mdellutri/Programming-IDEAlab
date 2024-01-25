@@ -10,6 +10,7 @@ import towerGame.Direction;
 import towerGame.EntityRegistry;
 import towerGame.TowerGame;
 import towerGame.map.Level;
+import towerGame.map.Tile;
 
 public class LivingEntity extends Entity {
 	public float health;
@@ -26,6 +27,16 @@ public class LivingEntity extends Entity {
 	public void update() {
 		super.update();
 		this.yVelocity+=0.007F;//gravity
+		if(CollisionChecker.checkSpecificTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity, Tile.conveyorLeft)) {
+			if(!CollisionChecker.checkTile(this.level, this, Direction.LEFT, 0.075F)) {
+				this.posX-=0.075;
+			}
+		}
+		if(CollisionChecker.checkSpecificTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity, Tile.conveyorRight)) {
+			if(!CollisionChecker.checkTile(this.level, this, Direction.RIGHT, 0.075F)) {
+				this.posX+=0.075;
+			}
+		}
 		if(!CollisionChecker.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity)) {
 			this.posY+=yVelocity;
 			this.onGround=false;

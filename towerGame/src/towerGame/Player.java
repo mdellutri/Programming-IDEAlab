@@ -102,10 +102,14 @@ public class Player extends LivingEntity {
 		}
 
 		if(CollisionChecker.checkSpecificTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity, Tile.conveyorLeft)) {
-			this.posX-=0.075;
+			if(!CollisionChecker.checkTile(this.level, this, Direction.LEFT, 0.075F)) {
+				this.posX-=0.075;
+			}
 		}
 		if(CollisionChecker.checkSpecificTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity, Tile.conveyorRight)) {
-			this.posX+=0.075;
+			if(!CollisionChecker.checkTile(this.level, this, Direction.RIGHT, 0.075F)) {
+				this.posX+=0.075;
+			}
 		}
 		if(!CollisionChecker.checkTile(this.level, this, (yVelocity<0)?Direction.UP:Direction.DOWN, (yVelocity<0)?-yVelocity:yVelocity)) {
 			this.posY+=yVelocity;

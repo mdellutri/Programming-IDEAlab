@@ -5,14 +5,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import towerGame.entity.*;
-import towerGame.map.FallingBoulder;
 
 import java.util.Objects;
 
 public class EntityRegistry {
 	private static final HashMap<String, Class> entityTypes = new HashMap<String, Class>();
 	public static void registerClass(String estring, Class eclass) {
-		entityTypes.putIfAbsent(estring, eclass);
+		entityTypes.putIfAbsent(eclass.getName().replaceFirst("towerGame.entity.", ""), eclass);
 	}
 	public static Class getClass(String estring) {
 		return entityTypes.get(estring);

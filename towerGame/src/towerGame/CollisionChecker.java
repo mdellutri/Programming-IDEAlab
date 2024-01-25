@@ -24,7 +24,7 @@ public class CollisionChecker {
 		float entityBottomRow=entityLeftX/(TowerGame.tileSize);*/
 		switch(direction) {
 			case UP:
-				entityTopY=entity.posY+((float)entity.hitbox.y/16)-movement;
+				entityTopY-=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}
@@ -60,7 +60,7 @@ public class CollisionChecker {
 				}
 				break;
 			case DOWN:
-				entityBottomY=entity.posY+((float)entity.hitbox.y/16)+((float)entity.hitbox.height/16)+movement;
+				entityBottomY+=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}
@@ -94,7 +94,7 @@ public class CollisionChecker {
 				}
 				break;
 			case LEFT:
-				entityLeftX=entity.posX+((float)entity.hitbox.x/16)-movement;
+				entityLeftX-=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}
@@ -131,7 +131,7 @@ public class CollisionChecker {
 				}
 				break;
 			case RIGHT:
-				entityRightX=entity.posX+((float)entity.hitbox.x/16)+((float)entity.hitbox.width/16)+movement;
+				entityRightX+=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}
@@ -182,7 +182,7 @@ public class CollisionChecker {
 		float entityBottomRow=entityLeftX/(TowerGame.tileSize);*/
 		switch(direction) {
 			case UP:
-				entityTopY=entity.posY+((float)entity.hitbox.y/16)-movement;
+				entityTopY-=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}
@@ -218,7 +218,7 @@ public class CollisionChecker {
 				}
 				break;
 			case DOWN:
-				entityBottomY=entity.posY+((float)entity.hitbox.y/16)+((float)entity.hitbox.height/16)+movement;
+				entityBottomY+=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}
@@ -252,7 +252,7 @@ public class CollisionChecker {
 				}
 				break;
 			case LEFT:
-				entityLeftX=entity.posX+((float)entity.hitbox.x/16)-movement;
+				entityLeftX-=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}
@@ -289,7 +289,7 @@ public class CollisionChecker {
 				}
 				break;
 			case RIGHT:
-				entityRightX=entity.posX+((float)entity.hitbox.x/16)+((float)entity.hitbox.width/16)+movement;
+				entityRightX+=movement;
 				if(((int)entityBottomY>level.sizeY)|((int)entityTopY<0)|((int)entityRightX>level.sizeX)|((int)entityLeftX<0)) {
 					return false;
 				}

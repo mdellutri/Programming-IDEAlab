@@ -2,6 +2,8 @@ package towerGame.map;
 
 import java.awt.Rectangle;
 
+import towerGame.entity.FallingBoulder;
+
 public class BoulderTile extends Tile {
 
 	public BoulderTile(int id, int textureId) {
