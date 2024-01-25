@@ -37,7 +37,7 @@ public class Player extends LivingEntity {
 		this.posY=6;
 		this.maxHealth=10.0f;
 		this.health=this.maxHealth;
-		this.weapon = Weapon.staffUpgraded.id;
+		this.weapon = Weapon.shield.id;
 		this.swordSprite=level.getSprite(Weapon.weapons[this.weapon].texture);
 	}
 	public String getSprite() {
@@ -82,6 +82,8 @@ public class Player extends LivingEntity {
 			}
 		}
 		if(eventHandler.mouse1Pressed || eventHandler.mouse2Pressed) {
+			Point mousePos= MouseInfo.getPointerInfo().getLocation();
+			Weapon.weapons[this.weapon].onMouseHeld(level, this, mousePos.x, mousePos.y);
 			this.swordSwing=true;
 		}else {
 			this.swordSwing=false;

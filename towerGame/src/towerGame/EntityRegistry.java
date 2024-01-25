@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class EntityRegistry {
 	private static final HashMap<String, Class> entityTypes = new HashMap<String, Class>();
-	public static void registerClass(String estring, Class eclass) {
+	public static void registerClass(Class eclass) {
 		entityTypes.putIfAbsent(eclass.getName().replaceFirst("towerGame.entity.", ""), eclass);
 	}
 	public static Class getClass(String estring) {
@@ -29,15 +29,15 @@ public class EntityRegistry {
 		return null;
 	}
 	static {
-		registerClass("Entity",Entity.class);
-		registerClass("LivingEntity",LivingEntity.class);
-		registerClass("Enemy",Enemy.class);
-		registerClass("FireEnemy",FireEnemy.class);
-		registerClass("Thing",Thing.class);
-		registerClass("NPC",NPC.class);
-		registerClass("ManaOrb",ManaOrb.class);
-		registerClass("FireProjectile",FireProjectile.class);
-		registerClass("PlayerProjectile",PlayerProjectile.class);
-		registerClass("FallingBoulder",FallingBoulder.class);
+		registerClass(Entity.class);
+		registerClass(LivingEntity.class);
+		registerClass(Enemy.class);
+		registerClass(FireEnemy.class);
+		registerClass(Thing.class);
+		registerClass(NPC.class);
+		registerClass(ManaOrb.class);
+		registerClass(FireProjectile.class);
+		registerClass(PlayerProjectile.class);
+		registerClass(FallingBoulder.class);
 	}
 }
