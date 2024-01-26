@@ -3,6 +3,7 @@ package towerGame.entity;
 import java.awt.Rectangle;
 import java.util.List;
 
+import towerGame.CollisionChecker;
 import towerGame.EntityRegistry;
 import towerGame.TowerGame;
 import towerGame.map.Level;
@@ -14,7 +15,7 @@ public class FireEnemy extends Enemy {
 		super(level);
 		this.attackCooldown=200;
 		this.isBlue=isBlue;
-		this.hitbox=new Rectangle(0,0,16,16);
+		this.hitbox=new Rectangle(1,1,15,15);
 		this.attackDamage = 1.0F;
 		this.maxHealth=10.0f;
 		this.health=this.maxHealth;
@@ -30,6 +31,11 @@ public class FireEnemy extends Enemy {
 	public void update() {
 		if(this.damageTimer!=0) {
 			this.damageTimer--;
+		}
+		if(this.level.player!=null) {
+			if(CollisionChecker.checkEntities(this,this.level.player)) {
+				this.level.player.damage(this.attackDamage);
+			}
 		}
 		this.posY=baseY+(float) Math.sin(((double)TowerGame.frames)/30.0D);
 		if(this.attackCooldown==0) {

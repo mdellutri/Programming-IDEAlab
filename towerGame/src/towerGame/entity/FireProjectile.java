@@ -19,6 +19,7 @@ public class FireProjectile extends Entity {
 	public float yVelocity;
 	public long createTime;
 	public boolean isBlue;
+	public boolean hasBeenReflected = false;
 	public FireProjectile(Level level) {
 		super(level);
 		this.hitbox=CollisionChecker.getHitbox(6,6,9,9);
@@ -68,9 +69,11 @@ public class FireProjectile extends Entity {
 			}
 		}
 		Player p = this.level.player;
-		if(CollisionChecker.checkEntities(this, p)) {
-			p.damage(this.isBlue ? 2.0f : 1.5f);
-			this.markedForRemoval=true;
+		if(this.hasBeenReflected) {
+			if(CollisionChecker.checkEntities(this, p)) {
+				p.damage(this.isBlue ? 2.0f : 1.5f);
+				this.markedForRemoval=true;
+			}
 		}
 		this.posY+=yVelocity;
 		this.yVelocity+=0.009F;
